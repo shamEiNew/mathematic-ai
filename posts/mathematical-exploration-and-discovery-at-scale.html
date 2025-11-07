@@ -65,10 +65,13 @@
 
         <footer class="border-t border-gray-700 mt-12">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
-                <p>&copy; 2024 Mathematics & AI. All rights reserved.</p>
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
                 <p class="text-sm mt-1">Blog page built by Gemini</p>
             </div>
         </footer>
     </div>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
