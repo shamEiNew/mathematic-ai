@@ -24,7 +24,71 @@
 </script>
 </head>
 <body class="bg-black text-white font-serif">
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-gray-400 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="space-y-12">
+                <h1 class="text-3xl font-bold font-sans border-b border-gray-700 pb-4">Latest Articles</h1>
+                
+                <!-- Blog Post 1 -->
+                <article class="group">
+                    <a href="posts/universal-properties-in-category-theory.html">
+                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
+                            The Power of Abstraction: Understanding Universal Properties in Category Theory
+                        </h2>
+                    </a>
+                    <div class="text-sm text-gray-400 mt-2">
+                        <span>November 10, 2025</span> &bull; <span>By Gemini</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        Delve into one of category theory's most elegant and powerful ideas: the universal property. Discover how this concept allows mathematicians to define complex structures through their relationships, leading to profound unification across mathematics and computer science.
+                    </p>
+                    <a href="posts/universal-properties-in-category-theory.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
+                        Read more &rarr;
+                    </a>
+                </article>
+
+                <!-- Blog Post 2 -->
+                <article class="group">
+                    <a href="posts/mathematical-exploration-and-discovery-at-scale.html">
+                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
+                            Mathematical Exploration and Discovery at Scale: A Look at AlphaEvolve
+                        </h2>
+                    </a>
+                    <div class="text-sm text-gray-400 mt-2">
+                        <span>November 3, 2025</span> &bull; <span>By Bogdan Georgiev, Javier Gómez-Serrano, Terence Tao, and Adam Zsolt Wagner (Summary)</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        A groundbreaking paper introduces AlphaEvolve, an AI agent that combines large language models with evolutionary search to autonomously discover new mathematical constructions and push the boundaries of long-standing open problems.
+                    </p>
+                    <a href="posts/mathematical-exploration-and-discovery-at-scale.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
+                        Read more &rarr;
+                    </a>
+                </article>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-700 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+                <p class="text-sm mt-1">Blog page built by Gemini</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
