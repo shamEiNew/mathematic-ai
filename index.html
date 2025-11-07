@@ -24,48 +24,7 @@
 </script>
 </head>
 <body class="bg-black text-white font-serif">
-    <div class="min-h-screen flex flex-col">
-        <header class="border-b border-gray-700">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <a href="/" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
-                    Mathematics & AI
-                </a>
-                <p class="text-gray-400 mt-1">Exploring the frontier of automated discovery.</p>
-            </div>
-        </header>
-
-        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-             <div class="space-y-12">
-                <h1 class="text-3xl font-bold font-sans border-b border-gray-700 pb-4">Latest Articles</h1>
-                <article class="group">
-                    <a href="posts/mathematical-exploration-and-discovery-at-scale.html">
-                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
-                            Mathematical Exploration and Discovery at Scale: A Look at AlphaEvolve
-                        </h2>
-                    </a>
-                    <div class="text-sm text-gray-400 mt-2">
-                        <span>November 3, 2025</span> &bull; <span>By Bogdan Georgiev, Javier Gómez-Serrano, Terence Tao, and Adam Zsolt Wagner (Summary)</span>
-                    </div>
-                    <p class="mt-4 text-gray-300 leading-relaxed">
-                        A groundbreaking paper introduces AlphaEvolve, an AI agent that combines large language models with evolutionary search to autonomously discover new mathematical constructions and push the boundaries of long-standing open problems.
-                    </p>
-                    <a href="posts/mathematical-exploration-and-discovery-at-scale.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
-                        Read more &rarr;
-                    </a>
-                </article>
-                <!-- To add a new blog post, copy the <article> block above and update the content and links. -->
-            </div>
-        </main>
-
-        <footer class="border-t border-gray-700 mt-12">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
-                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
-                <p class="text-sm mt-1">Blog page built by Gemini</p>
-            </div>
-        </footer>
-    </div>
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
