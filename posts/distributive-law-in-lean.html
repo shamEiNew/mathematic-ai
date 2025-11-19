@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proving the Distributive Law in Lean</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Add styles for prose so blog content is readable */
+        .prose h3 {
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: white;
+        }
+        .prose strong {
+            color: #e5e7eb; /* gray-200 */
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-gray-400 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Proving the Distributive Law in Lean
+                </h1>
+                <div class="text-md text-gray-400 mt-4 border-b border-gray-700 pb-4">
+                    <span>November 15, 2025</span> &bull; <span>Sham</span>
+                </div>
+                <div class="prose prose-invert prose-lg mt-8 text-gray-300 leading-relaxed space-y-6">
+                    <p>Formal verification allows us to prove logical statements with absolute certainty. In this post, we explore a proof in the Lean 4 programming language for the distributive law of propositional logic:</p>
+                    
+                    <p class="text-center font-mono text-xl my-6 text-white">p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r)</p>
+
+                    <p>Here is the complete proof script:</p>
+
+                    <pre class="bg-gray-900 border border-gray-800 rounded-lg p-6 overflow-x-auto font-mono text-sm leading-normal text-gray-300 shadow-inner"><code>example : p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r) :=
+Iff.intro
+  (λ h : p ∨ (q ∧ r) =>
+    Or.elim h
+      (λ hp: p => And.intro (Or.intro_left q hp) (Or.intro_left r hp))
+      (λ hqr : q ∧ r => And.intro (Or.intro_right p hqr.1) (Or.intro_right p hqr.2))
+  )
+  (λ h : (p ∨ q) ∧ (p ∨ r) =>
+    Or.elim h.1
+      (λ hp : p => Or.intro_left (q ∧ r) hp)
+      (λ hq : q =>
+        Or.elim h.2
+          (λ hp : p => Or.intro_left (q ∧ r) hp)
+          (λ hr : r => Or.intro_right p (And.intro hq hr)))
+  )</code></pre>
+
+                    <h3 class="text-2xl font-bold font-sans">Analyzing the Logic</h3>
+                    <p>The proof is constructed using <code>Iff.intro</code>, which splits the problem into two directions: forward (→) and backward (←).</p>
+
+                    <h3 class="text-xl font-bold font-sans mt-6">1. Forward Direction</h3>
+                    <p>We assume <code>h : p ∨ (q ∧ r)</code> and need to prove <code>(p ∨ q) ∧ (p ∨ r)</code>.</p>
+                    <p>There are two cases based on the OR statement:</p>
+                    <ul class="list-disc pl-8 space-y-2">
+                        <li><strong>Case 1 (Proof of p):</strong> If we have a proof of <code>p</code>, we can construct the proof of <code>(p ∨ q) ∧ (p ∨ r)</code> immediately. Since <code>p</code> is true, both <code>p ∨ q</code> and <code>p ∨ r</code> are true regardless of <code>q</code> or <code>r</code>.</li>
+                        <li><strong>Case 2 (Proof of q ∧ r):</strong> If we have a proof of <code>q ∧ r</code>, then we have proofs for both <code>q</code> and <code>r</code>. We use <code>q</code> to prove the left side (<code>p ∨ q</code>) and <code>r</code> to prove the right side (<code>p ∨ r</code>), assuming <code>p</code> is false (conceptually, though in constructive logic we just use the right injection).</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold font-sans mt-6">2. Backward Direction</h3>
+                    <p>We assume <code>h : (p ∨ q) ∧ (p ∨ r)</code> and need to prove <code>p ∨ (q ∧ r)</code>.</p>
+                    <p>Since the assumption is an AND statement, we know both <code>p ∨ q</code> and <code>p ∨ r</code> are true. We proceed by cases on the first part <code>p ∨ q</code>:</p>
+                    <ul class="list-disc pl-8 space-y-2">
+                        <li>If <code>p</code> is true, the goal <code>p ∨ (q ∧ r)</code> is immediately satisfied (left side of the OR).</li>
+                        <li>If <code>q</code> is true, we are not done yet. We need to check the second part of our initial assumption, <code>p ∨ r</code>.
+                            <ul class="list-circle pl-8 mt-2 space-y-2">
+                                <li>If <code>p</code> is true here, the goal is again satisfied immediately.</li>
+                                <li>If <code>r</code> is true, we now have proofs for both <code>q</code> and <code>r</code>. We can combine them to form <code>q ∧ r</code>, which satisfies the right side of our goal <code>p ∨ (q ∧ r)</code>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>This nested case analysis elegantly covers all truth values, constructively building the proof object required by Lean.</p>
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-gray-700 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+                <p class="text-sm mt-1">Blog page built by Gemini</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
