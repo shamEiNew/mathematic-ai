@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Logic Proofs in Lean 4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Add styles for prose so blog content is readable */
+        .prose h3 {
+            margin-top: 2em;
+            margin-bottom: 0.75em;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 0.25rem;
+        }
+        .prose strong {
+            color: #e5e7eb;
+        }
+        pre {
+            background-color: #111827; /* gray-900 */
+            border: 1px solid #1f2937; /* gray-800 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            color: #d1d5db; /* gray-300 */
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-gray-400 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Basic Logic Proofs in Lean 4
+                </h1>
+                <div class="text-md text-gray-400 mt-4 border-b border-gray-700 pb-4 flex flex-wrap gap-4 items-center">
+                    <span>November 20, 2025</span> <span>&bull;</span> <span>Sham</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">lean4</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">mathlib</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">logic</span>
+                </div>
+                
+                <div class="prose prose-invert prose-lg mt-8 text-gray-300 leading-relaxed space-y-6">
+                    <p>Following our exploration of the Distributive Law, we delve further into propositional logic. Below is a collection of elementary proofs in Lean 4, demonstrating constructive techniques for handling implication, conjunction, disjunction, and negation.</p>
+
+                    <h3>Currying and Uncurrying</h3>
+                    <p>This equivalence shows that a function taking two arguments <code>p</code> and <code>q</code> sequentially is equivalent to a function taking a single pair <code>(p ∧ q)</code>.</p>
+                    <pre><code>example : (p → (q → r)) ↔ (p ∧ q → r) :=
+Iff.intro
+  (fun h : (p → (q → r)) =>
+    fun hpq : p ∧ q =>
+      h hpq.1 hpq.2
+  )
+  (fun h : (p ∧ q → r) =>
+    fun hp : p =>
+      fun hq : q =>
+        h (And.intro hp hq)
+  )</code></pre>
+
+                    <h3>Distribution of Implication</h3>
+                    <p>Implication distributes over disjunction on the left side. Proving <code>(p ∨ q) → r</code> is the same as proving both <code>p → r</code> and <code>q → r</code>.</p>
+                    <pre><code>example : ((p ∨ q) → r) ↔ (p → r) ∧ (q → r) :=
+Iff.intro
+  (fun h : (p ∨ q) → r =>
+    And.intro 
+      (fun hp: p => h (Or.intro_left q hp))
+      (fun hq : q => h (Or.intro_right p hq))
+  )
+  (fun h : (p → r) ∧ (q → r) =>
+    fun hpq : (p ∨ q) =>
+      Or.elim hpq
+        (fun hp: p => h.1 hp)
+        (fun hq : q => h.2 hq)
+  )</code></pre>
+
+                    <h3>De Morgan's Laws</h3>
+                    <p>The negation of a disjunction is the conjunction of the negations.</p>
+                    <pre><code>example : ¬(p ∨ q) ↔ ¬p ∧ ¬q :=
+Iff.intro
+  (fun h : ¬(p ∨ q) =>
+    And.intro
+    (fun hp : p => h (Or.intro_left q hp))
+    (fun hq : q => h (Or.intro_right p hq))
+  )
+  (fun ⟨hnp, hnq⟩ hpq =>              -- assume ¬p ∧ ¬q and hpq : p ∨ q
+      Or.elim hpq
+        (fun hp : p => hnp hp)        -- if p then contradiction via hnp
+        (fun hq : q => hnq hq)        -- if q then contradiction via hnq
+  )</code></pre>
+
+                    <p>One direction of the other De Morgan's law:</p>
+                    <pre><code>example : ¬p ∨ ¬q → ¬(p ∧ q) :=
+fun h : ¬p ∨ ¬q =>
+  fun hpq : p ∧ q =>
+    Or.elim h
+      (fun hp : ¬p => hp hpq.1)
+      (fun hq : ¬q => hq hpq.2)</code></pre>
+
+                    <h3>Law of Non-Contradiction</h3>
+                    <p>It is impossible for both <code>p</code> and <code>¬p</code> to be true simultaneously.</p>
+                    <pre><code>example : ¬(p ∧ ¬p) := 
+  fun h : p ∧ ¬p => h.2 h.1</code></pre>
+
+                    <h3>Interactions with Negation</h3>
+                    <p>If we have <code>p</code> and <code>¬q</code>, then <code>p → q</code> must be false.</p>
+                    <pre><code>example : p ∧ ¬q → ¬(p → q) := 
+fun h : p ∧ ¬q =>
+  fun hpq : (p → q) =>
+    absurd (hpq h.1) (h.2)</code></pre>
+
+                    <h3>Ex Falso Quodlibet</h3>
+                    <p>From a contradiction (implied by asserting <code>p</code> when we know <code>¬p</code>), anything follows.</p>
+                    <pre><code>example : ¬p → (p → q) := 
+fun h : ¬p =>
+  fun hp : p => False.elim (h hp)</code></pre>
+
+                    <h3>Material Implication Variant</h3>
+                    <pre><code>example : (¬p ∨ q) → (p → q) := 
+fun h : (¬p ∨ q) =>
+  fun hp : p =>
+    Or.elim h
+      (fun hnp: ¬p => False.elim (hnp hp))
+      (fun hq : q => hq)</code></pre>
+
+                    <h3>Identity and Zero Laws</h3>
+                    <p>Disjunction with False is the identity for propositions; Conjunction with False is the annihilator.</p>
+                    <pre><code>example : p ∨ False ↔ p := 
+Iff.intro
+  (fun h : p ∨ False =>
+    Or.elim h
+      (fun hp : p => hp)
+      (fun hF: False => hF.elim)
+  )
+  (fun hp : p => Or.intro_left (False) (hp))
+
+example : p ∧ False ↔ False := 
+Iff.intro
+  (fun h : p ∧ False => h.2)
+  (fun hf : False => hf.elim)</code></pre>
+
+                    <h3>Contrapositive</h3>
+                    <p>If <code>p</code> implies <code>q</code>, then not-<code>q</code> implies not-<code>p</code>.</p>
+                    <pre><code>example : (p → q) → (¬q → ¬p) :=
+fun h : p → q =>
+  fun hnq : ¬q =>
+    fun hp : p => False.elim (hnq (h hp))</code></pre>
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-gray-700 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+                <p class="text-sm mt-1">Blog page built by Gemini</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
