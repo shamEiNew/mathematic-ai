@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Existential Qauntifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Add styles for prose so blog content is readable */
+        .prose h3 {
+            margin-top: 2em;
+            margin-bottom: 0.75em;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 0.25rem;
+        }
+        .prose strong {
+            color: #e5e7eb;
+        }
+        pre {
+            background-color: #111827; /* gray-900 */
+            border: 1px solid #1f2937; /* gray-800 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            color: #d1d5db; /* gray-300 */
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-gray-400 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Existential Qauntifier in lean4
+                </h1>
+                <div class="text-md text-gray-400 mt-4 border-b border-gray-700 pb-4 flex flex-wrap gap-4 items-center">
+                    <span>November 25, 2025</span> <span>&bull;</span> <span>Sham</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">lean4</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">proof</span>
+                </div>
+                
+                <div class="prose prose-invert prose-lg mt-8 text-gray-300 leading-relaxed space-y-6">
+                    <pre><code>example : ∃ x : Nat, x + 1 = 4 := 
+  have h : 3 + 1 = 4 := by
+    calc
+      3 + 1 = 2 + 1 + 1 :=  by rw [&lt;- Nat.succ_eq_add_one 2]
+       _     = 2 + (1 + 1) := by rw [Nat.add_assoc]
+       _     = 2 + 2 := by rw [Nat.add_comm 1 1]
+        _     = 4 := rfl
+  Exists.intro 3 h</code></pre>
+
+                    <p>In the above we prove there exists x such that x + 1 = 4. We use the <code>calc</code> keyword for calculation proof. In the first step we set our hypothesis h and then move on to prove further points.</p>
+
+                    <p>The first rewrite is <code>[&lt;- Nat.succ_eq_add_one 2]</code> which substitutes <code>Nat.succ 2 = 2 + 1</code>. The <code>rw</code> tries to match <code>Nat.succ 2</code> so we use it.</p>
+                    
+                    <p>Next we use <code>Nat.add_assoc</code> (<code>a + b + c = a + (b + c)</code>). Next <code>Nat.add_comm</code> and <code>rfl</code> finally.</p>
+
+                    <p>Note that <code>rfl</code> is powerful. If two expressions compute to the same, however complicated it treats them the same. Also <code>rfl</code> is at the core of Lean's kernel and not in the meta layer.</p>
+
+                    <p>Finally, <code>Exists.intro</code> gives a proof of <code>Exists p</code> where <code>p:α → Prop</code> is a predicate given a witness <code>w:α</code> such that <code>p w</code> holds.</p>
+
+                    <p>A very simple way to do this is below:</p>
+
+                    <pre><code>example : ∃ x : Nat, x + 1 = 4 := Exists.intro 3 rfl</code></pre>
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-gray-700 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+                <p class="text-sm mt-1">Blog page built by Gemini</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
