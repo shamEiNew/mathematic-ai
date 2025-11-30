@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Working with Quantifiers and Classical Reasoning in Lean</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Add styles for prose so blog content is readable */
+        .prose h3 {
+            margin-top: 2em;
+            margin-bottom: 0.75em;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 0.25rem;
+        }
+        .prose strong {
+            color: #e5e7eb;
+        }
+        pre {
+            background-color: #111827; /* gray-900 */
+            border: 1px solid #1f2937; /* gray-800 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            color: #d1d5db; /* gray-300 */
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-gray-400 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Working with Existential Quantifiers, Universal Quantifiers, and Classical Reasoning in Lean
+                </h1>
+                <div class="text-md text-gray-400 mt-4 border-b border-gray-700 pb-4 flex flex-wrap gap-4 items-center">
+                    <span>November 27, 2025</span> <span>&bull;</span> <span>Sham</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">Prop</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">Lean4</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">TPiL4</span>
+                    <span class="text-xs border border-gray-600 rounded px-2 py-0.5 text-gray-300">propositional-logic</span>
+                </div>
+                
+                <div class="prose prose-invert prose-lg mt-8 text-gray-300 leading-relaxed space-y-6">
+                    <p>This note collects a series of Lean examples from TPiL4, that involve existential quantifiers, universal quantifiers, implications, conjunctions, disjunctions, negation, and classical reasoning. Each example is written in Lean4. When classical logic is used, I specify it.</p>
+                    <p>We assume <code>open Classical</code> at the top to allow classical reasoning such as double negation elimination and byContradiction.</p>
+
+                    <h3>From existence of a witness to a proposition</h3>
+                    <pre><code>example : (∃ x : α, r) → r :=
+  fun h : (∃ x : α, r) =>
+    Exists.elim h (
+      fun w (hr:r )=> hr
+    )</code></pre>
+                    <p><strong>Explanation:</strong> If there exists a witness w such that r holds, then r is true. Eliminating the existential gives the witness and the proof of r, so we simply return the proof.</p>
+
+                    <h3>Introducing an existential witness</h3>
+                    <pre><code>example (a : α) : r → (∃ x : α, r) :=
+  fun hr : r => Exists.intro a hr</code></pre>
+                    <p><strong>Explanation:</strong> If r holds, we can create an existential statement by choosing any element a and pairing it with the proof of r.</p>
+
+                    <h3>Existential with conjunction distributes over existential and r</h3>
+                    <pre><code>example : (∃ x, p x ∧ r) ↔ (∃ x, p x) ∧ r :=
+Iff.intro
+  (fun h : (∃ x, p x ∧ r) =>
+    Exists.elim h (fun w => fun hpr : p w ∧ r =>
+      And.intro (Exists.intro w hpr.left) hpr.right))
+  (fun h : (∃ x, p x) ∧ r =>
+    Exists.elim h.left (fun w => fun hp : p w =>
+      Exists.intro w (And.intro hp h.right)))</code></pre>
+                    <p><strong>Explanation:</strong> Existential distributes over a conjunction. One direction extracts the witness and splits the conjunction. The other direction reassembles a witness whose property contains both parts.</p>
+
+                    <h3>Existential distributes over disjunction</h3>
+                    <pre><code>example : (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ (∃ x, q x) :=
+Iff.intro
+  (fun h : (∃ x, p x ∨ q x) =>
+    Exists.elim h ( fun w => fun hpw : p w ∨ q w =>
+      Or.elim hpw
+        (fun hp : p w => Or.inl (Exists.intro w  hp))
+        (fun hq : q w => Or.inr (Exists.intro w  hq))
+    ))
+  (
+    fun h : (∃ x, p x) ∨ (∃ x, q x) =>
+      Or.elim h
+        (fun h1 : (∃ x, p x) =>
+          Exists.elim h1 (fun w => fun hw : p w => Exists.intro w (Or.inl hw)))
+        (fun h2 : (∃ x, q x) =>
+          Exists.elim h2 (fun w => fun hw : q w => Exists.intro w (Or.inr hw)))
+  )</code></pre>
+                    <p><strong>Explanation:</strong> An existential over a disjunction is equivalent to a disjunction of existentials. Both directions are constructive and follow from inspecting which side of the disjunction holds.</p>
+
+                    <h3>Universal quantifier and negation of an existential</h3>
+                    <pre><code>example : (∀ x, p x) ↔ ¬ (∃ x, ¬ p x) :=
+  Iff.intro
+    (fun h : (∀ x, p x) =>
+      fun h1 : (∃ x, ¬ p x) =>
+        Exists.elim h1 (fun w => fun h2 : ¬ p w => show False from h2 (h w)))
+    (fun h : ¬ (∃ x, ¬ p x) => fun x =>
+      byContradiction (fun hpx =>  h ⟨x, hpx⟩))</code></pre>
+                    <p><strong>Explanation:</strong> The forward direction is constructive: if everything satisfies p, then no witness of ¬p exists. The reverse direction is classical. It uses <code>byContradiction</code> to convert <code>¬¬p x</code> into <code>p x</code>. This step needs classical logic.</p>
+
+                    <h3>Double negation elimination</h3>
+                    <pre><code>example (t : Prop): ¬¬t → t :=
+  fun h : ¬¬t => byContradiction (fun ht : ¬t => h ht)</code></pre>
+                    <p><strong>Explanation:</strong> Double negation elimination is not constructive. It requires classical logic, and Lean uses <code>byContradiction</code> here.</p>
+
+                    <h3>Existential and double negation</h3>
+                    <pre><code>example : (∃ x, p x) ↔ ¬ (∀ x, ¬ p x) :=
+Iff.intro
+  (fun h : (∃ x, p x) => fun h1 :  (∀ x, ¬ p x) =>
+    Exists.elim h (fun w => fun hpw : p w => show False from (h1 w) hpw))
+  (fun hn : ¬ (∀ x, ¬ p x) =>
+    byContradiction (fun h : ¬ (∃ x, p x) =>
+      hn (fun x (hx:p x )=> h ⟨x, hx⟩)))</code></pre>
+                    <p><strong>Explanation:</strong> The first direction is constructive. The second direction uses classical reasoning to convert <code>¬¬∃ x p x</code> into <code>∃ x p x</code>.</p>
+
+                    <h3>Negation of an existential is equivalent to a universal negation</h3>
+                    <pre><code>example : (¬ ∃ x, p x) ↔ (∀ x, ¬ p x) :=
+Iff.intro
+  (fun h : ¬ (∃ x, p x) => fun x (hx: p x) => h ⟨x, hx ⟩)
+  (fun h : (∀ x, ¬ p x) => fun hex : ∃ x, p x =>
+    Exists.elim hex (fun w => fun hw : p w => show False from (h w) hw))</code></pre>
+                    <p><strong>Explanation:</strong> Both directions are constructive. Eliminating the existential allows you to compute the contradiction directly.</p>
+
+                    <h3>Negating a universal is equivalent to an existential negation</h3>
+                    <pre><code>example : (¬ ∀ x, p x) ↔ (∃ x, ¬ p x) :=
+Iff.intro
+  (fun h : ¬ (∀ x, p x) =>
+    byContradiction (fun hn : ¬ (∃ x, ¬ p x) =>
+      h (fun x => byContradiction (fun hpx => hn ⟨x, hpx ⟩))
+    ))
+  (fun h : (∃ x, ¬ p x) => fun hn :  (∀ x, p x) =>
+    Exists.elim h (fun x => fun hpx : ¬ p x => show False from hpx (hn x))
+  )</code></pre>
+                    <p><strong>Explanation:</strong> The right direction is constructive. The left direction uses classical logic because it depends on double negation elimination and the classical equivalence between <code>¬∀</code> and <code>∃¬</code>.</p>
+
+                    <h3>Relationship between universal implication and existential implication</h3>
+                    <pre><code>example : (∀ x, p x → r) ↔ (∃ x, p x) → r :=
+Iff.intro
+  (fun h: (∀ x, p x → r) => fun hp : (∃ x, p x) =>
+    Exists.elim hp (fun w => fun hw : p w => (h w) hw))
+  (fun h : (∃ x, p x) → r =>
+    fun w => fun hp : p w => h ⟨w, hp ⟩)</code></pre>
+                    <p><strong>Explanation:</strong> Both directions are constructive.</p>
+                    <p><strong>Left to right:</strong> If every <code>p w</code> implies <code>r</code>, then an existential witness gives <code>p w</code>, and therefore <code>r</code>.</p>
+                    <p><strong>Right to left:</strong> Fix <code>w</code> and assume <code>p w</code>. You can always build an existential witness <code>⟨w, hp⟩</code> and then apply <code>h</code> to obtain <code>r</code>. This direction works because an existential can always be introduced from a single <code>p w</code>.</p>
+
+                    <p class="pt-4 border-t border-gray-800 text-gray-500">Thanks for reading!</p>
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-gray-700 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+                <p class="text-sm mt-1">Blog page built by Gemini</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
