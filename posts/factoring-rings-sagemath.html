@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Factoring Finite Factor Rings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .prose h3 { margin-top: 2em; margin-bottom: 0.75em; font-size: 1.5rem; font-weight: bold; color: white; }
+        .prose p { margin-bottom: 1em; line-height: 1.75; color: #d1d5db; }
+        .prose pre { background: #111827; padding: 1em; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1em; border: 1px solid #374151; }
+        .prose code { font-family: monospace; color: #e5e7eb; }
+        .prose blockquote { border-left: 4px solid #4b5563; padding-left: 1em; font-style: italic; color: #9ca3af; margin-bottom: 1em; }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+         <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+            </div>
+        </header>
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white">&larr; Back</a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight mb-4">Factoring Finite Factor Rings with SageMath</h1>
+                <div class="text-md text-gray-400 border-b border-gray-700 pb-4 mb-8">
+                    <span>June 5, 2022</span> &bull; <span>By Sham</span>
+                    <span class="ml-2 text-xs border border-gray-700 rounded px-2 py-0.5">Algebra</span>
+                    <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">Code</span>
+                </div>
+                <div class="prose prose-invert prose-lg">
+                    <h3>Introduction</h3>
+                    <p>We can express a finite abelian group as a direct product of cyclic groups. In a similar fashion can we express the group of units for a commutative ring \( R \). It's a difficult question although we can answer this question in special cases. For example, when \( R \) is finite we know that the group of units of \( R \), \( U(R) \) is isomorphic to a direct product of cyclic groups.</p>
+                    
+                    <blockquote>
+                        <p>Theorem 1: Let \( F \) be a finite field with \( p^n \) where \( p \) is prime. Then for any positive integer \( m \) we have:</p>
+                        <p>$$ U(F[x]/(x^m)) \cong \mathbb{Z}_{p^n-1} \times \prod_{i=1}^s n(k_{i-1}-2k_i+k_{i+1}) * \mathbb{Z}_{p^i} $$</p>
+                    </blockquote>
+
+                    <h3>Algorithm in SageMath</h3>
+                    <p>SageMath is an open-source software for mathematics built on many open-source packages. Below is a function to define the base ring.</p>
+
+                    <pre><code class="language-python">def base_ring():
+    """
+    Returns:
+    base_ring: It is ring of the form F[x] where F is a field
+    p_x: Product of irreducible polynomials in F[x]
+    """
+    size = 7
+    #base ring F[x] where F is field with x as indeterminate.
+    base_ring.&lt;x&gt; = PolynomialRing(GF(size))
+    #p(x) as a product of irreducible polynomials in F[x]
+    p_x =((x+4)^8)*(x^2+4)*(x^3+3)^2
+    return base_ring, p_x
+</code></pre>
+                    <p>The full implementation allows factorization of the group of units into cyclic components.</p>
+                </div>
+            </article>
+        </main>
+    </div>
+</body>
+</html>

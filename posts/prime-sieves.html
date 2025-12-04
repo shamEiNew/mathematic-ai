@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prime Sieves</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .prose h3 { margin-top: 2em; margin-bottom: 0.75em; font-size: 1.5rem; font-weight: bold; color: white; }
+        .prose p { margin-bottom: 1em; line-height: 1.75; color: #d1d5db; }
+        .prose pre { background: #111827; padding: 1em; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1em; border: 1px solid #374151; }
+        .prose code { font-family: monospace; color: #e5e7eb; }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+         <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+            </div>
+        </header>
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white">&larr; Back</a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight mb-4">Prime Sieves: Sieve of Eratosthenes</h1>
+                <div class="text-md text-gray-400 border-b border-gray-700 pb-4 mb-8">
+                    <span>September 6, 2020</span> &bull; <span>By Sham</span>
+                    <span class="ml-2 text-xs border border-gray-700 rounded px-2 py-0.5">Code</span>
+                    <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">Primes</span>
+                </div>
+                <div class="prose prose-invert prose-lg">
+                    <p>I'm writing a series on different sieve methods for extracting primes (as a self project) below a given number. In this the first would be the sieve of Eratosthenes naturally as it is one of the simplest. Below is the code it writes out all primes below that number in .txt file. The number of operations are reduced as we are only calculating from the square of the prime to \( \sqrt{n} \).</p>
+
+                    <pre><code class="language-python">import time
+import math
+
+def eratosthenes_sieve(b):
+    primes = [True,]*b
+
+    for j in range(2, math.ceil(math.sqrt(b))):
+        if primes[j]:
+            for i in range(j*j, b, j):
+                    primes[i] = False
+
+    return primes
+</code></pre>
+                    <p>The Sieve of Eratosthenes is one of the most efficient ways to find all prime numbers up to a specified integer.</p>
+                </div>
+            </article>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beam Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .prose h3 { margin-top: 2em; margin-bottom: 0.75em; font-size: 1.5rem; font-weight: bold; color: white; }
+        .prose h4 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.25rem; font-weight: bold; color: white; }
+        .prose p { margin-bottom: 1em; line-height: 1.75; color: #d1d5db; }
+        .prose ul, .prose ol { margin-bottom: 1em; padding-left: 1.5em; color: #d1d5db; list-style-type: disc; }
+        .prose li { margin-bottom: 0.5em; }
+        .prose pre { background: #111827; padding: 1em; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1em; border: 1px solid #374151; }
+        .prose code { font-family: monospace; color: #e5e7eb; }
+        .prose blockquote { border-left: 4px solid #4b5563; padding-left: 1em; font-style: italic; color: #9ca3af; margin-bottom: 1em; }
+        .prose a { color: #60a5fa; text-decoration: underline; }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+         <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+            </div>
+        </header>
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white">&larr; Back</a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight mb-4">Understanding Beam Search</h1>
+                <div class="text-md text-gray-400 border-b border-gray-700 pb-4 mb-8">
+                    <span>May 27, 2025</span> &bull; <span>By Sham</span>
+                    <span class="ml-2 text-xs border border-gray-700 rounded px-2 py-0.5">AI</span>
+                    <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">Algorithms</span>
+                </div>
+                <div class="prose prose-invert prose-lg">
+                    <p>Beam search is a popular algorithm used in tasks like machine translation, text summarization, and speech recognition, where the goal is to generate sequences (e.g., sentences or words) by exploring a large number of possible paths. Unlike exhaustive search methods like depth-first or breadth-first search, beam search is a heuristic approach that balances computational efficiency and solution quality by maintaining a fixed number of promising candidates at each step, known as the <em>beam width</em>.</p>
+
+                    <h3>What is Beam Search?</h3>
+                    <p>Beam search is a variant of best-first search that explores a search tree by keeping only the top \(k\) most promising partial solutions (or "beams") at each step, where \(k\) is the beam width. It is commonly used in sequence generation tasks. For example, in theorem proving, beam search generates the most probable proof of a theorem by evaluating multiple candidate proofs.</p>
+
+                    <h4>Key Concepts</h4>
+                    <ul>
+                        <li><strong>Beam Width (k)</strong>: The number of partial sequences (candidates) retained at each step.</li>
+                        <li><strong>Sequence Scoring</strong>: Each candidate sequence is scored based on a probability or likelihood.</li>
+                        <li><strong>Pruning</strong>: At each step, only the top \(k\) scoring sequences are kept.</li>
+                        <li><strong>Termination</strong>: The algorithm stops when a predefined condition is met.</li>
+                    </ul>
+
+                    <h3>Python Implementation</h3>
+                    <pre><code class="language-python">import heapq
+from typing import List, Tuple
+import numpy as np
+
+class BeamSearch:
+    def __init__(self, vocab: List[str], transition_probs: dict, beam_width: int, max_length: int):
+        self.vocab = vocab
+        self.transition_probs = transition_probs
+        self.beam_width = beam_width
+        self.max_length = max_length
+        self.start_token = "&lt;s&gt;"
+        self.end_token = "&lt;/s&gt;"
+
+    def get_transition_prob(self, prev: str, next_char: str) -> float:
+        return self.transition_probs.get((prev, next_char), 0.01)
+
+    def beam_search(self) -> List[Tuple[str, float]]:
+        beam = [((self.start_token,), 0.0)]
+        completed = []
+
+        for _ in range(self.max_length):
+            new_beam = []
+            for seq, log_prob in beam:
+                last_token = seq[-1]
+                if last_token == self.end_token:
+                    completed.append((seq, log_prob))
+                    continue
+                for next_char in self.vocab + [self.end_token]:
+                    prob = self.get_transition_prob(last_token, next_char)
+                    new_log_prob = log_prob + np.log(prob + 1e-10)
+                    new_seq = seq + (next_char,)
+                    new_beam.append((new_seq, new_log_prob))
+
+            new_beam = heapq.nlargest(self.beam_width, new_beam, key=lambda x: x[1])
+            beam = new_beam
+            if not beam:
+                break
+
+        completed.extend(beam)
+        completed = sorted(completed, key=lambda x: x[1], reverse=True)
+        return [(",".join(seq), score) for seq, score in completed[:self.beam_width]]
+</code></pre>
+                </div>
+            </article>
+        </main>
+    </div>
+</body>
+</html>

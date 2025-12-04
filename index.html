@@ -11,14 +11,16 @@
             color: white;
             font-family: serif;
         }
+        .font-sans {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
     </style>
 <script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.5"
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/"
   }
 }
 </script>
@@ -39,120 +41,236 @@
         <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="space-y-12">
                 <h1 class="text-3xl font-bold font-sans border-b border-gray-700 pb-4">Latest Articles</h1>
-                
-                <!-- Blog Post 6 (New) -->
+
+                <!-- Article: Quantifiers in Lean -->
                 <article class="group">
                     <a href="posts/quantifiers-and-classical-logic-in-lean.html">
                         <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
                             Working with Existential Quantifiers, Universal Quantifiers, and Classical Reasoning in Lean
                         </h2>
                     </a>
-                    <div class="text-sm text-gray-400 mt-2">
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
                         <span>November 27, 2025</span> &bull; <span>By Sham</span>
-                        <span class="ml-2 text-xs border border-gray-700 rounded px-2 py-0.5">Prop</span>
-                        <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">Lean4</span>
-                        <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">TPiL4</span>
-                        <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">propositional-logic</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Prop</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Lean4</span>
                     </div>
                     <p class="mt-4 text-gray-300 leading-relaxed">
-                        A comprehensive collection of Lean 4 examples covering existential and universal quantifiers, and the interplay between constructive and classical reasoning (double negation, byContradiction).
+                        A comprehensive collection of Lean 4 examples covering existential and universal quantifiers, and the interplay between constructive and classical reasoning.
                     </p>
                     <a href="posts/quantifiers-and-classical-logic-in-lean.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
                         Read more &rarr;
                     </a>
                 </article>
 
-                <!-- Blog Post 5 -->
+                <!-- Article: Existential Quantifier -->
                 <article class="group">
                     <a href="posts/existential-quantification-in-lean.html">
                         <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
-                            Existential Qauntifier
+                            Existential Quantifier
                         </h2>
                     </a>
-                    <div class="text-sm text-gray-400 mt-2">
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
                         <span>November 25, 2025</span> &bull; <span>By Sham</span>
-                        <span class="ml-2 text-xs border border-gray-700 rounded px-2 py-0.5">lean4</span>
-                        <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">proof</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">lean4</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">proof</span>
                     </div>
                     <p class="mt-4 text-gray-300 leading-relaxed">
-                        A look at proving existential statements in Lean 4. We walk through a calculation block proof using rewrites and explore the power of <code>rfl</code> and <code>Exists.intro</code>.
+                        A look at proving existential statements in Lean 4 with calculation blocks.
                     </p>
                     <a href="posts/existential-quantification-in-lean.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
                         Read more &rarr;
                     </a>
                 </article>
 
-                <!-- Blog Post 4 -->
+                <!-- Article: Basic Logic Proofs -->
                 <article class="group">
                     <a href="posts/basic-logic-proofs-in-lean.html">
                         <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
                             Basic Logic Proofs in Lean 4
                         </h2>
                     </a>
-                    <div class="text-sm text-gray-400 mt-2">
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
                         <span>November 20, 2025</span> &bull; <span>By Sham</span>
-                        <span class="ml-2 text-xs border border-gray-700 rounded px-2 py-0.5">lean4</span>
-                        <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">mathlib</span>
-                        <span class="ml-1 text-xs border border-gray-700 rounded px-2 py-0.5">logic</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">lean4</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">logic</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">mathlib</span>
                     </div>
                     <p class="mt-4 text-gray-300 leading-relaxed">
-                        A collection of essential propositional logic proofs in Lean 4. We cover Currying, De Morgan's Laws, the Law of Non-Contradiction, and Contrapositives, demonstrating the constructive approach to truth.
+                        A collection of essential propositional logic proofs in Lean 4 covering Currying, De Morgan's Laws, and more.
                     </p>
                     <a href="posts/basic-logic-proofs-in-lean.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
                         Read more &rarr;
                     </a>
                 </article>
 
-                <!-- Blog Post 3 -->
+                <!-- Article: Distributive Law -->
                 <article class="group">
                     <a href="posts/distributive-law-in-lean.html">
                         <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
                             Proving the Distributive Law in Lean
                         </h2>
                     </a>
-                    <div class="text-sm text-gray-400 mt-2">
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
                         <span>November 15, 2025</span> &bull; <span>By Sham</span>
                     </div>
                     <p class="mt-4 text-gray-300 leading-relaxed">
-                        A deep dive into formal verification using Lean 4. We examine the proof for the distributive property of logic: p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r), breaking down the constructive logic steps case by case.
+                        A deep dive into formal verification using Lean 4 examining the distributive property of logic.
                     </p>
                     <a href="posts/distributive-law-in-lean.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
                         Read more &rarr;
                     </a>
                 </article>
 
-                <!-- Blog Post 1 -->
+                <!-- Article: Universal Properties -->
                 <article class="group">
                     <a href="posts/universal-properties-in-category-theory.html">
                         <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
-                            The Power of Abstraction: Understanding Universal Properties in Category Theory
+                            The Power of Abstraction: Universal Properties
                         </h2>
                     </a>
-                    <div class="text-sm text-gray-400 mt-2">
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
                         <span>November 10, 2025</span> &bull; <span>By Gemini</span>
                     </div>
                     <p class="mt-4 text-gray-300 leading-relaxed">
-                        Delve into one of category theory's most elegant and powerful ideas: the universal property. Discover how this concept allows mathematicians to define complex structures through their relationships, leading to profound unification across mathematics and computer science.
+                        Discover how universal properties in category theory allow mathematicians to define complex structures through their relationships.
                     </p>
                     <a href="posts/universal-properties-in-category-theory.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
                         Read more &rarr;
                     </a>
                 </article>
 
-                <!-- Blog Post 2 -->
+                <!-- Article: AlphaEvolve -->
                 <article class="group">
                     <a href="posts/mathematical-exploration-and-discovery-at-scale.html">
                         <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
-                            Mathematical Exploration and Discovery at Scale: A Look at AlphaEvolve
+                            Mathematical Exploration and Discovery at Scale
                         </h2>
                     </a>
-                    <div class="text-sm text-gray-400 mt-2">
-                        <span>November 3, 2025</span> &bull; <span>By Bogdan Georgiev, Javier Gómez-Serrano, Terence Tao, and Adam Zsolt Wagner (Summary)</span>
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
+                        <span>November 3, 2025</span> &bull; <span>By Summary</span>
                     </div>
                     <p class="mt-4 text-gray-300 leading-relaxed">
-                        A groundbreaking paper introduces AlphaEvolve, an AI agent that combines large language models with evolutionary search to autonomously discover new mathematical constructions and push the boundaries of long-standing open problems.
+                        A look at AlphaEvolve, an AI agent that combines large language models with evolutionary search to autonomously discover new mathematical constructions.
                     </p>
                     <a href="posts/mathematical-exploration-and-discovery-at-scale.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
+                        Read more &rarr;
+                    </a>
+                </article>
+
+                <!-- Article: AlphaGeometry2 -->
+                <article class="group">
+                    <a href="posts/alphageometry2.html">
+                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
+                            AlphaGeometry2, DDAR AND SKEST
+                        </h2>
+                    </a>
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
+                        <span>May 27, 2025</span> &bull; <span>By Sham</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Explore</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        An overview of AlphaGeometry2 (AG2), a significant advancement in AI for solving complex geometry problems, achieving gold-medalist level performance at the IMO using Neuro-Symbolic systems.
+                    </p>
+                    <a href="posts/alphageometry2.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
+                        Read more &rarr;
+                    </a>
+                </article>
+
+                <!-- Article: Beam Search -->
+                <article class="group">
+                    <a href="posts/beam-search.html">
+                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
+                            Beam Search
+                        </h2>
+                    </a>
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
+                        <span>May 27, 2025</span> &bull; <span>By Sham</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">AI</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Algorithms</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        Understanding Beam Search: A heuristic approach to sequence generation used in modern AI systems like AlphaGeometry for proof search.
+                    </p>
+                    <a href="posts/beam-search.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
+                        Read more &rarr;
+                    </a>
+                </article>
+
+                <!-- Article: SOPHIA -->
+                <article class="group">
+                    <a href="posts/sophia.html">
+                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
+                            Second-order Clipped Stochastic Optimization (SOPHIA)
+                        </h2>
+                    </a>
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
+                        <span>June 9, 2023</span> &bull; <span>By Sham</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Explore</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        A look at Sophia, a second-order clipped optimizer that claims to make training LLMs less expensive compared to Adam.
+                    </p>
+                    <a href="posts/sophia.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
+                        Read more &rarr;
+                    </a>
+                </article>
+
+                <!-- Article: Factoring Rings -->
+                <article class="group">
+                    <a href="posts/factoring-rings-sagemath.html">
+                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
+                            Factoring Finite Factor Rings with SageMath
+                        </h2>
+                    </a>
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
+                        <span>June 5, 2022</span> &bull; <span>By Sham</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Algebra</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Code</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        Exploring the group of units for commutative rings of the form F[x]/(h(x)) using SageMath algorithms.
+                    </p>
+                    <a href="posts/factoring-rings-sagemath.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
+                        Read more &rarr;
+                    </a>
+                </article>
+
+                <!-- Article: Euler's Totient -->
+                <article class="group">
+                    <a href="posts/eulers-totient.html">
+                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
+                            Euler's Totient Function
+                        </h2>
+                    </a>
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
+                        <span>May 22, 2022</span> &bull; <span>By Sham</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Number Theory</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">C++</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        An introduction to Euler's Totient Function, its properties, theorems, and computational implementation.
+                    </p>
+                    <a href="posts/eulers-totient.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
+                        Read more &rarr;
+                    </a>
+                </article>
+
+                <!-- Article: Prime Sieves -->
+                <article class="group">
+                    <a href="posts/prime-sieves.html">
+                        <h2 class="text-2xl font-bold font-sans text-gray-100 group-hover:text-white transition-colors duration-300">
+                            Prime Sieves: Sieve of Eratosthenes
+                        </h2>
+                    </a>
+                    <div class="text-sm text-gray-400 mt-2 flex flex-wrap items-center gap-2">
+                        <span>September 6, 2020</span> &bull; <span>By Sham</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Code</span>
+                        <span class="text-xs border border-gray-700 rounded px-2 py-0.5">Primes</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        Writing a series on different sieve methods for extracting primes, starting with the classic Sieve of Eratosthenes in Python.
+                    </p>
+                    <a href="posts/prime-sieves.html" class="text-white font-bold inline-block mt-4 group-hover:underline">
                         Read more &rarr;
                     </a>
                 </article>
@@ -164,7 +282,6 @@
         <footer class="border-t border-gray-700 mt-12">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
                 <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
-                <p class="text-sm mt-1">Blog page built by Gemini</p>
             </div>
         </footer>
     </div>
