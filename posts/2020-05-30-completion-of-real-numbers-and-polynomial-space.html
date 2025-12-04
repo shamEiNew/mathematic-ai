@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Construction of Real Numbers & Function Spaces</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        .prose h2 {
+            margin-top: 2em;
+            margin-bottom: 0.75em;
+            color: white;
+            font-size: 1.875rem;
+            font-weight: bold;
+        }
+        .prose h3 {
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .prose strong {
+            color: #e5e7eb;
+        }
+        .prose ul {
+            list-style-type: disc;
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .prose li {
+            margin: 0.5rem 0;
+        }
+        .prose p {
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-gray-400 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Construction of Real Numbers & Function Spaces
+                </h1>
+                <div class="text-md text-gray-400 mt-4 border-b border-gray-700 pb-4">
+                    <span>Real Analysis Study</span> &bull; <span>Sham</span>
+                </div>
+                <div class="prose prose-invert prose-lg mt-8 text-gray-300 leading-relaxed space-y-6">
+                    
+                    <h2>1. Introduction</h2>
+                    
+                    <p>Completeness is one of the significant properties in analysis associated with metric spaces, so we studied its relation to Heine-Borel theorem and also invested some time in studying the polynomial space ($P([a,b])$) and noted that the completion of the polynomial space is space of continuous functions ($C([a,b])$). While dealing with space of continuous functions, Weierstrass approximation theorem was proved naturally and then we looked at a more general result, i.e., the Stone-Weierstrass approximation theorem which we proved for compact subsets of $\mathbb{R}$.</p>
+
+                    <h2>2. Weierstrass Construction</h2>
+                    
+                    <p>A sequence $\{x_n\}$ of rational numbers is said to converge to a point $x$, if for every $P > 0$ in $\mathbb{N}$, however large there exist a natural number $n_0$ such that</p>
+                    
+                    <p class="text-center">$$|x_n-x| < \frac{1}{P}$$</p>
+                    
+                    <p>for all $n \geq n_0$.</p>
+                    
+                    <p>A sequence $\{x_n\}$ of rational numbers is said to Cauchy if for every $P > 0$ in $\mathbb{N}$, however large there exist a natural number $n_0$ such that</p>
+                    
+                    <p class="text-center">$$|x_n-x_m| < \frac{1}{P}$$</p>
+                    
+                    <p>for all $n \geq n_0$.</p>
+                    
+                    <p>Now we define a relation $R$ on the set $S$ of all cauchy sequences of rational numbers as follows: We say that the two Cauchy sequences of rational numbers $\{a_n\}$ and $\{b_n\}$ are related, i.e,</p>
+                    
+                    <p class="text-center">$$a_n \mathbf{R} b_n \iff a_n-b_n \rightarrow 0$$</p>
+                    
+                    <p>We prove the above relation $R$ on the set of equivalence class of Cauchy sequences of rational numbers is an equivalence relation. Observe that the relation is reflexive, since any sequence the difference will turn out to be constant sequence of 0's which converges to 0. For symmetry we note that if $\{a_n - b_n\}$ converges to zero for all $n \geq n_0$ then the sequence $\{b_n - a_n\}$ converges to zero after $n_0$ as the modulus of $|a_n - b_n| = |b_n - a_n| < \frac{1}{P}$ for all $n \geq n_0$.</p>
+                    
+                    <p>We need to prove the relation is transitive for any sequences in $S$. Let $\{a_n\}, \{b_n\}, \{c_n\}$ be the sequences such that $a_n R b_n$ and $b_n R c_n$. As $a_n - b_n \rightarrow 0$, there exist $n_1$ for given $2P > 0$ such that</p>
+                    
+                    <p class="text-center">$$|a_n-b_n| < \frac{1}{2P}$$</p>
+                    
+                    <p>for all $n \geq n_1$; also there exist $n_2$ for chosen $2P > 0$ such that</p>
+                    
+                    <p class="text-center">$$|b_n-c_n| < \frac{1}{2P}$$</p>
+                    
+                    <p>for all $n \geq n_2$.</p>
+                    
+                    <p>Let $n_0 = \max\{n_1,n_2\}$ observe that,</p>
+                    
+                    <p class="text-center">$$|a_n - c_n| \leq |a_n-b_n|+|b_n-c_n| < \frac{1}{P}$$</p>
+                    
+                    <p>for all $n \geq n_0$, which implies that $\{a_n-c_n\}$ converges to 0 which is as required. Thus, the above relation is an equivalence relation.</p>
+                    
+                    <p>We shall now order the equivalence class of Cauchy sequence of rational numbers. Let A, B be two equivalence classes of sequence $\{a_n\}$ and $\{b_n\}$ in $S$ respectively. We define an operation denoted by A+B and call 'addition' the equivalence class containing the sequence $\{a_n+b_n\}$. We verify that our operation on equivalence classes is well defined. Let,</p>
+                    
+                    <p class="text-center">$$a_n \sim a_n'$$</p>
+                    
+                    <p>and</p>
+                    
+                    <p class="text-center">$$b_n \sim b_n'$$</p>
+                    
+                    <p>using triangle inequality we deduce that $a_n+b_n \sim a_n'+b_n'$ hence the above operation is well defined and moreover it is closed as the class A+B is also an equivalence class as sum of two Cauchy sequences is Cauchy and addition of rational numbers is closed.</p>
+                    
+                    <p><strong>Step 1:</strong> The set $S$ of equivalence classes is a group under operation of addition. We already observed that it is closed, and associative is followed by associativity of rational numbers.</p>
+                    
+                    <p><strong>Existence of Identity:</strong> Let $0$ be an equivalence containing the constant sequence of 0's, A+$0$ is an equivalence class containing the sequence $\{a_n+0\}$ which is the precisely the equivalence containing $\{a_n\}$ and by nature of equivalence classes that they are equal or disjoint, the class containing $\{a_n+0\}$ must be same as class containing $\{a_n\}$, which is A.</p>
+                    
+                    <p><strong>Existence of additive inverse:</strong> We denote the equivalence containing $\{-a_n\}$ by $A'$, if A+B=$0$ i.e A+B is an equivalence containing the constant sequence of 0's, therefore, any sequence in A+B must be equivalent to the sequence converging to zero and since the sequence $\{a_n+(-a_n)\}$ also converges to 0 where $\{-a_n\}$ comes from $A'$ therefore the equivalence class B is same as $A'$.</p>
+                    
+                    <p><strong>Commutativity:</strong> Observe the fact that equivalence class containing $\{a_n+b_n\}$ that is $A+B$ as the set of rational numbers is a field the sequence is same as $\{b_n+a_n\}$ which is $B+A$. Hence, the set $S$ is a group under addition as stated.</p>
+                    
+                    <p><strong>Step 2:</strong> We define 'product' between $A$ and $B$ in $\mathbb{R}$ denoted by $A \cdot B$ to be the equivalence class of Cauchy sequence of rational numbers containing $\{a_n b_n\}$. The operation is well defined as sum of two Cauchy sequences is Cauchy and every Cauchy sequence is bounded. The operation is closed since the product of two Cauchy sequences is Cauchy.</p>
+                    
+                    <p><strong>Associativity:</strong> It follows from the associativity of rational numbers.</p>
+                    
+                    <p><strong>Existence of identity:</strong> Let 1 be the equivalence class containing the constant sequence $a_n = 1$ for all $n \in \mathbb{N}$. We assert that this class is itself the multiplicative identity as every sequence in $A \cdot 1$ is same as the sequence in $A$ and hence the property of equivalence classes it implies that $A \cdot 1 = A$.</p>
+                    
+                    <p><strong>Existence of inverse:</strong> Let $A \in \mathbb{R}$ and $A \neq 0$. Observe that $\{a_n\}$ in $A$ cannot converge to 0 if it converges to 0 than $a_n \sim 0$ and hence the equivalence class is same as 0 i.e $A = 0$. Since the sequence $a_n$ does not converge to $0$ there exist $p \in \mathbb{N}$ such that $|a_n| > \frac{1}{p}$ for all values of $n$ except but finitely many. Now, $a_n$ is Cauchy therefore is bounded it must follow that $a_n \geq \frac{1}{p}$ or $a_n \leq -\frac{1}{p}$ that is either $A > 0$ or $A < 0$. Assume $a_n \geq \frac{1}{p}$ for all $n \geq n_0$. Hence the sequence $\{1,1,1,1,\ldots,\frac{1}{a_{n_0+1}},\ldots\}$ is cauchy and hence the $A^{-1}$ is equivalence class containing this sequence.</p>
+                    
+                    <p><strong>Distributivity and Commutativity:</strong> Both follow from the fact that $\mathbb{Q}$ is field.</p>
+                    
+                    <p>We shall now define the set of all equivalence classes of Cauchy sequence of rational numbers to be the set $\mathbb{R}$.</p>
+                    
+                    <p><strong>Step 4:</strong> The order relation $\geq$ can be extended from $\mathbb{Q}$ to $\mathbb{R}$. We say that $(a_n) \geq (b_n)$ if $a_n \geq b_n$ for all but finitely many values of $n$. With this definition we say $A \geq B$, $A, B \in \mathbb{R}$ if there exist a sequence $(a_n) \in A$ and $(b_n) \in B$ such that $(a_n) \geq (b_n)$. It follows that $A \geq B$ iff $(a_n) \geq (b_n)$.</p>
+                    
+                    <p><strong>Step 5:</strong> Let $A, B \in \mathbb{R}$ where $A$ and $B$ is an equivalence class of sequence $a_n, b_n$ respectively. We define $\widetilde{d}(A,B)$ on $\mathbb{R}$ as the equivalence containing the sequence $\{|a_n-b_n|\}$. We prove that $\widetilde{d}$ is well defined. Suppose $\{a_n\}' \in A$ and $\{b_n\}' \in B$ than $a_n \sim a_n'$ and $b_n \sim b_n'$. Then we observe $|a_n - b_n| \leq |a_n - a_n'|+|a_n'-b_n'|+|b_n'-b_n|$ from we get</p>
+                    
+                    <p class="text-center">$$|a_n - b_n| - |a_n'-b_n'| < |a_n - a_n'|+|b_n'-b_n|$$</p>
+                    
+                    <p>Similarly interchanging $a_n$ and $b_n$ with $a_n'$ and $b_n'$ we get</p>
+                    
+                    <p class="text-center">$$|a_n'-b_n'| - |a_n - b_n| < |a_n - a_n'|+|b_n'-b_n|$$</p>
+                    
+                    <p>As $(a_n - a_n') \rightarrow 0$ and $(b_n - b_n') \rightarrow 0$ hence we conclude that $|a_n'-b_n'| \sim |a_n - b_n|$. Hence $\widetilde{d}$ is well defined, and the properties such as positivity, symmetry, triangle inequality follow by nature of definition and properties of modulus. This makes $(\mathbb{R}, \widetilde{d})$ a metric space.</p>
+
+                    <p><strong>Theorem 1:</strong> $\mathbb{R}$ equipped with $\widetilde{d}$ is a complete metric space.</p>
+                    
+                    <p><strong>Proof:</strong> Suppose $(A_n)$ is a Cauchy sequence in $\mathbb{R}$. This means for any $\widetilde{r} \in \mathbb{Q}$, $\widetilde{r} > \widetilde{0}$ there exist $N \in \mathbb{N}$ such that $\widetilde{d}(A_n, A_m) < \widetilde{r}$, $n,m \geq N$. The way we defined $\widetilde{d}$, this means that for any sequence $a_{n_k} \in A_n$, $a_{m_k} \in A_m$, there exists $K > 0$ such that $|a_{n_k}-a_{m_k}| < r$ for $n,m \geq N, k \geq K$. Choosing $M$ to be the maximum of $K, N$ we have $|a_{n_k}-a_{m_k}| < r$ for all $n,m \geq M$.</p>
+                    
+                    <p>A natural limit of $(A_n)$ is given by the diagonal sequence $(A_{kk})_{k=1}^{\infty}$. It is clear that the sequence $(a_{kk})$ is Cauchy. Let $A$ be the equivalence class containing $(a_{kk})$. If we show that $A_n \rightarrow A$, than we are done. Given $r > 0$, $r \in \mathbb{Q}$ as before take $(a_{nk}) \in A_n$ and $N \in \mathbb{N}$ so that</p>
+                    
+                    <p class="text-center">$$|a_{nk}-a_{mk}| < r, \text{ } n,m,k \geq N$$</p>
+                    
+                    <p>In particular $|a_{nk}-a_{kk}| < r$, $n,k \geq N$. This means $\widetilde{d}(A_n, A) < \widetilde{r}$ whenever $n \geq N$. This completes the proof. $\square$</p>
+
+                    <p><strong>Theorem 2:</strong> $\mathbb{R}$ is a field which contains $\widetilde{\mathbb{Q}}$ as a subfield.</p>
+                    
+                    <p><strong>Proof:</strong> $\widetilde{\mathbb{Q}}$ is the image of $\mathbb{Q}$ in $\mathbb{R}$ under the map $r \rightarrow \widetilde{r} = (r)$. Given $A \in \mathbb{R}$ and $(a_n) \in A$, choose $N$ large enough so that $|a_n - a_m| < \frac{1}{p}$ for all $m,n \geq N$ where $p \in \mathbb{N}$ is given. Now consider $\widetilde{d}(A, \widetilde{a_N}) < \frac{1}{p}$. As $p$ is arbitrary we have proved. $\square$</p>
+
+                    <h2>3. Dedekind Construction</h2>
+                    
+                    <p>The method developed by Dedekind makes use of cuts, which is a set $\alpha \subset \mathbb{Q}$ satisfying the following properties:</p>
+                    
+                    <p>(1) $\alpha$ is not empty and $\alpha \neq \mathbb{Q}$.</p>
+                    <p>(2) If $p \in \alpha$, $q \in \mathbb{Q}$ and $q < p$ then $q \in \alpha$.</p>
+                    <p>(3) If $p \in \alpha$, then $p < r$ for some $r \in \alpha$.</p>
+                    
+                    <p>Now, using the set of all these cuts denoted by $\mathbb{R}$, we claim the set $\mathbb{R}$ is a complete ordered field.</p>
+                    
+                    <p><strong>Step 1:</strong> Define $\alpha < \beta$ to mean $\alpha$ is a proper subset of $\beta$. And with this relation for any two elements one of the following must hold:</p>
+                    
+                    <p class="text-center">$$\alpha < \beta, \alpha = \beta, \alpha > \beta$$</p>
+                    
+                    <p>If we assume that the first two fail, that is $\alpha \not\subset \beta$. Then there exist $p \in \alpha$ such that $p \notin \beta$. If $q \in \beta$, it follows that $q < p$, which implies that $q \in \alpha$. Thus, $q \in \alpha$, which means $\alpha > \beta$. Which precisely means $\beta$ is a subset of $\alpha$.</p>
+                    
+                    <p><strong>Step 2:</strong> The ordered set $\mathbb{R}$ has the least upper bound property.</p>
+                    
+                    <p><strong>Proof:</strong> Let $A$ be a non-empty subset of $\mathbb{R}$, and assume that $\beta$ is an upper bound of $A$. We Define $\gamma$ to be the union of all $\alpha \in A$, that is $p \in \gamma$ if and only if $p \in \alpha$ for some $\alpha \in A$. We prove that $\gamma \in \mathbb{R}$ and that $\gamma = \sup A$.</p>
+                    
+                    <p>Since $A$ is non-empty, there exists an $\alpha_0 \in A$. This $\alpha_0$ is not empty. Since $\alpha_0 \subset \gamma$, $\gamma$ is not empty. Next, $\gamma \subset \beta$, and therefore $\gamma \neq \mathbb{Q}$. Then $\gamma$ satisfies first properties to be cut. Choose $p \in \gamma$. Then $p \in \alpha_1$ for some $\alpha_1 \in A$. If $q < p$, then $q \in \alpha_1$, hence $q \in \gamma$; this proves our second property. If $r \in \alpha_1$ is so chosen that $r > p$, we see that $r \in \gamma$ (since $\alpha_1 \subset \gamma$), and therefore $\gamma$ satisfies third property. Thus $\gamma \in \mathbb{R}$. It is clear that $\alpha \leq \gamma$ for every $\alpha \in A$. Suppose $\delta < \gamma$. Then there is an $s \in \gamma$ and that $s \notin \delta$. Since $s \in \gamma$, $s \in \alpha$ for some $\alpha \in A$. Hence $\delta < \alpha$, and $\delta$ is not an upper bound of $A$. This gives $\gamma = \sup A$. $\square$</p>
+                    
+                    <p><strong>Step 3:</strong> The set $\mathbb{R}$ is a field.</p>
+                    
+                    <p>(1) If $\alpha$ and $\beta$ are in $\mathbb{R}$, we define $\alpha + \beta$ to be the set of all sum r + s, where $r \in \alpha$ and $s \in \beta$. And, we define $0^*$ to be the set of all negative rational numbers.</p>
+                    
+                    <p><strong>(A1)</strong> We need to show that $\alpha + \beta$ is a cut. Observe that $\alpha + \beta$ is non-empty subset of $\mathbb{Q}$. Take $r' \notin \alpha$, $s' \notin \beta$. Then $r'+s' > r+s$ for all choices of $r \in \alpha$, $s \in \beta$. Thus $r'+s' \notin \alpha + \beta$.</p>
+                    
+                    <p>Now choose $p \in \alpha + \beta$. Then $p = r+s$, with $r \in \alpha$, $s \in \beta$. If $q < p$, then $q-s < r$, so $q-s \in \alpha$, and $q = (q-s)+s \in \alpha + \beta$. Thus (2) holds. Choose $t \in \alpha$ and $t > r$. Then $p < t+s$ and $t+s \in \alpha + \beta$. Thus, (3) holds.</p>
+                    
+                    <p><strong>(A2)</strong> Commutativity and associativity follow from $\mathbb{Q}$.</p>
+                    
+                    <p><strong>(A3)</strong> If $r \in \alpha$ and $s \in 0^*$, then $r+s < r$, hence $r+s \in \alpha$. Thus $\alpha + 0^* \subset \alpha$. To obtain the opposite inclusion, choose $p \in \alpha$, and pick $r \in \alpha$, $r > p$. Then $p - r \in 0^*$ and $p = r+(p-r) \in \alpha + 0^*$. Thus $\alpha \subset \alpha + 0^*$. We conclude that $\alpha + 0^* = \alpha$.</p>
+                    
+                    <p><strong>(A4)</strong> Fix $\alpha \in \mathbb{R}$. Let $\beta$ be the set of all $p$ with the following property: There exists $r > 0$ such that $-p-r \notin \alpha$. We show that $\beta \in \mathbb{R}$ and that $\alpha + \beta = 0^*$.</p>
+                    
+                    <p>If $s \notin \alpha$ and $p = -s-1$, then $-p-1 \notin \alpha$, hence $p \in \beta$. So $\beta$ is not empty. If $q \in \alpha$, then $-q \notin \beta$. So $\beta \neq \mathbb{Q}$. Hence $\beta$ satisfies (1).</p>
+                    
+                    <p>Choose $p \in \beta$, and pick $r > 0$, so that $-p-r \notin \alpha$. If $q < p$, then $-q-r > -p-r$, hence $-q-r \notin \alpha$. Thus $q \in \beta$, and (2) holds. We put $t = p + \frac{r}{2}$. Then $t > p$, and $-t-(r/2) = -p-r \notin \alpha$, so that $t \in \beta$. Hence $\beta$ satisfies (3). We have proved $\beta$ is in $\mathbb{R}$.</p>
+                    
+                    <p>If $r \in \alpha$ and $s \in \beta$, then $-s \notin \alpha$, hence $r < -s$, $r+s < 0$. Thus $\alpha + \beta \subset 0^*$. To prove the reverse inclusion, pick $v \in 0^*$, put $w = -v/2$. Then $w > 0$, and there is an integer $n$ such that $nw \in \alpha$ but $(n+1)w \notin \alpha$ (archimedean property of $\mathbb{Q}$). Put $p = -(n+2)w$. Then $p \in \beta$, since $-p-w \notin \alpha$, and</p>
+                    
+                    <p class="text-center">$$v = nw+p \in \alpha + \beta$$</p>
+                    
+                    <p>Thus $0^* \subset \alpha + \beta$. We conclude that $\alpha + \beta = 0^*$. The procedure is same as we proved in the addition case and this definition also preserves the fact $\alpha > 0^*$ and $\beta > 0^*$ then $\alpha \beta > 0^*$.</p>
+                    
+                    <p>(2) Multiplication is not defined in the usual way because multiplication of two negative rationals is positive, thus the trouble arises if both consists of negative rational numbers. Then there will be no negative rational numbers in the product though they are less than other numbers in the set, which definitely can't be a cut. Hence, we define product $\alpha \cdot \beta$ as the set of all $p \leq rs$, where $r \in \alpha$ and $s \in \beta$. We define $1^*$ to be the set of all $q < 1$. Then axioms of multiplication holds with $\mathbb{R}^+$.</p>
+                    
+                    <p>We define the multiplication as follows:</p>
+                    
+                    <p class="text-center">$$\alpha \beta = \begin{cases} (-\alpha)(-\beta) & \text{if } \alpha < 0^*, \beta < 0^* \\ -[(-\alpha)\beta] & \text{if } \alpha < 0^*, \beta > 0^* \\ -[\alpha(-\beta)] & \text{if } \alpha > 0^*, \beta < 0^* \end{cases}$$</p>
+                    
+                    <p>The proof of distributive law</p>
+                    
+                    <p class="text-center">$$\alpha(\beta + \gamma) = \alpha\beta + \alpha\gamma$$</p>
+                    
+                    <p>is as follows. For instance, suppose $\alpha > 0^*$, $\beta < 0^*$, $\beta + \gamma > 0^*$. Then $\gamma = (\beta + \gamma) + (-\beta)$. And we know that distributive law holds in $\mathbb{R}^+$</p>
+                    
+                    <p class="text-center">$$\alpha\gamma = \alpha(\beta + \gamma) + \alpha(-\beta)$$</p>
+                    
+                    <p>But $\alpha(-\beta) = -(\alpha\beta)$. Thus</p>
+                    
+                    <p class="text-center">$$\alpha\beta + \alpha\gamma = \alpha(\beta + \gamma)$$</p>
+                    
+                    <p>Similarly, we can prove other cases.</p>
+                    
+                    <p>We have an order field with the least upper bound property. Moreover any two ordered field with least upper bound property are isomorphic. Therefore our constructed field is same as $\mathbb{R}$, that is the set of all real numbers.</p>
+
+                    <h2>4. Fundamental Theorem of Algebra</h2>
+                    
+                    <p>We consider polynomials p(z) with coefficients from $\mathbb{C}$:</p>
+                    
+                    <p class="text-center">$$p(z) = a_0 + a_1z + \ldots + a_nz^n, \quad a_j \in \mathbb{C}$$</p>
+                    
+                    <p>We say that p(z) is of degree n if $a_n \neq 0$. Our aim is to prove the following result which is known as the fundamental theorem of algebra. We denote a closure of ball of radius $R$ centred at $0$ by $\overline{B_R(0)}$.</p>
+                    
+                    <p><strong>Theorem 3:</strong> For every polynomial $p(z)$ as above, the equation p(z) = 0 has at least one solution in $\mathbb{C}$.</p>
+                    
+                    <p>We make use of the following lemmas to prove the above theorem.</p>
+
+                    <p><strong>Lemma 4:</strong> There exists $R > 0$ such that $|p(z)| \geq |a_0|$ for all z with $|z| > R$.</p>
+                    
+                    <p><strong>Proof:</strong> Let $b_j = a_j a_n^{-1}, j = 0,1,2,\ldots,n$;</p>
+                    
+                    <p class="text-center">$|p(z)| = |a_n||z^n+b_{n-1}z^{n-1}+\ldots+b_0|$</p>
+                    
+                    <p>Using triangle inequality,</p>
+                    
+                    <p class="text-center">$|p(z)| \geq |a_n|\big(|z|^n-|b_{n-1}z^{n-1}+\ldots+b_0|\big)$</p>
+                    
+                    <p>Again by triangle inequality,</p>
+                    
+                    <p class="text-center">$|b_{n-1}z^{n-1}+\ldots+b_0| \leq \sum_{j=0}^{n-1}|b_j||z|^j \leq \beta\frac{|z|^n-1}{|z|-1}$</p>
+                    
+                    <p>where $\beta = \max\{|b_j|, j=0\ldots n-1\}$. Thus</p>
+                    
+                    <p class="text-center">$|p(z)| \geq |a_n|\Bigg(|z|^n-\frac{\beta|z|^n}{|z|-1}+\frac{\beta}{|z|-1}\Bigg) \geq |a_n|\Bigg(1-\frac{\beta}{|z|-1}\Bigg)|z|^n$</p>
+                    
+                    <p>provided $|z| > 1$. Thus we have</p>
+                    
+                    <p class="text-center">$|p(z)| \geq \frac{1}{2}|a_n||z|^n$</p>
+                    
+                    <p>whenever $\bigg(1-\frac{\beta}{|z|-1}\bigg) > \frac{1}{2}$ or $|z| > 2\beta+1$. We can achieve $|p(z)| \geq |a_0|$ by choosing z such that $|z| > 2\beta+1$ and $|z|^n > \frac{2|a_0|}{|a_n|}$. That is we can choose $R$ satisfying $R > 2\beta+1$ and $R^n > \frac{2|a_0|}{|a_n|}$ follows from the fact that the set $\{|z|^n\}$ is unbounded i.e., given any $M \in \mathbb{N}$ we can choose $z_1$ with $|z_1| > 1$ such that $|z_1|^n > M$. This proves our lemma. $\square$</p>
+
+                    <p><strong>Lemma 5:</strong> In $\overline{B_R(0)}$, $|p(z)|$ attains its minimum, that is there exists $a \in \overline{B_R(0)}$ such that $|p(a)| \leq |p(z)|$ for all z $\in \overline{B_R(0)}$.</p>
+                    
+                    <p>The above lemma requires the following results.</p>
+                    
+                    <p><strong>(0):</strong> Every non empty set $A \subset \mathbb{R}$ which is bounded above (below) has a supremum (infimum).</p>
+                    
+                    <p><strong>Proof:</strong> Assume that A is bounded above and let $a_1$ be a non upper bound and $b_1$ is an upper bound. Consider the interval $I_1 = [a_1,b_1]$ and divide it into two equal parts; that is $I_1 = [a_1,\frac{1}{2}(a_1+b_1)] \cup [\frac{1}{2}(a_1+b_1),b_1]$. Of these choose the interval for which the left end point is not an upper bound but the right end point is an upper bound and call it $I_2 = [a_2,b_2]$. Repeat the procedure choosing $I_j = [a_j,b_j] \subset I_{j-1}$ such that $a_j$ is not an upper bound and $b_j$ is an upper bound. Observe that the sequence $(a_j)$ is increasing and the sequence $(b_j)$ is decreasing. As both sequence are bounded they converge. Let $a_j \rightarrow a$ and $b_j \rightarrow b$. But $(b_j-a_j) \rightarrow 0$ which implies a=b. Since $x \leq b_j$ for any j and $x \in A$, we get $x \leq a$ for all $x \in A$. If $a' < a$ then there exist j large so that $a' < a_j < a$ but than $a_j$ is not an upper bound, $a'$ also is not an upper bound. Hence $a = \sup A$. $\square$</p>
+                    
+                    <p><strong>(Corollary):</strong> If A is bounded above then there exists a sequence $(a_j) \in A$, such that $(a_j) \rightarrow \sup A$.</p>
+
+                    <p><strong>Lemma 6:</strong> Given a sequence $(z_n) \in \overline{B_R(0)}$ there is a subsequence $(z_{n_k})$ which converges to some $a \in \overline{B_R(0)}$.</p>
+                    
+                    <p><strong>Proof:</strong> Let $z_n = x_n+iy_n$, so that $|x_n| \leq R$ and $|y_n| \leq R$. As $\{x_n\}$ is bounded there exist a subsequence $(x_{n_k})$ which converges to some $x \in \mathbb{R}$. Similarly the sequence $\{y_n\}$ has a subsequence converging to $y$. Put together there exits a subsequence of $z_n$ converging to $x+iy$. As $|z_n| \leq R$ for all n, we get $|a| \leq R$ as well. $\square$</p>
+
+                    <p><strong>Lemma 7:</strong> Let $p(z)$ be a polynomial. If $(z_n)$ converges to $a$ then $(p(z_n))$ converges to $p(a)$.</p>
+                    
+                    <p><strong>Proof:</strong></p>
+                    
+                    <p class="text-center">$p(z) - p(a) = \sum_{j=0}^{n}a_j(z^j-a^j)$</p>
+                    
+                    <p>and $z^j - a^j = (z-a)(z^{j-1} + z^{j-2}a + \ldots + a^{j-1})$. Hence,</p>
+                    
+                    <p class="text-center">$p(z) - p(a) = (z-a)q(z)$</p>
+                    
+                    <p>where q is a polynomial of degree n-1 and also q is bounded on the set $|z-a| \leq 1$ and so</p>
+                    
+                    <p class="text-center">$|p(z) - p(a)| \leq C|z-a|$</p>
+                    
+                    <p>From this our lemma is followed. $\square$</p>
+                    
+                    <p>Now, we will prove our lemma 5.</p>
+                    
+                    <p><strong>Proof:</strong> Let $R > 1$ and consider</p>
+                    
+                    <p class="text-center">$A = \{|p(z)| : z \in \overline{B_R(0)}\}$</p>
+                    
+                    <p>It is clear that A is bounded below and also note that $|p(z)| \leq CR^n$. Therefore, A has a infimum, that is there exist $m \geq 0$ such that $|p(z)| \geq m$. Now, using the corollary there exist a sequence $a_n$ converging to m. But then there exist $z_n \in \overline{B_R(0)}$ with $a_n = |p(z_n)|$ by the definition of A. Hence $z_n$ has a subsequence converging to a in $\overline{B_R(0)}$, say $z_{n_k}$. Therefore, $|p(z_{n_k})| \rightarrow |p(a)|$ and hence $|p(a)| = m$, by uniqueness of limits. $\square$</p>
+                    
+                    <p>All the above statements help us to conclude that any polynomial $p(z)$ attains its minimum. Hence, the following lemma finally gives us the required result.</p>
+
+                    <p><strong>Lemma 8:</strong> Let p(z) be a polynomial and $a \in \mathbb{C}$ is such that $|p(z)| \geq |p(a)|$ for all $z \in \mathbb{C}$. Then $p(a) = 0$.</p>
+                    
+                    <p><strong>Proof:</strong> We write $z = z-a+a$, we get</p>
+                    
+                    <p class="text-center">$p(z) = p(z-a+a) = A_0 + A_1(z-a) + \ldots + A_n(z-a)^n$</p>
+                    
+                    <p>where $A_0 = p(a)$ and $A_n \neq 0$. If $A_k$ is the first non zero coefficient (after $A_0$) we have</p>
+                    
+                    <p class="text-center">$p(z) = A_0 + A_k(z-a)^k + A_{k+1}(z-a)^{k+1} + \ldots + A_n(z-a)^n$</p>
+                    
+                    <p>we rewrite this as</p>
+                    
+                    <p class="text-center">$p(z) = p(a) + A_k(z-a)^k + A_k(z-a)^{k+1}Q(z)$</p>
+                    
+                    <p>where</p>
+                    
+                    <p class="text-center">$Q(z) = \frac{A_{k+1}}{A_k} + \frac{A_{k+2}}{A_k}(z-a) + \ldots + \frac{A_n}{A_k}(z-a)^{n-k-1}$</p>
+                    
+                    <p>where z is close enough to a, $A_k(z-a)^{k+1}Q(z)$ is extremely small. If we can choose z in such a way that $p(a) + A_k(z-a)^k$ is equal to $(1-c)p(a)$; where $0 < c < 1$, then for such a z, $|p(z)|$ will be smaller than $|p(a)|$ which will force $|p(a)| = 0$ (observe that $|p(a)| \leq |p(z)|$ for all $z \in \mathbb{C}$).</p>
+                    
+                    <p>We can do this by considering</p>
+                    
+                    <p class="text-center">$p(a) + A_k(z-a)^k = (1-c)p(a), \quad 0 < c < 1$</p>
+                    
+                    <p>Observe that $|z-a| < 1$,</p>
+                    
+                    <p class="text-center">$Q(z) \leq \frac{|A_{k+1}|}{|A_k|} + \frac{|A_{k+2}|}{|A_k|} + \ldots + \frac{|A_n|}{|A_k|} = C$</p>
+                    
+                    <p>Let $\delta$ be chosen such that $0 < \delta < 1$ and $\delta C < 1$, then for $|z-a| < \delta$ we have $|z-a||Q(z)| < 1$. Let us choose $0 < c < 1$ such that $c\frac{|p(a)|}{|A_k|} < \delta^k$. Then any solution of $A_k(z-a)^k = -cp(a)$ will satisfy $|z-a| < \delta$. If z is such that</p>
+                    
+                    <p class="text-center">$p(z) = p(a) - cp(a) - cp(a)(z-a)Q(z)$</p>
+                    
+                    <p>which gives</p>
+                    
+                    <p class="text-center">$|p(z)| \leq (1-c)|p(a)| + c|p(a)||z-a||Q(z)| < |p(a)|$</p>
+                    
+                    <p>which leads us to contradiction. Hence, our required result is proved. $\square$</p>
+
+                    <h2>5. The Space of Continuous Functions</h2>
+                    
+                    <p>Let us denote the set of polynomials of the form $p(x) = a_0 + a_1x + a_2x^2 + \ldots + a_nx^n$ defined over the closed and bounded interval $[a,b]$ by $\mathcal{P}[a,b]$. Now, we define a metric $d$ such that $d(f,g) = \sup_{x \in [a,b]}|f(x)-g(x)|$. Observe that if $d(f,g) = 0$ implies the supremum is zero which naturally implies that $f(x) = g(x)$ for all x in $[a,b]$ due to the positivity of modulus. Hence, symmetry and triangle inequality follow from the symmetry of modulus and triangle inequality respectively. Therefore, $(\mathcal{P}[a,b],d)$ is metric space.</p>
+                    
+                    <p>We claim that the metric space $(\mathcal{P}[a,b],d)$ is not complete. For that, we look at the following sequence in $\mathcal{P}[a,b]$,</p>
+                    
+                    <p class="text-center">$f_n = \sum_{k=0}^{n}\frac{x^k}{k!}$</p>
+                    
+                    <p>Clearly, each $f_n$ is a polynomial and it is easy to see that this sequence is Cauchy on [0,1] (without loss of generality). Indeed, if $m > n$</p>
+                    
+                    <p class="text-center">$p_m(x) - p_n(x) = \sum_{k=n+1}^{m}\frac{x^k}{k!}$</p>
+                    
+                    <p>so that $d(p_m,p_n) \leq \sum_{k=n+1}^{m}\frac{1}{k!}$. Since the numerical sequence converges to $e$ the $d(p_m,p_n) \rightarrow 0$ as $n,m \rightarrow \infty$. We know that the sequence of polynomial converges to $e^x$ on interval $[a,b]$. And $e^x$ is not a polynomial which clearly shows that we have a Cauchy sequence which doesn't converge to a polynomial, which proves our claim that metric space is not complete.</p>
+                    
+                    <p>Given any incomplete metric space it can be embedded into a complete metric space. The construction is similar to that of Weierstrass construction of real numbers from rational numbers. Let $M'$ denote the set of equivalence classes of Cauchy sequences in M (which is incomplete) under the relation "$(x_n) \sim (y_n)$ iff $d(x_n,y_n) \rightarrow 0$." Then $(M',d)$ turns out to be a complete metric space (completion of M). This procedure we follow in the completion of the polynomial space.</p>
+                    
+                    <p>Let $(p_n) \in \mathcal{P}[a,b]$ be Cauchy sequence. Then for any $x \in [a,b]$ the sequence $p_n$ converges in $\mathbb{C}$. Let us define a function $f:[a,b] \rightarrow \mathbb{C}$ such that $f(x) = \lim_{n \rightarrow \infty} p_n(x)$. We claim the following:</p>
+                    
+                    <p>(i) $f$ is bounded.</p>
+                    <p>(ii) $\lim_{n \rightarrow \infty}||p_n - f|| = 0$ (where $||f|| = \sup_{x \in [a,b]}|f(x)|$). It converges uniformly to $f$ on $[a,b]$.</p>
+                    
+                    <p>As $(p_n)$ is a Cauchy sequence, there exists $N$ such that $||p_n-p_m|| \leq 1$ for all $n,m \geq N$. Given $x \in [a,b]$, $p_n(x) \rightarrow f(x)$, there exist $N(x) > 0$ such that $|f(x)-p_n(x)| \leq 1$ for all $n \geq N(x)$. Taking $N_1 = \max\{N, N(x)\}$, we have</p>
+                    
+                    <p class="text-center">$|f(x)| \leq |f(x)-p_{N_1}(x)| + |p_{N_1}(x)| \leq 1 + ||p_{N_1}||$</p>
+                    
+                    <p>As $(p_n)$ is Cauchy $||p_n|| \leq C$ for a $C$ independent of n. Hence, $||f|| \leq 1+C$.</p>
+                    
+                    <p>Also, given $\epsilon > 0$ choose $N > 0$ such that $||p_n-p_m|| < \frac{\epsilon}{2}$, for all $n,m \geq N$ and $N(x)$ for $x \in [a,b]$ such that $|f(x)-p_n(x)| < \frac{\epsilon}{2}$, $n \geq N(x)$. Then for $N_1 = \max\{N, N(x)\}$,</p>
+                    
+                    <p class="text-center">$|f(x)-p_n(x)| \leq |f(x)-p_{N_1}(x)| + |p_{N_1}(x)-p_n(x)| < \epsilon$</p>
+                    
+                    <p>provided $n > N$. As this $N$ is independent of x</p>
+                    
+                    <p class="text-center">$\sup_{x \in [a,b]}|f(x)-p_n(x)| < \epsilon$</p>
+                    
+                    <p>for all $n \geq N$.</p>
+                    
+                    <p>The above considerations lead us to define the space $C[a,b]$ as the set of all $f:[a,b] \rightarrow \mathbb{C}$ for which there is a sequence of polynomials which converge uniformly to $f$ on the interval $[a,b]$.</p>
+
+                    <p><strong>Theorem 9:</strong> $C[a,b]$ is a complete metric space (with respect to metric $d$).</p>
+                    
+                    <p><strong>Proof:</strong> Let $(f_n)$ be a Cauchy sequence. Then certainly, we can define a function $f(x)$ by $f(x) = \lim_{n \rightarrow \infty} f_n(x)$. We need to show that $f \in C[a,b]$. Given $x \in [a,b]$, choose $N(x)$ so that $|f(x)-f_{N(x)}(x)| \leq 1$. Then,</p>
+                    
+                    <p class="text-center">$|f(x)| \leq |f_{N(x)}(x)-f(x)| + |f_{N(x)}(x)| \leq 1 + \sup_n||f_n||$</p>
+                    
+                    <p>As $f_n$ is Cauchy, $\sup||f_n|| < \infty$ and hence for any $x \in [a,b]$, $|f(x)| \leq 1 + \sup_n||f_n||$ or $f$ is bounded.</p>
+                    
+                    <p>Our next claim is that $||f-f_n|| \rightarrow 0$ as $n \rightarrow \infty$. Given $\epsilon > 0$, choose $N$ so that $||f_n-f_m|| < \frac{\epsilon}{2}$ for all $n,m \geq N$. Let $x \in [a,b]$ and choose $N(x)$ so that</p>
+                    
+                    <p class="text-center">$|f(x)-f_n(x)| \leq |f(x)-f_{N_1}(x)| + |f_{N_1}(x)-f_n(x)| < \epsilon$</p>
+                    
+                    <p>if $N_1(x) > \max\{N,N(x)\}$ and $n > N$. Thus, $||f-f_n|| < \epsilon$ for all $n > N$ which proves the claim.</p>
+                    
+                    <p>Finally, for any $k \in \mathbb{N}$ choose $f_{n_k}$ so that $||f-f_{n_k}|| < 2^{-k-1}$. As $f_{n_k} \in C[a,b]$, choose a polynomial $p_k$ such that $||f_{n_k}-p_k|| < 2^{-k-1}$. Then $||f-p_k|| \leq ||f-f_{n_k}|| + ||f_{n_k}-p_k|| < 2^{-k}$ and hence, $p_k$ converges to $f$ in $C[a,b]$. This completes the proof. $\square$</p>
+                    
+                    <p>Given a function $f:[a,b] \rightarrow \mathbb{C}$ it is not easy to determine whether $f \in C[a,b]$ or not. The next section proceeds for characterisation of the space $C[a,b]$ using a property called uniform continuity of members of $C[a,b]$.</p>
+                    
+                    <p>If p is a polynomial and if $x,y \in [a,b]$ we know that</p>
+                    
+                    <p class="text-center">$p(x) - p(y) = (x-y)q(x,y)$</p>
+                    
+                    <p>where q is a polynomial in two variables. So, we have $|p(x)-p(y)| \leq C|x-y|$ where $C = \sup\{|q(x,y)| : x,y \in [a,b]\} < \infty$. This implies: Given $\epsilon > 0$, there exists $\delta > 0$ such that $|p(x)-p(y)| < \epsilon$ whenever $|x-y| < \delta$. This property holds for any member of $C[a,b]$. Indeed, if $f \in C[a,b]$</p>
+                    
+                    <p class="text-center">$|f(x)-f(y)| \leq |f(x)-p_n(x)| + |p_n(x)-p_n(y)| + |p_n(y)-f(y)|$</p>
+                    
+                    <p>we only need to choose n first; so that $||f-p_n|| < \frac{\epsilon}{3}$ so that $|p_n(x)-p_n(y)| < \frac{\epsilon}{3}$ for $|x-y| < \delta$. This leads us to the following definition.</p>
+                    
+                    <p>Let $f:[a,b] \rightarrow \mathbb{C}$ is said to be uniformly continuous on $[a,b]$, if the above property holds.</p>
+
+                    <p><strong>Theorem 10 (Weierstrass approximation theorem):</strong> $f \in C[a,b]$ if and only if f is uniformly continuous on $[a,b]$.</p>
+                    
+                    <p><strong>Proof:</strong> If $f$ is uniformly continuous on $[a,b]$ then $g(x) = f(a+(b-a)x)$ is uniformly continuous on [0,1] and hence its enough to prove that g can be approximated by polynomials uniformly on [0,1]. Therefore, we can assume [a,b]=[0,1] to start with.</p>
+                    
+                    <p>We explicitly construct a sequence of $p_n$ of polynomials, depending on f such that $||f-p_n|| \rightarrow 0$. Let</p>
+                    
+                    <p class="text-center">$p_n(x) = \sum_{k=0}^{n}\binom{n}{k}f\bigg(\frac{k}{n}\bigg)x^k(1-x)^{n-k}$</p>
+                    
+                    <p>These are called Bernstein polynomials. Observe that</p>
+                    
+                    <p class="text-center">$\sum_{k=0}^{n}\binom{n}{k}x^k(1-x)^{n-k} = 1$</p>
+                    
+                    <p>and hence,</p>
+                    
+                    <p class="text-center">$f(x) - p_n(x) = \sum_{k=0}^{n}\binom{n}{k}\bigg(f(x)-f\bigg(\frac{k}{n}\bigg)\bigg)x^k(1-x)^{n-k}$</p>
+                    
+                    <p>Our claim is there for any $\epsilon > 0$ there exist $N$ so that $|f(x)-p_n(x)| < \epsilon$ for all $x \in [0,1]$ and $n \geq N$.</p>
+                    
+                    <p>If $|f(x)-f(\frac{k}{n})| < \epsilon$ for all k then the sum will be bounded by $\epsilon\sum_{k=0}^{n}\binom{n}{k}x^k(1-x)^{n-k} = \epsilon$. But $|f(x)-f(\frac{k}{n})| < \epsilon$ need not be true for all $\frac{k}{n}$ but certainly for those k, for which $|x-\frac{k}{n}| < \delta$ where $\epsilon$ and $\delta$ are related via the definition of uniform continuity, i.e., given $\epsilon > 0$ choose $\delta$ such that $|f(x)-f(y)| < \epsilon$ whenever $|x-y| < \delta$. This suggest that we split the sum into two parts: Let $I = \{k : 0 \leq k \leq n, |x-\frac{k}{n}| < \delta\}$, $J = \{0,1,\ldots,n\} - I$.</p>
+                    
+                    <p class="text-center">$|f(x)-p_n(x)| \leq \bigg|\sum_{k \in I}\binom{n}{k}\bigg(f(x)-f\bigg(\frac{k}{n}\bigg)\bigg)x^k(1-x)^{n-k}\bigg| + \bigg|\sum_{k \in J}\binom{n}{k}\bigg(f(x)-f\bigg(\frac{k}{n}\bigg)\bigg)x^k(1-x)^{n-k}\bigg|$</p>
+                    
+                    <p>Observe that,</p>
+                    
+                    <p class="text-center">$\bigg|\sum_{k \in I}\binom{n}{k}\bigg(f(x)-f\bigg(\frac{k}{n}\bigg)\bigg)x^k(1-x)^{n-k}\bigg| \leq \epsilon\sum_{k=0}^{n}\binom{n}{k}x^k(1-x)^{n-k} = \epsilon$</p>
+                    
+                    <p>And the other part of inequality</p>
+                    
+                    <p class="text-center">$\begin{align}\bigg|\sum_{k \in J}\binom{n}{k}\bigg(f(x)-f\bigg(\frac{k}{n}\bigg)\bigg)x^k(1-x)^{n-k}\bigg| &\leq 2||f||\sum_{|x-\frac{k}{n}| > \delta}\binom{n}{k}x^k(1-x)^{n-k} \\ &\leq \frac{2}{\delta^2}||f||\sum_{k=0}^{n}\bigg(x-\frac{k}{n}\bigg)^2\binom{n}{k}x^k(1-x)^{n-k}\end{align}$</p>
+                    
+                    <p>We can show that</p>
+                    
+                    <p class="text-center">$\sum_{k=0}^{n}\bigg(\frac{k}{n}-x\bigg)^2\binom{n}{k}x^k(1-x)^{n-k} \leq \frac{x(1-x)}{n} \leq \frac{1}{4n}$</p>
+                    
+                    <p>Thus,</p>
+                    
+                    
+                    <p class="text-center">$|f(x)-p_n(x)| \leq \epsilon + \frac{2||f||}{\delta^2 4n} < 2\epsilon$</p>
+
+                    <p>The following lemma establishes the required inequality for proving the result. $\square$</p>
+
+                    <h3>Lemma 11</h3>
+
+                    <p class="text-center">$$\sum_{k=0}^{n}(k-nx)^{2}\binom{n}{k}x^k(1-x)^{n-k}=nx(1-x)$$</p>
+
+                    <p><strong>Proof:</strong> We prove by brute force calculation:</p>
+
+                    <p class="text-center">$$\sum_{k=0}^{n}(k-nx)^{2}\binom{n}{k}x^k(1-x)^{n-k}=\sum_{k=0}^{n}k^{2}\binom{n}{k}x^k(1-x)^{n-k}-2nx \sum_{k=0}^{n}\binom{n}{k} k x^k(1-x)^{n-k}+\sum_{k=0}^{n} n^2 x^2\binom{n}{k}x^k(1-x)^{n-k}$$</p>
+
+                    <p>The last sum is of course $n^2x^2$. The second one equals, as</p>
+
+                    <p class="text-center">$$k\binom{n}{k}=\frac{kn!}{k!(n-k)!}=\;n\binom{n-1}{k-1}$$</p>
+
+                    <p>and therefore</p>
+
+                    <p class="text-center">$$n \sum_{k=1}^{n}\binom{n-1}{k-1}x^k (1-x)^{n-1-(k-1))}=nx \sum_{k=0}^{n-1}\binom{n-1}{k}x^k (1-x)^{n-1-k} = nx.$$</p>
+
+                    <p>The first sum is obtained similarly by writing $k^2=k(k-1)+k$ and proceeding as above gives us $n(n-1)x^2+nx$.</p>
+
+                    <p>Hence,</p>
+
+                    <p class="text-center">$$\sum_{k=0}^{n}(k-nx)^{2}\binom{n}{k}x^k(1-x)^{n-k}=n(n-1)x^2+nx-2n^2x^2+n^2x^2=nx(1-x).$$</p>
+
+                    <p>Thus the lemma is proved. $\square$</p>
+
+                    <h2>6. The Space $C(\mathbb{R})$ and Further Remarks</h2>
+
+                    <p>We now introduce the space $C(\mathbb{R})$. We say that $f \in C(\mathbb{R})$ if $f \in C[a,b]$ for every compact interval $[a,b] \subset \mathbb{R}$. That is, $f$ can be approximated by a sequence of polynomials (in the uniform norm) over any $[a,b]$. The approximating sequence may depend on the interval.</p>
+
+                    <p>In view of the Weierstrass approximation theorem, $f\in C(\mathbb{R})$ iff $f$ is uniformly continuous on every closed and bounded interval. If $x\in\mathbb{R}$ and we fix an interval $[a,b]$ containing $x$, then given $\epsilon>0$ there exists $\delta>0$ such that $|f(x)-f(y)|<\epsilon$ whenever $|x-y|<\delta$. As $x$ varies, $\delta$ may vary; this motivates the pointwise definition of continuity:</p>
+
+                    <p><em>Given $\epsilon>0$, there exists $\delta>0$ (depending on $x$ and $\epsilon$) such that $|f(x)-f(y)|<\epsilon$ whenever $|y-x|<\delta$.</em></p>
+
+                    <p>Elements of $C(\mathbb{R})$ are called continuous functions. Similar notation is used for continuous functions on subsets of $\mathbb{R}$.</p>
+
+                    <h2>7. Theorem: Uniform Continuity on Compact Sets</h2>
+
+                    <p><strong>Theorem 12.</strong> If $K\subset \mathbb{R}$ is compact then every $f\in C(K)$ is uniformly continuous.</p>
+
+                    <p><strong>Proof (sketch).</strong> The full proof is given in standard analysis texts; we provide a standard argument by contradiction using sequences. If $f$ is not uniformly continuous on $K$, there exists $\epsilon>0$ such that for every $n\in\mathbb{N}$ there exist $s_n,t_n\in K$ with $|s_n-t_n|<1/n$ but $|f(s_n)-f(t_n)|\ge\epsilon$. By compactness, $(s_n)$ has a convergent subsequence $s_{n_k}\to s\in K$. Since $|t_{n_k}-s_{n_k}|\to 0$, also $t_{n_k}\to s$. Continuity of $f$ gives $f(s_{n_k})\to f(s)$ and $f(t_{n_k})\to f(s)$, contradicting $|f(s_{n_k})-f(t_{n_k})|\ge\epsilon$. Hence $f$ is uniformly continuous. $\square$</p>
+
+                    <h2>8. Stone–Weierstrass & Algebraic Remarks</h2>
+
+                    <p>We make the following observations: $C([a,b])$ is an algebra over $\mathbb{C}$ (or $\mathbb{R}$). The polynomial space $\mathcal{P}[a,b]$ is a subalgebra of $C([a,b])$ and $\mathcal{P}[a,b]$ is dense in $C([a,b])$ with respect to the uniform norm.</p>
+
+                    <p>Stone observed two key properties needed in a subalgebra $B\subset C(K)$ to approximate arbitrary continuous functions on a compact set $K$:</p>
+
+                    <ol>
+                        <li>$B$ separates points of $K$: for any $x\neq y$ in $K$ there exists $p\in B$ with $p(x)\neq p(y)$;</li>
+                        <li>$B$ contains a non-zero constant function (usually the constant $1$).</li>
+                    </ol>
+
+                    <p>With these properties the Stone–Weierstrass theorem asserts density of $B$ in $C(K)$.</p>
+
+                    <h3>Stone–Weierstrass Theorem (informal statement)</h3>
+
+                    <p><strong>Theorem 13 (Stone–Weierstrass).</strong> Let $K$ be a compact metric space and $B$ a subalgebra of $C(K)$ satisfying (i) and (ii) above. Then $B$ is dense in $C(K)$ (uniform norm).</p>
+
+                    <p><strong>Sketch of proof idea.</strong> The proof proceeds by showing absolute value $|f|$ of any $f\in B$ can be approximated by elements of $B$ (via Weierstrass on the interval $[-\|f\|,\|f\|]$), then using lattice operations (max/min expressed via $|\,\cdot\,|$) to build approximations and a standard compactness argument (finite subcovers) to patch local approximations into a global one. See any textbook for a full, step-by-step proof. $\square$</p>
+
+                    <h2>9. Miscellaneous Results & Examples</h2>
+
+                    <p>This section collects a few related facts and illustrative examples.</p>
+
+                    <h3>1. Closed and bounded subset need not be complete (in arbitrary metric spaces)</h3>
+
+                    <p>Example: Consider $(\mathbb{Q},d)$ as a subspace of $(\mathbb{R},d)$. Take $A = [-\sqrt{2},\sqrt{2}]\cap\mathbb{Q}$. Then $A$ is closed and bounded in $\mathbb{Q}$ (with the subspace topology), but there are Cauchy sequences in $A$ (rational approximations to $\sqrt{2}$) that do not converge in $A$, so $A$ is not complete.</p>
+
+                    <h3>2. A closed subspace of a complete metric space is complete</h3>
+
+                    <p>Proof (sketch): If $Y\subset X$ is closed and $(x_n)$ is a Cauchy sequence in $Y$, it converges to some $x\in X$ because $X$ is complete; closedness of $Y$ forces $x\in Y$, so $(x_n)$ converges in $Y$.</p>
+
+                    <h3>3. Homeomorphisms need not preserve completeness</h3>
+
+                    <p>Example: $\mathbb{R}$ is complete but $(0,1)$ is not. There exists a homeomorphism $f:\mathbb{R}\to(0,1)$ (e.g. a smooth sigmoid) showing completeness is not a topological invariant.</p>
+
+                    <h3>4. Uniform limits of polynomials on $\mathbb{R}$</h3>
+
+                    <p>If a sequence of polynomials converges uniformly on all of $\mathbb{R}$, then the limit must itself be a polynomial. (Sketch: uniform convergence forces differences to be bounded polynomials; growth at infinity forces these differences to be constant, so the limit is polynomial.)</p>
+
+                    <h2>10. Heine–Borel & Equivalent Forms of Completeness</h2>
+
+                    <p><strong>Theorem 15 (Heine–Borel).</strong> In $\mathbb{R}^n$, a set is compact iff it is closed and bounded.</p>
+
+                    <p>Many proofs of Heine–Borel use completeness of Euclidean space; completeness can be characterized in several equivalent ways for $\mathbb{R}^n$:</p>
+
+                    <ul>
+                        <li>Every Cauchy sequence converges.</li>
+                        <li>Every bounded infinite set has a limit point (Bolzano–Weierstrass).</li>
+                        <li>Every monotone bounded sequence converges.</li>
+                        <li>Every nested sequence of closed intervals has non-empty intersection.</li>
+                    </ul>
+
+                    <h2>References</h2>
+
+                    <ul>
+                        <li>R. Dedekind, <em>Essays on the Theory of Numbers</em>, "Continuity and Irrational Numbers", Dover.</li>
+                        <li>W. Rudin, <em>Principles of Mathematical Analysis</em>, McGraw–Hill (1976), Ch. on Real Numbers and Completeness.</li>
+                        <li>An Analysis of the First Proofs of Heine–Borel Theorem, MAA (article).</li>
+                        <li>Real number. Encyclopedia of Mathematics entry.</li>
+                    </ul>
+
+                    <p class="text-gray-500 mt-8"></p>
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-gray-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-gray-500">
+                <p>&copy; <span id="year"></span> Mathematics &amp; AI — All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
