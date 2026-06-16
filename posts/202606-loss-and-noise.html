@@ -1,0 +1,435 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uncertainty and Loss Functions in Machine Learning</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- MathJax for LaTeX Rendering -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+
+    <style>
+        .prose h3 {
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: white;
+        }
+
+        .prose strong {
+            color: #e5e7eb;
+        }
+
+        .prose code {
+            color: #f9fafb;
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-serif">
+    <div class="min-h-screen flex flex-col">
+
+        <header class="border-b border-gray-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html"
+                   class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-gray-400 mt-1">
+                    Exploring the frontier of automated discovery.
+                </p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+
+                <a href="../index.html"
+                   class="text-gray-400 font-bold inline-block mb-8 hover:text-white transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Uncertainty and Loss Functions in Machine Learning
+                </h1>
+
+                <div class="text-md text-gray-400 mt-4 border-b border-gray-700 pb-4">
+                    <span>June 16, 2026</span>
+                    &bull;
+                    <span>Sham</span>
+                </div>
+
+                <div class="prose prose-invert prose-lg mt-8 text-gray-300 leading-relaxed space-y-6">
+
+                    <p>
+                        If you've spent any time training machine learning models,
+                        you've probably noticed that the real world refuses to
+                        cooperate with our clean mathematical equations.
+                        Data is noisy, measurements are imperfect, and there is
+                        always a gap between what a model predicts and what
+                        actually happens.
+                    </p>
+
+                    <p>
+                        That gap is driven by <strong>uncertainty</strong>.
+                        Understanding the nature of uncertainty is one of the
+                        most important ideas in machine learning because our
+                        assumptions about uncertainty directly determine the loss
+                        functions we use every day.
+                    </p>
+
+                    <p>
+                        The next time you write
+                        <code>loss="mse"</code> or
+                        <code>loss="mae"</code>,
+                        remember that you're making a statistical statement about
+                        how you believe the world generates data.
+                    </p>
+
+                    <h3 class="text-2xl font-bold font-sans">
+                        Two Types of Uncertainty
+                    </h3>
+
+                    <p>
+                        Not all uncertainty is the same.
+                        Most prediction errors can be decomposed into two
+                        fundamentally different sources:
+                    </p>
+
+                    <ul class="list-disc pl-8 space-y-2">
+                        <li><strong>Epistemic Uncertainty</strong> (Model Uncertainty)</li>
+                        <li><strong>Aleatoric Uncertainty</strong> (Data Uncertainty)</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold font-sans">
+                        1. Epistemic Uncertainty
+                    </h3>
+
+                    <p>
+                        Epistemic uncertainty comes from a lack of knowledge.
+                        It represents things our model does not know yet but
+                        could potentially learn if we provided better features,
+                        more training examples, or a more expressive model.
+                    </p>
+
+                    <p>
+                        Imagine observing only a handful of data points.
+                        A straight line may appear to explain everything
+                        perfectly. However, after collecting thousands of
+                        additional observations, a clear nonlinear trend might
+                        emerge.
+                    </p>
+
+                    <p>
+                        The underlying relationship was never linear.
+                        Our model simply lacked enough information to discover
+                        the true structure.
+                    </p>
+
+                    <p>
+                        Because this uncertainty can be reduced by gathering
+                        additional evidence, it is commonly called
+                        <strong>model uncertainty</strong>.
+                    </p>
+
+                    <h3 class="text-xl font-bold font-sans">
+                        2. Aleatoric Uncertainty
+                    </h3>
+
+                    <p>
+                        Aleatoric uncertainty is fundamentally different.
+                        It represents randomness that cannot be eliminated,
+                        regardless of how much data we collect.
+                    </p>
+
+                    <p>
+                        Consider a digital temperature sensor.
+                        Even when the room temperature remains fixed at
+                        22°C, repeated measurements might fluctuate slightly:
+                    </p>
+
+                    <ul class="list-disc pl-8 space-y-2">
+                        <li>22.01°C</li>
+                        <li>21.98°C</li>
+                        <li>22.03°C</li>
+                    </ul>
+
+                    <p>
+                        These fluctuations arise from unavoidable physical noise
+                        in the measurement process.
+                    </p>
+
+                    <p>
+                        Since this uncertainty is inherent to the data itself,
+                        it is often called
+                        <strong>data uncertainty</strong>.
+                    </p>
+
+                    <p>
+                        We typically represent this irreducible noise with the
+                        symbol $\epsilon$.
+                    </p>
+
+                    <h3 class="text-2xl font-bold font-sans">
+                        From Noise to Probability
+                    </h3>
+
+                    <p>
+                        When training a model, our true goal is not simply to
+                        predict a single value.
+                        We are implicitly trying to learn a conditional
+                        probability distribution:
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$p(y \mid x)$$
+                    </p>
+
+                    <p>
+                        We model the target variable as a combination of a
+                        deterministic prediction and random noise:
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$y = f(x;\theta) + \epsilon$$
+                    </p>
+
+                    <p>
+                        Here:
+                    </p>
+
+                    <ul class="list-disc pl-8 space-y-2">
+                        <li>$f(x;\theta)$ is the model prediction.</li>
+                        <li>$\theta$ represents the learnable parameters.</li>
+                        <li>$\epsilon$ captures aleatoric noise.</li>
+                    </ul>
+
+                    <p>
+                        To estimate the optimal parameters $\theta$, we often
+                        use <strong>Maximum Likelihood Estimation (MLE)</strong>.
+                    </p>
+
+                    <p>
+                        MLE seeks parameters that maximize the probability of
+                        observing the training data.
+                    </p>
+
+                    <p>
+                        Instead of maximizing likelihood directly, we minimize
+                        the equivalent Negative Log-Likelihood (NLL):
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$\text{NLL}(\theta)
+                        =
+                        -\sum_{i=1}^{N}
+                        \log p(y_i \mid x_i;\theta)$$
+                    </p>
+
+                    <p>
+                        This is where loss functions emerge naturally.
+                        The exact form of the NLL depends entirely on the
+                        probability distribution we assume for the noise term
+                        $\epsilon$.
+                    </p>
+
+                    <h3 class="text-2xl font-bold font-sans">
+                        Case 1: Gaussian Noise and Mean Squared Error
+                    </h3>
+
+                    <p>
+                        The most common assumption is that measurement errors
+                        follow a Gaussian (Normal) distribution:
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$\epsilon \sim \mathcal{N}(0,\sigma^2)$$
+                    </p>
+
+                    <p>
+                        Under this assumption, the target variable is also
+                        normally distributed around the model prediction:
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$y|x;\theta
+                        \sim
+                        \mathcal{N}(f(x;\theta),\sigma^2)$$
+                    </p>
+
+                    <p>
+                        Substituting the Gaussian density into the Negative
+                        Log-Likelihood and removing constants that do not depend
+                        on $\theta$ yields:
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$\hat{\theta}_{MLE}
+                        =
+                        \arg\min_{\theta}
+                        \sum_{i=1}^{N}
+                        (y_i-f(x_i;\theta))^2$$
+                    </p>
+
+                    <p>
+                        This is exactly the objective minimized by
+                        <strong>Mean Squared Error (MSE)</strong>.
+                    </p>
+
+                    <p>
+                        By choosing MSE, you are implicitly assuming that the
+                        underlying noise in your data follows a Gaussian
+                        distribution.
+                    </p>
+
+                    <p>
+                        Because errors are squared, large deviations receive
+                        disproportionately large penalties. This makes MSE
+                        highly sensitive to outliers.
+                    </p>
+
+                    <h3 class="text-2xl font-bold font-sans">
+                        Case 2: Laplace Noise and Mean Absolute Error
+                    </h3>
+
+                    <p>
+                        Real-world datasets often contain spikes, anomalies,
+                        and heavy-tailed behavior that are poorly described by a
+                        Gaussian distribution.
+                    </p>
+
+                    <p>
+                        In these situations, a Laplace distribution may provide
+                        a better model for the noise:
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$\epsilon \sim \text{Laplace}(0,b)$$
+                    </p>
+
+                    <p>
+                        Compared to a Gaussian distribution, a Laplace
+                        distribution has:
+                    </p>
+
+                    <ul class="list-disc pl-8 space-y-2">
+                        <li>A sharper peak around zero.</li>
+                        <li>Significantly heavier tails.</li>
+                    </ul>
+
+                    <p>
+                        Heavy tails imply that large deviations occur more often
+                        than a Gaussian model would predict.
+                    </p>
+
+                    <p>
+                        Shifting the distribution to center around our
+                        prediction gives:
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$y|x;\theta
+                        \sim
+                        \text{Laplace}(f(x;\theta),b)$$
+                    </p>
+
+                    <p>
+                        Performing the same Negative Log-Likelihood derivation
+                        leads to:
+                    </p>
+
+                    <p class="text-center text-xl text-white my-8">
+                        $$\hat{\theta}_{MLE}
+                        =
+                        \arg\min_{\theta}
+                        \sum_{i=1}^{N}
+                        |y_i-f(x_i;\theta)|$$
+                    </p>
+
+                    <p>
+                        This is precisely the objective minimized by
+                        <strong>Mean Absolute Error (MAE)</strong>.
+                    </p>
+
+                    <p>
+                        Unlike MSE, MAE grows linearly with the size of the
+                        error. A single extreme outlier therefore cannot dominate
+                        the optimization process.
+                    </p>
+
+                    <p>
+                        This robustness is the reason MAE is frequently chosen
+                        for datasets with heavy-tailed noise or occasional
+                        anomalies.
+                    </p>
+
+                    <h3 class="text-2xl font-bold font-sans">
+                        Summary: The Architecture of Loss
+                    </h3>
+
+                    <p>
+                        Loss functions are not arbitrary engineering choices.
+                        They emerge naturally from probabilistic assumptions
+                        about how data is generated.
+                    </p>
+
+                    <ul class="list-disc pl-8 space-y-2">
+                        <li>
+                            <strong>MSE</strong> assumes Gaussian noise and
+                            strongly penalizes large errors.
+                        </li>
+                        <li>
+                            <strong>MAE</strong> assumes Laplace noise and is
+                            more robust to outliers.
+                        </li>
+                    </ul>
+
+                    <p>
+                        In both cases, the loss function is simply the Negative
+                        Log-Likelihood of a particular probabilistic model.
+                    </p>
+
+                    <p>
+                        The next time you type
+                        <code>loss="mse"</code> or
+                        <code>loss="mae"</code>,
+                        remember that you're not merely selecting an error
+                        metric.
+                    </p>
+
+                    <p>
+                        You're making a deep statistical claim about the nature
+                        of uncertainty in the world you are trying to model.
+                    </p>
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-gray-700 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+                <p class="text-sm mt-1">Blog page built by Gemini</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById('year').textContent =
+            new Date().getFullYear();
+    </script>
+</body>
+</html>
+```
