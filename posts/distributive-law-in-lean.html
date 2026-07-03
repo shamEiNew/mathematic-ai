@@ -10,43 +10,64 @@
         .prose h3 {
             margin-top: 1.5em;
             margin-bottom: 0.5em;
-            color: white;
+            color: #2E281F;
         }
         .prose strong {
             color: #e5e7eb; /* gray-200 */
         }
-    </style>
+    
+.explanation {
+    color: #2E281F;
+}
+.explanation strong {
+    color: #2E281F;
+}
+.prose code {
+    color: #7C4E2B;
+    font-weight: 600;
+}
+pre {
+    background-color: #F0E5D4;
+    color: #1F1A14;
+    border-color: #C9B29B;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+pre code {
+    color: inherit;
+    font-weight: 600;
+}
+</style>
 </head>
-<body class="bg-black text-white font-serif">
+<body class="bg-stone-50 text-stone-900 font-serif">
     <div class="min-h-screen flex flex-col">
-        <header class="border-b border-gray-700">
+        <header class="border-b border-stone-400">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-gray-300 transition-colors duration-300">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-stone-700 transition-colors duration-300">
                     Mathematics & AI
                 </a>
-                <p class="text-gray-400 mt-1">Exploring the frontier of automated discovery.</p>
+                <p class="text-stone-700 mt-1">Exploring the frontier of automated discovery.</p>
             </div>
         </header>
 
         <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <article class="max-w-4xl mx-auto">
-                <a href="../index.html" class="text-gray-400 font-bold inline-block mb-8 hover:text-white transition-colors duration-300">
+                <a href="../index.html" class="text-stone-700 font-bold inline-block mb-8 hover:text-stone-900 transition-colors duration-300">
                     &larr; Back to all articles
                 </a>
                 <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
                     Proving the Distributive Law in Lean
                 </h1>
-                <div class="text-md text-gray-400 mt-4 border-b border-gray-700 pb-4">
+                <div class="text-md text-stone-700 mt-4 border-b border-stone-400 pb-4">
                     <span>November 15, 2025</span> &bull; <span>Sham</span>
                 </div>
-                <div class="prose prose-invert prose-lg mt-8 text-gray-300 leading-relaxed space-y-6">
+                <div class="prose prose-lg mt-8 text-stone-800 leading-relaxed space-y-6">
                     <p>Formal verification allows us to prove logical statements with absolute certainty. In this post, we explore a proof in the Lean 4 programming language for the distributive law of propositional logic:</p>
                     
-                    <p class="text-center font-mono text-xl my-6 text-white">p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r)</p>
+                    <p class="text-center font-mono text-xl my-6 text-stone-900">p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r)</p>
 
                     <p>Here is the complete proof script:</p>
 
-                    <pre class="bg-gray-900 border border-gray-800 rounded-lg p-6 overflow-x-auto font-mono text-sm leading-normal text-gray-300 shadow-inner"><code>example : p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r) :=
+                    <pre class="bg-stone-100 border border-stone-300 rounded-lg p-6 overflow-x-auto font-mono text-sm leading-normal text-stone-900 shadow-inner"><code>example : p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r) :=
 Iff.intro
   (λ h : p ∨ (q ∧ r) =>
     Or.elim h
@@ -91,8 +112,8 @@ Iff.intro
             </article>
         </main>
 
-        <footer class="border-t border-gray-700 mt-12">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500">
+        <footer class="border-t border-stone-400 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-stone-500">
                 <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
                 <p class="text-sm mt-1">Blog page built by Gemini</p>
             </div>
