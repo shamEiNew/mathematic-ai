@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unpacking &ldquo;M23 is a Galois group over Q&rdquo; &mdash; Verification Roadmap</title>
+    <meta name="description" content="A verification roadmap for the paper closing the 40-year gap on M23 as a Galois group over Q, mapping every claim to open-source tools." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/site.css" />
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+</head>
+<body class="bg-stone-50 text-stone-900 font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-stone-400">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-stone-700 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-stone-700 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-stone-700 font-bold inline-block mb-8 hover:text-stone-900 transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Unpacking &ldquo;$M_{23}$ is a Galois group over $\mathbb{Q}$&rdquo; &mdash; Verification Roadmap
+                </h1>
+                <div class="text-md text-stone-700 mt-4 border-b border-stone-400 pb-4 flex flex-wrap gap-4 items-center">
+                    <span>August 13, 2026</span> <span>&bull;</span> <span>Sham</span>
+                    <span class="post-tag text-stone-700">Group Theory</span>
+                    <span class="post-tag text-stone-700">Galois Theory</span>
+                    <span class="post-tag text-stone-700">Sporadic Groups</span>
+                    <span class="post-tag text-stone-700">Open Source</span>
+                </div>
+
+                <div class="prose prose-lg mt-8 text-stone-800 leading-relaxed space-y-6">
+
+                    <p>Repo: <a href="https://github.com/shamEiNew/mathieu-group" target="_blank" rel="noopener">github.com/shamEiNew/mathieu-group</a> &bull; Live project site: <a href="https://shameinew.github.io/mathieu-group/" target="_blank" rel="noopener">shameinew.github.io/mathieu-group</a></p>
+
+                    <p>Paper: Huang, Jackson, Lee, Poonen, Pries, Zhang (Aug 2026), <a href="https://github.com/shamEiNew/mathieu-group/blob/main/arxiv/M23.tex" target="_blank" rel="noopener">arxiv/M23.tex</a>. Paper link: <a href="https://arxiv.org/pdf/2608.08538" target="_blank" rel="noopener">arxiv.org/pdf/2608.08538</a>. Authors' code (Magma): <a href="https://github.com/shaowuz/m23isgalois" target="_blank" rel="noopener">github.com/shaowuz/m23isgalois</a>.</p>
+
+                    <p>The paper closes a 40-year-old gap: 25 of the 26 sporadic simple groups were realized as Galois groups over $\mathbb{Q}$ during 1984&ndash;1989; $M_{23}$ was the last holdout. This repo unpacks every step, attempts to verify everything with <strong>open-source</strong> tools, and tries to explain the result at different levels of background.</p>
+
+                    <h2>Summary of $M_{23}$</h2>
+                    <p>The $M_{23}$ is a <em>simple</em> group of order 10,200,960 and it's part of the 26 exceptions (sporadic groups) per the classification of finite simple groups. $M_{23}$ is one of the five groups introduced by <a href="https://en.wikipedia.org/wiki/%C3%89mile_L%C3%A9onard_Mathieu" target="_blank" rel="noopener">&Eacute;mile L&eacute;onard Mathieu</a>. It's a multiply transitive permutation group on 23 objects.</p>
+
+                    <h2>Open-source re-verification matters</h2>
+                    <p>The paper's final certification uses <strong>Magma</strong> (closed source). The single most valuable technical contribution would be a crowd effort that makes an independent verification chain using only software like GAP, PARI, Python, etc. Moreover, it helps us assimilate the construction in a much better way, as the authors themselves suggest several questions that are left unanswered.</p>
+
+                    <h2>The paper's claims, mapped to verification tools</h2>
+                    <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Claim (paper location)</th>
+                                <th>Status</th>
+                                <th>Tool</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>$(g_1,g_2,g_3)$ multiply to 1, have cycle types $2^8 1^7$ (two transpositions, 1 fixed), $23$ (full cycle), $23$, generate a group of order $10{,}200{,}960$</td>
+                                <td>&#9989; done</td>
+                                <td>Python/sympy &mdash; <a href="https://github.com/shamEiNew/mathieu-group/blob/main/code/python/check_triple.py" target="_blank" rel="noopener">code/python/check_triple.py</a></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>That group <strong>is</strong> $M_{23}$ (4-transitive, simple, matches ATLAS)</td>
+                                <td>&#9989; done</td>
+                                <td>GAP &mdash; <a href="https://github.com/shamEiNew/mathieu-group/blob/main/code/gap/verify_m23.g" target="_blank" rel="noopener">code/gap/verify_m23.g</a>: order, simple, 4-transitive, 17 classes, TransitiveIdentification = 5</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>$M_{23}$ has 17 conjugacy classes; $G_\mathbb{Q}$ fixes 2A and swaps 23A&harr;23B via $\mathbb{Q}(\sqrt{-23})$</td>
+                                <td>&#9989; classes done</td>
+                                <td>GAP (23A/23B verified mutually inverse; Galois-action writeup pending)</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>No $G_\mathbb{Q}$-stable class triple is rigid ($|N_i| \ne 1$ always) &mdash; the classical method provably fails</td>
+                                <td>todo</td>
+                                <td>GAP: structure constants from character table, inclusion&ndash;exclusion over subgroups</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>For (2A, 23A, 23B): $|N_i| = 7$ &mdash; exactly seven covers</td>
+                                <td>&#9989; done</td>
+                                <td>GAP &mdash; Frobenius formula gives $|\bar\Sigma|/|G| = 7$; generation forced (only $23{:}11$ has order divisible by 23, and it is involution-free)</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Genus of $X$ is 4 (Riemann&ndash;Hurwitz)</td>
+                                <td>todo</td>
+                                <td>hand + Sage double-check</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Numerical Belyi map: power series of the four 1-forms, canonical model $P=Q=0$ in $\mathbb{P}^3$</td>
+                                <td>hard</td>
+                                <td>replicate Hejhal/KMSV algorithm in Python/Julia (authors used Magma BelyiDB)</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Coefficient recognition: $P, Q$ have coefficients in $\mathbb{Q}(\sqrt{-23})$ (the &ldquo;miracle&rdquo;)</td>
+                                <td>todo</td>
+                                <td>PSLQ/LLL via mpmath or fpylll, starting from published $P, Q$</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>Riemann&ndash;Roch constructions: $u$ with $\mathrm{div}(u)=23b'-23c'$, $y \in L(5b'-c')$, $v = y \cdot y'$</td>
+                                <td>todo</td>
+                                <td>SageMath / Singular function-field machinery</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>$F(T,V) \in \mathbb{Z}[T,V]$, $\deg_T = 8$, $\deg_V = 23$; disc factors as $c \cdot t^8(t^2+23)^{88}h_{84}^2$</td>
+                                <td>todo</td>
+                                <td>PARI/GP or Sage (pull $F$ from authors' repo)</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>$G_{\mathrm{geom}} = M_{23}$ via reduction mod 31 + tame specialization</td>
+                                <td>todo</td>
+                                <td>GAP+PARI replication of the Magma certificate; the SGA1 specialization step is the key <em>mathematical</em> input to explain</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>The two explicit degree-23 polynomials have Galois group $M_{23}$ over $\mathbb{Q}$, ramified only in $\{2,3,23\}$ / $\{2,7,23\}$</td>
+                                <td>&#9686; partial</td>
+                                <td>PARI &mdash; <a href="https://github.com/shamEiNew/mathieu-group/blob/main/code/pari/dedekind.gp" target="_blank" rel="noopener">code/pari/dedekind.gp</a>: irreducible, disc square ($\Rightarrow \subseteq A_{23}$), nonsolvable, 299/299 prime types are $M_{23}$ types $\Rightarrow$ Gal $\in \{M_{23}, A_{23}\}$. Remaining: Steiner resolvent for $M_{23}$ vs $A_{23}$ (see below)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    <h3>Claim 12 is an open-tooling gap</h3>
+                    <p>PARI's <code>polgalois</code> stops at degree 11. A rigorous open certification that $\mathrm{Gal}(f) = M_{23}$:</p>
+                    <ul>
+                        <li><strong>Lower bound</strong> (contains $M_{23}$): $f$ irreducible $\Rightarrow$ transitive of prime degree 23 $\Rightarrow$ contains a 23-cycle; factorization patterns mod $p$ (Dedekind) rule out the solvable transitive groups of degree 23; only $M_{23}$, $A_{23}$, $S_{23}$ remain.</li>
+                        <li><strong>Upper bound</strong> (inside $M_{23}$): $\mathrm{disc}(f)$ square $\Rightarrow$ inside $A_{23}$. Separating $M_{23}$ from $A_{23}$ is the hard part &mdash; cycle types cannot do it ($M_{23}$'s types are a subset of $A_{23}$'s). Route: resolvent for the Steiner system $S(4,7,23)$ &mdash; exhibit a rational root of the degree-253 &ldquo;heptad-stabilizer&rdquo; resolvent, computed with rigorous precision bounds (LLL / p-adic lifting). Ideal Rust project (exact arithmetic + speed).</li>
+                    </ul>
+
+                    <h2>Explanation ladder</h2>
+                    <ol>
+                        <li><strong>Level 0 &mdash; no math</strong>: symmetry as shuffling; the 26 &ldquo;sporadic snowflakes&rdquo;; a 40-year treasure hunt with one last missing piece; what it means that a plain whole-number equation has exactly this rare symmetry. One picture: 7 dots, Galois conjugation swirls them around, and <em>one dot doesn't move</em> &mdash; the miracle.</li>
+                        <li><strong>Level 1 &mdash; curious reader / journalist</strong>: what a Galois group measures, why &ldquo;over $\mathbb{Q}$&rdquo; is the whole difficulty, why computers + a miracle + classical theory each carried a third of the load. FAQ format.</li>
+                        <li><strong>Level 2 &mdash; undergrad</strong>: Jupyter Book chapters &mdash; permutation groups, $M_{23}$ and the Steiner system, covers of $\mathbb{P}^1$ and monodromy, Riemann existence, rigidity, why rigidity fails here, Belyi maps and dessins d'enfants, descent and fields of moduli. Every chapter ends in runnable code.</li>
+                        <li><strong>Level 3 &mdash; expert</strong>: full reworked proof with no &ldquo;we omit the proof&rdquo; left standing (e.g. the $h_{84}^2$ singularity claim the authors explicitly skip).</li>
+                    </ol>
+
+                    <h2>Visuals / video (TODO)</h2>
+                    <ul>
+                        <li>Hyperbolic (2,23,23) triangle tiling of the disk (the paper's $a, b, c$ construction) &mdash; Python/matplotlib or p5.js.</li>
+                        <li>Dessin d'enfant of the degree-23 Belyi cover.</li>
+                        <li>The &ldquo;seven covers, one fixed point&rdquo; Galois-action animation.</li>
+                    </ul>
+
+                    <h2>Formalization (scope)</h2>
+                    <p>Full formalization of the theorem is out of reach short-term (the numerical Belyi steps don't need formalizing anyway &mdash; only the algebraic certificate does).</p>
+                    <p><strong>Done:</strong> <a href="https://github.com/shamEiNew/mathieu-group/tree/main/formal/M23Formal" target="_blank" rel="noopener">formal/M23Formal</a> &mdash; a dependency-free Lean 4 package, builds green: the triple is a set of genuine permutations, $g_1 \circ g_2 \circ g_3 = \mathrm{id}$, orders 2/23/23, cycle-type witnesses &mdash; all kernel-checked by <code>decide</code>. <a href="https://github.com/shamEiNew/mathieu-group/blob/main/formal/MathlibSkeleton/M23.lean" target="_blank" rel="noopener">formal/MathlibSkeleton/M23.lean</a> states the deeper targets ($M_{23} \le A_{23}$, $|M_{23}| = 10{,}200{,}960$, 4-transitivity, simplicity) with proof plans.</p>
+                    <p>Realistic Lean 4 milestones, in order:</p>
+                    <ol>
+                        <li>$M_{23}$ as a permutation group: generators, order, simplicity (Mathlib has none of the Mathieu groups &mdash; a valuable standalone contribution). Key infrastructure: a formalized stabilizer-chain (Schreier&ndash;Sims) certificate checker.</li>
+                        <li>Dedekind's theorem (factorization mod $p$ $\Rightarrow$ cycle type in the Galois group) &mdash; partially in Mathlib.</li>
+                        <li>The classification of transitive groups of prime degree 23 (7 groups).</li>
+                        <li>The resolvent certificate for $\mathrm{Gal}(f) \subseteq M_{23}$, verified by exact arithmetic.</li>
+                    </ol>
+
+                    <h2>Repo layout (temporary)</h2>
+                    <pre><code>arxiv/          the paper source
+code/python/    pure-Python checks (no CAS needed)
+code/gap/       character table, Nielsen class counts, rigidity failure
+code/pari/      polynomial disc, ramification, Dedekind cycle types
+formal/         Lean 4 experiments</code></pre>
+
+                    <h2>The game</h2>
+                    <p><a href="https://shameinew.github.io/mathieu-group/game/" target="_blank" rel="noopener">game/index.html</a> &mdash; <strong>The Last Card</strong>: a 23-card, five-act interactive journey from &ldquo;what is a shuffle&rdquo; to the miracle fixed point, with quizzes, a shuffle lab, and the seven-covers interactive.</p>
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-stone-400 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-stone-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="../assets/js/site.js"></script>
+</body>
+</html>

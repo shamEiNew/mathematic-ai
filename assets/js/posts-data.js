@@ -8,6 +8,15 @@
 
 window.POSTS = [
     {
+        url: "posts/unpacking-m23-galois-group-over-q.html",
+        title: "Unpacking “M23 is a Galois group over Q” — Verification Roadmap",
+        date: "2026-08-13",
+        dateDisplay: "August 13, 2026",
+        author: "Sham",
+        tags: ["Group Theory", "Galois Theory", "Sporadic Groups", "Open Source"],
+        description: "A verification roadmap for the paper closing the 40-year gap on M23 as a Galois group over Q — mapping every claim in the proof to an open-source tool (GAP, PARI, Python, Lean)."
+    },
+    {
         url: "posts/contraction-mapping-theorem.html",
         title: "Contraction Mapping Theorem",
         date: "2026-08-13",
