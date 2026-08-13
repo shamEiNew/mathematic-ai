@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POST TITLE HERE</title>
+    <meta name="description" content="One-sentence summary of the post." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/site.css" />
+
+    <!-- Only needed if this post uses $...$ / $$...$$ math. Otherwise delete this script block. -->
+    <!--
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    -->
+</head>
+<body class="bg-stone-50 text-stone-900 font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-stone-400">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-stone-700 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-stone-700 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-stone-700 font-bold inline-block mb-8 hover:text-stone-900 transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    POST TITLE HERE
+                </h1>
+                <div class="text-md text-stone-700 mt-4 border-b border-stone-400 pb-4 flex flex-wrap gap-4 items-center">
+                    <span>MONTH DAY, YEAR</span> <span>&bull;</span> <span>AUTHOR</span>
+                    <span class="post-tag text-stone-700">tag-one</span>
+                    <span class="post-tag text-stone-700">tag-two</span>
+                </div>
+
+                <div class="prose prose-lg mt-8 text-stone-800 leading-relaxed space-y-6">
+                    <p>Write the post body here. Standard HTML tags work: &lt;h2&gt;/&lt;h3&gt; for section headings, &lt;p&gt; for paragraphs, &lt;pre&gt;&lt;code&gt; for code or proof blocks, &lt;strong&gt;/&lt;code&gt; for inline emphasis.</p>
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-stone-400 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-stone-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="../assets/js/site.js"></script>
+</body>
+</html>

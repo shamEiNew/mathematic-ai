@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contraction Mapping Theorem</title>
+    <meta name="description" content="The continuous version of the contraction mapping theorem, with notes on bounded operators and four worked problems in functional analysis." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/site.css" />
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+</head>
+<body class="bg-stone-50 text-stone-900 font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-stone-400">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-stone-700 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-stone-700 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-4xl mx-auto">
+                <a href="../index.html" class="text-stone-700 font-bold inline-block mb-8 hover:text-stone-900 transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Contraction Mapping Theorem
+                </h1>
+                <div class="text-md text-stone-700 mt-4 border-b border-stone-400 pb-4 flex flex-wrap gap-4 items-center">
+                    <span>August 13, 2026</span> <span>&bull;</span> <span>Sham</span>
+                    <span class="post-tag text-stone-700">Functional Analysis</span>
+                    <span class="post-tag text-stone-700">Fixed Point Theorem</span>
+                    <span class="post-tag text-stone-700">Banach Spaces</span>
+                </div>
+
+                <div class="prose prose-lg mt-8 text-stone-800 leading-relaxed space-y-6">
+
+                    <h2>Theorem 1 &mdash; Continuous Version of the Contraction Mapping Theorem</h2>
+                    <p>Let $(X, d)$ be a complete metric space, $Y$ be any topological space, and $f : Y \times X \to X$ be a continuous function. Suppose there is $0 &lt; c &lt; 1$ such that for all $y \in Y, x_1, x_2 \in X,$ we have</p>
+                    $$d(f(y, x_1), f(y, x_2)) \le c \cdot d(x_1, x_2) \tag{1.1}$$
+                    <p>Then</p>
+                    <p>(a) for each $y \in Y$ there exists a unique $\varphi(y) \in X$ such that $f(y, \varphi(y)) = \varphi(y)$.</p>
+                    <p>(b) The function $y \mapsto \varphi(y)$ has the property</p>
+                    $$d(\varphi(y_2), \varphi(y_1)) \le \frac{1}{1 - c} d(\varphi(y_2), f(y_1, \varphi(y_2))) \tag{1.2}$$
+                    <p>In particular, $\varphi$ is continuous.</p>
+
+                    <h3>Proof</h3>
+                    <p>For each $y \in Y$, let $f_y : X \to X$ be given by</p>
+                    $$f_y(x) = f(y, x)$$
+                    <p>Once we see that this follows from the usual contraction mapping theorem on complete metric spaces. Let us denote $f_y$ as $f$. Let us prove uniqueness, suppose $f(x_1)=x_1$, $f(x_2)=x_2$</p>
+                    $$d(x_1,x_2)=d(f(x_1), f(x_2))\le c \cdot d(x_1,x_2)$$
+                    <p>The above equation only holds $d(x_1,x_2)=0$ which implies $x_1=x_2$. For the existence we construct the following sequence</p>
+                    $$x_1, f(x_1)=x_2,f(x_2)=x_3,\cdots,f(x_n)=x_{n+1},\cdots$$
+                    $$x_n = f^{n-1}(x)$$
+                    <p>Let $d(x_1,x_2)=r$, and $d(x_2,x_3)=d(f(x_1),f(x_2))\le c \cdot d(x_1,x_2)=c \cdot r$</p>
+                    $$d(x_n,x_{n+1})\le c^{n-1} \cdot r$$
+                    <p>We will show that the above sequence is Cauchy and let</p>
+                    $$d(x_n,x_k)=d(x_n,x_{n+m})\le \sum_{i=0}^{m-1}d(x_{n+i},x_{n+i+1})\le \sum_{i=0}^{m-1} rc^{n+i-1}= r\sum_{i=n-1}^{n+m-2}c^i$$
+                    <p>Each such term is bounded by the geometric series $\sum c^i$ where $0 &lt; c &lt; 1$ so it converges which implies the sequence is Cauchy. As $X$ is complete metric space we have $\lim x_n =x$ and since f is continuous it preserves limits $\lim x_n = \lim f(x_{n-1}) = x =f(x)$ therefore $x$ is the fixed point. As $m \to \infty$,</p>
+                    $$d(x_n, x) \le \frac{rc^{n-1}}{(1 - c)}, \forall n \ge 1$$
+                    <p>Since $x$ is dependent on $Y$ we denote it as $\varphi(y)$</p>
+                    $$d(f_y^{n-1}(x_1), \varphi(y)) \le d(f(y,x_1), x_1)\frac{c^{n-1}}{(1 - c)}, \forall n \ge 1$$
+                    <p>Now this holds for each $n$ and $y$, let n = 1, $y=y_1,x_1=\varphi(y_2)$</p>
+                    $$d(\varphi(y_2), \varphi(y_1)) \le d(f(y_1,\varphi(y_2)),\varphi(y_2))\frac{1}{(1 - c)}, \forall n \ge 1$$
+                    <p>For the continuity use $d(\varphi(y_2), f(y, x)) \le \epsilon (1 - c)$ from the continuity of $f$.</p>
+
+                    <h2>Notes on Bounded Operators</h2>
+                    <p>In finite dimensional vector space all linear functions are continuous because of the fact that any linear map from $V$ to $W$ is bounded.</p>
+                    <p>As for <strong>normed vector space (not necessarily finite)</strong></p>
+                    $$\text{T is continuous} \iff \text{T is bounded} \iff \text{T is continuous at a single point}$$
+                    <p>In infinite dimensions the counterexample is the differentiation operator on the space of polynomials.</p>
+                    <p>Left and right composition of linear operators are the same function and $||T \circ S||\leq ||T|| \text{ } ||S||$</p>
+
+                    <h2>Q1</h2>
+                    <p>(a) For $1 \le p &lt; \infty$, let $\{x_n\}$ be a sequence in $l^p(\mathbb{N})$ such that $\|x_n\|_p = 1$ for all $n$. Suppose $x_n(i) \to x(i)$ for all $i \in \mathbb{N}$ and $x = (x(1), \dots, x(i), \dots)$ is such that $\|x\|_p = 1$. Prove that $x_n \to x$ in $l^p(\mathbb{N})$.</p>
+                    <p>(b) Show that a similar result does not hold in $l^\infty(\mathbb{N})$.</p>
+
+                    <h3>Proof</h3>
+                    <p>We need to prove the norm $\|x_n-x\|^p \to 0$, this norm can be rewritten as follows for $n \in \mathbb{N}$</p>
+                    $$\|x_n-x\|=\bigg( \sum_{i=1}^\infty|x_n(i)-x(i)|^p \bigg)^{1/p}$$
+                    $$\|x_n-x\|^p=\bigg( \sum_{i=1}^\infty|x_n(i)-x(i)|^p \bigg)$$
+                    $$\|x_n-x\|^p=\bigg( \sum_{i=1}^m |x_n(i)-x(i)|^p \bigg) + \bigg( \sum_{i=m+1}^{\infty} |x_n(i)-x(i)|^p \bigg) \tag{1}$$
+                    <p>We will estimate these two terms: in the first term we use convergence, and in the second term we use the hypothesis that $\|x_n\|=\|x\|=1$ for each $n$.</p>
+                    $$\|x_n\|^p=\sum_{i=1}^\infty |x_n(i)|^p=1$$
+                    $$\sum_{i=m+1}^\infty |x_n(i)|^p=1-\sum_{i=1}^m |x_n(i)|^p$$
+                    <p>as $n \to \infty$ the tail converges,</p>
+                    $$\sum_{i=m+1}^\infty |x_n(i)|^p=1-\sum_{i=1}^m |x_n(i)|^p \to 1-\sum_{i=1}^m |x(i)|^p=\sum_{i=m+1}^\infty |x(i)|^p \tag{2}$$
+                    <p>As each</p>
+                    $$\sum_{i=1}^\infty |x(i)|^p=1$$
+                    <p>for each $\epsilon/2^{p+1} &gt; 0$ choose sufficiently large $m$ such that</p>
+                    $$\sum_{i=m+1}^\infty |x(i)|^p < \frac{\epsilon}{2^{p+1}} \tag{3}$$
+                    <p>and this is possible as the sum converges. Now we use inequality (3) in (2), and since (2) is a convergent sequence we get the following by choosing $N_0$ such that for all $n \ge N_0$</p>
+                    $$\sum_{i=m+1}^\infty |x_n(i)|^p < \sum_{i=m+1}^\infty |x(i)|^p +\frac{\epsilon}{2^{p+1}} \tag{4a}$$
+                    $$\sum_{i=m+1}^\infty |x_n(i)|^p < \frac{\epsilon}{2^{p+1}} +\frac{\epsilon}{2^{p+1}} = \frac{\epsilon}{2^p} \tag{4b}$$
+                    $$|x_n(i)-x(i)|^p \leq 2^{p-1} (|x_n(i)|^p+|x(i)|^p)$$
+                    $$\sum_{i=m+1}^\infty|x_n(i)-x(i)|^p \leq 2^{p-1} \bigg(\sum_{i=m+1}^\infty|x_n(i)|^p+\sum_{i=m+1}^\infty|x(i)|^p\bigg)$$
+                    <p>substitute (4) in the above equation</p>
+                    $$\sum_{i=m+1}^\infty|x_n(i)-x(i)|^p < \epsilon/2 \tag{5}$$
+                    <p>Similarly, for $\epsilon/2m &gt; 0$ we have for each $1 \le i \le m$</p>
+                    $$|x_n(i)-x(i)| \to 0$$
+                    <p>for each $N_1,N_2, \cdots, N_m$ choose $N = \max \{N_1, \cdots ,N_m\}$</p>
+                    $$\sum_{i=1}^m|x_n(i)-x(i)|^p < \epsilon/2 \tag{6}$$
+                    <p>using $n \ge \max \{N, N_0\}$ we have</p>
+                    $$\|x_n-x\|^p < \epsilon$$
+                    <p>$\square$</p>
+
+                    <h2>Q2</h2>
+                    <p>Let $V$ be a Banach space. Let $(v_n)$ be a sequence in $V$ such that $\sum_{n=1}^\infty \|v_n\| &lt; \infty$. Show that there exists $v \in V$ such that $v = \lim_{n \to \infty} \sum_{i=1}^n v_i$.</p>
+
+                    <h3>Proof</h3>
+                    <p>To prove the convergence of the series $S_n = \sum_{i=1}^n v_i$ we show the sequence $S_n$ is Cauchy and, due to completeness of $V$, we have convergence.</p>
+                    <p>As the series $\sum_{n=1}^\infty \|v_n\| &lt; \infty$ is convergent, it is Cauchy. Let $\epsilon &gt; 0$, there exists $N_0$ such that for all $n &gt; m \ge N_0$</p>
+                    $$\sum_{i=m+1}^n\|v_i\| < \epsilon \tag{1}$$
+                    <p>Let us use the same $n,m$,</p>
+                    $$\|S_n-S_m\|=\bigg\|\sum_{i=m+1}^n v_i\bigg\|$$
+                    <p>using the triangle inequality on finite sums and inequality (1) we have</p>
+                    $$\|S_n-S_m\|=\bigg\|\sum_{i=m+1}^n v_i\bigg\| \leq \sum_{i=m+1}^n\|v_i\| < \epsilon \tag{2}$$
+                    <p>The above shows $S_n$ is Cauchy, and due to completeness of $V$ (Banach space) there exists $v \in V$ such that $S_n \to v$. $\square$</p>
+
+                    <h2>Q3</h2>
+                    <p>Show that if $V$ is a Banach space and $T \in B(V)$, then $\|T\| &lt; 1$ implies $Id - T$ is an invertible operator.</p>
+
+                    <h3>Proof</h3>
+                    <p>Let us define</p>
+                    $$(Id-T)^{-1}=1 + T+T^2+T^3 \cdots \tag{1}$$
+                    <p>First we show that (1) acts as an inverse: for $v \in V$</p>
+                    $$(Id-T)\circ(1+T+T^2+\cdots)$$
+                    $$(Id-T)\circ(1+T+T^2+\cdots)(v)=(Id-T)(v)+(T-T^2)(v) +(T^2-T^3)(v)\cdots$$
+                    $$(Id-T)\circ(1+T+T^2+\cdots)(v)=v-T(v)+T(v)-T^2(v) +T^2(v)-T^3(v)\cdots$$
+                    <p>Note that all terms cancel out except $v$</p>
+                    $$(Id-T)\circ(1+T+T^2+\cdots)(v)=v$$
+                    <p>Similarly, we have $(1+T+T^2+\cdots)\circ (Id-T)(v)=v$. Now to show that the inverse is well defined, note that</p>
+                    $$S_n=\sum_{i=0}^n T^i$$
+                    $$\|S_n\|=\bigg\|\sum_{i=0}^n T^i\bigg\|\leq \sum_{i=0}^n \|T^i\|$$
+                    <p>We take the limit in the above equation and use the continuity of the norm to interchange the limit</p>
+                    $$\lim_{n \to \infty}\|S_n\|=\bigg\|\lim_{n \to \infty}\sum_{i=0}^n T^i\bigg\|\leq \lim_{n \to \infty}\sum_{i=0}^n \|T^i\| \leq \lim_{n \to \infty}\sum_{i=0}^n \|T\|^i$$
+                    $$\lim_{n \to \infty}\|S_n\|=\bigg\|\lim_{n \to \infty}\sum_{i=0}^n T^i\bigg\|\leq \sum_{i=0}^\infty \|T^i\|\leq \sum_{i=0}^\infty \|T\|^i &lt; 1$$
+                    <p>And in Banach space, $B(V)$ has $\|T \circ T\|\leq\|T\|\ \|T\|$ as $T$ is a bounded linear operator. This proves the sum is well defined and converges. $\square$</p>
+
+                    <h2>Q4</h2>
+                    <p>Let $V$ be a Banach space. On $B(V) \times B(V)$, take the norm defined by $\|(S, T)\| = \|S\| + \|T\|$. Consider the map $f : B(V) \times B(V) \to B(V)$ given by $f(S, T) = ST$. Show that $f$ is differentiable and compute its derivative.</p>
+
+                    <h3>Proof</h3>
+                    <p>Let</p>
+                    $$f(S,T)=ST$$
+                    <p>and we check the differentiability at a point $(S_0,T_0)$, considering the increment $H=(H_1,H_2)$ and observing the difference</p>
+                    $$f(S_0+H_1, T_0+H_2)-f(S_0,T_0)=(S_0+H_1)(T_0+H_2)-S_0T_0$$
+                    $$(S_0+H_1)(T_0+H_2)-S_0T_0=S_0T_0+S_0H_2+H_1T_0+H_1H_2-S_0T_0$$
+                    $$(S_0+H_1)(T_0+H_2)-S_0T_0=S_0H_2+H_1T_0+H_1H_2 \tag{1}$$
+                    <p>Let us define the function</p>
+                    $$L(H_1,H_2)=S_0H_2+H_1T_0 \tag{2}$$
+                    <p>and rewrite (1) as a linear part plus remainder</p>
+                    $$(S_0+H_1)(T_0+H_2)-S_0T_0=L(H_1,H_2)+H_1H_2$$
+                    <p>and observe it is linear, since $(S_0,T_0)$ are fixed operators and it is a linear combination of $H_1$ and $H_2$. Further, we prove that $L$ is bounded</p>
+                    $$\|L(H_1,H_2)\|=\|S_0H_2+H_1T_0\| \leq \|S_0H_2\|+\|H_1T_0\|$$
+                    $$\|L(H_1,H_2)\| \leq \|S_0\|\ \|H_2\|+\|H_1\|\ \|T_0\| \leq (\|S_0\|+\|T_0\|)(\|H_1\|+\|H_2\|)$$
+                    <p>as each of $S_0, T_0$ is a bounded operator, therefore $L$ is bounded and lies in $B(V) \times B(V)$. We estimate the remainder in (1)</p>
+                    $$R(H)=H_1H_2$$
+                    $$\|R(H)\|=\|H_1H_2\|\leq \|H_1\|\ \|H_2\|$$
+                    <p>and further we divide by $\|H\|$</p>
+                    $$\frac{\|R(H)\|}{\|H\|}\leq \frac{\|H_1\|\ \|H_2\|}{\|H_1\|+\|H_2\|} \tag{3}$$
+                    <p>Further, using $\|H_2\|\leq \|H_2\|+\|H_1\|$ and $\|H_1\|\leq \|H_1\|+\|H_2\|$, a slight manipulation gives</p>
+                    $$\frac{\|R(H)\|}{\|H\|}\leq \|H_2\| \tag{4a}$$
+                    $$\frac{\|R(H)\|}{\|H\|}\leq \|H_1\| \tag{4b}$$
+                    <p>As $H \to 0$, both (4a) and (4b) approach 0. Therefore the remainder satisfies the required condition, and hence $f$ is Fr&eacute;chet differentiable at every $(S_0,T_0)$:</p>
+                    $$\boxed{ Df(S_0,T_0)(H_1,H_2) = S_0H_2+H_1T_0 }$$
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-stone-400 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-stone-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="../assets/js/site.js"></script>
+</body>
+</html>

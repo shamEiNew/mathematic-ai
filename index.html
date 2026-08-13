@@ -1,34 +1,15 @@
-<!-- Updated index.html — links to existing posts only -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mathematics & AI</title>
+    <meta name="description" content="Exploring the frontier of automated discovery — notes on mathematics, proof, and AI." />
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background-color: #F5EFE6;
-            color: #2E281F;
-            font-family: serif;
-        }
-        .font-sans {
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
-    "react/": "https://aistudiocdn.com/react@^19.2.1/"
-  }
-}
-</script>
+    <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body class="bg-stone-50 text-stone-900 font-serif">
     <div class="min-h-screen flex flex-col">
-        <!-- Header -->
         <header class="border-b border-stone-400">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <a href="index.html" class="text-4xl font-bold font-sans hover:text-stone-700 transition-colors duration-300">
@@ -38,100 +19,21 @@
             </div>
         </header>
 
-        <!-- Main Content -->
         <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="space-y-12">
                 <h1 class="text-3xl font-bold font-sans border-b border-stone-400 pb-4">Latest Articles</h1>
-
-                <!-- Existing highlighted articles (keep as-is) -->
-
-                <article class="group">
-                    <a href="posts/quantifiers-and-classical-logic-in-lean.html">
-                        <h2 class="text-2xl font-bold font-sans text-stone-900 group-hover:text-stone-900 transition-colors duration-300">
-                            Working with Existential Quantifiers, Universal Quantifiers, and Classical Reasoning in Lean
-                        </h2>
-                    </a>
-                    <div class="text-sm text-stone-700 mt-2 flex flex-wrap items-center gap-2">
-                        <span>November 27, 2025</span> &bull; <span>By Sham</span>
-                        <span class="text-xs border border-stone-400 rounded px-2 py-0.5">Prop</span>
-                        <span class="text-xs border border-stone-400 rounded px-2 py-0.5">Lean4</span>
-                    </div>
-                    <p class="mt-4 text-stone-700 leading-relaxed">
-                        A comprehensive collection of Lean 4 examples covering existential and universal quantifiers, and the interplay between constructive and classical reasoning.
-                    </p>
-                    <a href="posts/quantifiers-and-classical-logic-in-lean.html" class="text-stone-900 font-bold inline-block mt-4 group-hover:underline">
-                        Read more &rarr;
-                    </a>
-                </article>
-
-                <article class="group">
-                    <a href="posts/existential-quantification-in-lean.html">
-                        <h2 class="text-2xl font-bold font-sans text-stone-900 group-hover:text-stone-900 transition-colors duration-300">
-                            Existential Quantifier
-                        </h2>
-                    </a>
-                    <div class="text-sm text-stone-700 mt-2 flex flex-wrap items-center gap-2">
-                        <span>November 25, 2025</span> &bull; <span>By Sham</span>
-                        <span class="text-xs border border-stone-400 rounded px-2 py-0.5">lean4</span>
-                        <span class="text-xs border border-stone-400 rounded px-2 py-0.5">proof</span>
-                    </div>
-                    <p class="mt-4 text-stone-700 leading-relaxed">
-                        A look at proving existential statements in Lean 4 with calculation blocks.
-                    </p>
-                    <a href="posts/existential-quantification-in-lean.html" class="text-stone-900 font-bold inline-block mt-4 group-hover:underline">
-                        Read more &rarr;
-                    </a>
-                </article>
-
-                <article class="group">
-                    <a href="posts/distributive-law-in-lean.html">
-                        <h2 class="text-2xl font-bold font-sans text-stone-900 group-hover:text-stone-900 transition-colors duration-300">
-                            Distributive Law of Propositional Logic in Lean
-                        </h2>
-                    </a>
-                    <div class="text-sm text-stone-700 mt-2 flex flex-wrap items-center gap-2">
-                        <span>November 25, 2025</span> &bull; <span>By Sham</span>
-                        <span class="text-xs border border-stone-400 rounded px-2 py-0.5">lean4</span>
-                        <span class="text-xs border border-stone-400 rounded px-2 py-0.5">proof</span>
-                    </div>
-                    <p class="mt-4 text-stone-700 leading-relaxed">
-                        <code>example : p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (p ∨ r) := by sorry</code>
-                    </p>
-                    <a href="posts/distributive-law-in-lean.html" class="text-stone-900 font-bold inline-block mt-4 group-hover:underline">
-                        Read more &rarr;
-                    </a>
-                </article>
-
-                <!-- Additional archive: links to uploaded markdown-derived posts -->
-                <section>
-                    <h2 class="text-2xl font-bold font-sans text-stone-900 mt-8">Archive — Other Notes</h2>
-                    <p class="text-stone-700 mt-2">The following are shorter notes and scanned posts added to the site. They are linked here and kept as individual pages in <code>posts/</code>.</p>
-                    <ul class="mt-4 list-disc list-inside text-stone-700 space-y-2">
-                        <li><a class="text-stone-900 hover:underline" href="posts/2023-03-30-the-bow-tie-space.html">The Bow - Tie Space — March 30, 2023</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2020-05-30-completion-of-real-numbers-and-polynomial-space.html">Completion of Polynomial Space and Stone-Weierstrass — May 30, 2020</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2019-07-11-arzela-ascoli-theorem.html">Arzelà–Ascoli theorem — July 11, 2019</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2019-07-11-p-groups.html">p‑Groups — July 11, 2019</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2019-07-10-cauchys-theorem-mckay-proof.html">Cauchy's Theorem (McKay proof) — July 10, 2019</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2019-07-10-elements-in-orbit-is-index-of-stabilizer.html">Elements in orbit is the index of stabilizer — July 10, 2019</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2019-07-09-1985-b5.html">1985 B5 (Putnam) — July 09, 2019</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2019-07-09-c01-is-not-complete-with-integral-metric.html">C[0,1] is not complete with L^1 metric — July 09, 2019</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2019-07-08-finite-subgroups-of-glnz-are-finite.html">Finite subgroups of GL(n,Z) are finite — July 08, 2019</a></li>
-                        <li><a class="text-stone-900 hover:underline" href="posts/2018-04-12-algebraic-closure-of-a-field.html">Algebraic Closure of a field — April 12, 2018</a></li>
-                    </ul>
-                </section>
-
+                <div id="post-list"></div>
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="border-t border-stone-400 mt-12">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-stone-500">
                 <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
             </div>
         </footer>
     </div>
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+    <script src="assets/js/posts-data.js"></script>
+    <script src="assets/js/home.js"></script>
+    <script src="assets/js/site.js"></script>
 </body>
 </html>
