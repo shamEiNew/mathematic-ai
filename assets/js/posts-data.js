@@ -8,6 +8,15 @@
 
 window.POSTS = [
     {
+        url: "posts/paracompact-spaces.html",
+        title: "Paracompact Spaces",
+        date: "2026-08-18",
+        dateDisplay: "August 18, 2026",
+        author: "Sham",
+        tags: ["Topology", "Paracompactness", "Point-Set Topology"],
+        description: "Definitions, the closure lemma for locally finite families, and a full proof that a locally compact Lindelöf space is paracompact — with interactive visualizations of the exhaustion chain and the index gap."
+    },
+    {
         url: "posts/unpacking-m23-galois-group-over-q.html",
         title: "Unpacking “M23 is a Galois group over Q” — Verification Roadmap",
         date: "2026-08-13",

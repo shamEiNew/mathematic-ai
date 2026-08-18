@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paracompact Spaces</title>
+    <meta name="description" content="Paracompactness: definitions, the closure lemma for locally finite families, and a full proof that a locally compact Lindelöf space is paracompact, with visualizations." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/site.css" />
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+</head>
+<body class="bg-stone-50 text-stone-900 font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-stone-400">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-stone-700 transition-colors duration-300">
+                    Mathematics & AI
+                </a>
+                <p class="text-stone-700 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-6xl mx-auto">
+                <a href="../index.html" class="text-stone-700 font-bold inline-block mb-8 hover:text-stone-900 transition-colors duration-300">
+                    &larr; Back to all articles
+                </a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">
+                    Paracompact Spaces
+                </h1>
+                <div class="text-md text-stone-700 mt-4 border-b border-stone-400 pb-4 flex flex-wrap gap-4 items-center">
+                    <span>August 18, 2026</span> <span>&bull;</span> <span>Sham</span>
+                    <span class="post-tag text-stone-700">Topology</span>
+                    <span class="post-tag text-stone-700">Paracompactness</span>
+                    <span class="post-tag text-stone-700">Point-Set Topology</span>
+                </div>
+
+                <div class="prose prose-lg mt-8 text-stone-800 leading-relaxed space-y-6">
+
+                    <p><strong>Definition:</strong> A topological space $X$ is called <em>paracompact</em> if each open cover for it has a locally finite open refinement for $X$.</p>
+
+                    <p><em>open refinement</em>: A collection/open cover $F_1$ is a refinement of $F_2$ if every open set in $F_1$ is contained in an open set of $F_2$.</p>
+
+                    <p><em>locally finite:</em> A collection $F \subseteq P(X)$ is locally finite if for any $x \in X$ there exists an open set $U$ with $x \in U$ such that $U$ intersects (has non-empty intersection with) only finitely many sets in $F$.</p>
+
+                    <p><strong>Lemma:</strong> Let $X$ be a topological space and $\mathcal{U}$ be a locally finite family. Then<br />
+                    (1) $\{ \bar{U}: U \in \mathcal{U}\}$ is also locally finite.<br />
+                    (2) $\bigcup \bar{U}$ is closed.</p>
+
+                    <p><em>Proof:</em> (1) By definition of local finiteness, for any $x \in X$ there is an open set $V$ around $x$ with $V \cap U = \emptyset$ for all but finitely many $U \in \mathcal{U}$. Now this implies $V \cap \bar{U} = \emptyset$ for all but finitely many $\bar{U}$. If a point lay in the intersection, this would mean $V \cap U \neq \emptyset$ for all $V$ containing $x$, and this would violate local finiteness of $\mathcal{U}$.</p>
+
+                    <p>(2) Consider a point $x \in \overline{\bigcup \bar{U}}$, and by the defining property of the closure we have that $W \cap \bigcup \bar{U}$ is non-empty for all open sets $W$ containing $x$. We choose one such neighborhood $W_x$ such that it intersects finitely many $\bar{U}$, say $\bar{U_1}, \cdots , \bar{U_n}$. We assert that $x \in \bar{U_i}$ for some $i$, and if that isn't the case then there exists $W_i$ such that $W_i \cap U_i = \emptyset$, which implies $W_i \cap \bar{U_i} = \emptyset$ (using the definition of closure). Therefore, define an open set around $x$, $Z = W_x \cap W_1 \cap \cdots \cap W_n$, and this open set contains $x$, but the intersection $Z \cap \bigcup \bar{U}$ is empty: as $Z \subseteq W_x$ it can only meet finitely many $\bar{U}$, precisely the $U_i$ from above, but it is also contained in each of the $W_i$, so its intersection with these finite indices is empty, and for the other indices it is empty because of $W_x$. Hence $Z \cap \bigcup \bar{U}$ is empty, which is absurd as $x$ is a point of the closure.</p>
+
+                    <p>Examples of paracompactness:</p>
+                    <p>(1) Discrete topology on $\mathbb{R}$. As singletons are open and closed, for any open cover we can include all singletons of $\mathbb{R}$ to make a cover for the space, and each singleton meets only finitely many sets in the cover.</p>
+
+                    <p>(2) $\mathbb{Q}$ is neither compact nor complete in the subspace topology, but it's a paracompact space. It follows from the fact that every metric space is paracompact. We don't have a canonical refinement as in the discrete case, and the construction in Stone's theorem (A. H. Stone) is genuinely involved.</p>
+
+                    <div class="post-split">
+                        <div class="post-split-main">
+
+                            <p><strong>Theorem:</strong> A locally compact, Lindel&ouml;f space is paracompact.</p>
+
+                            <p><em>Proof:</em> We first establish the fact $X = \bigcup_n U_n$ where each $\bar{U}_n$ is compact and $U_n \subseteq \bar{U}_n \subseteq \bar{U}_{n+1}$. Let $x \in X$; we choose $A_x$ such that $\bar{A}_x$ is compact, and this is because of the definition of local compactness. Now $\{A_x : x \in X\}$ is an open cover for $X$, and using the Lindel&ouml;f property we have a countable subcover $A_1, A_2, \cdots, A_n \cdots$. Define $U_1 = A_1$; $A_1$ is part of the original cover, so $\bar{A}_1 = \bar{U}_1$ is compact. And this countable cover also covers $\bar{A}_1$, so there exists $m_1$ such that $A_1, \cdots, A_{m_1}$ covers $\bar{U}_1$. Define $U_2 = \bigcup_{i=1}^{m_1} A_i$ and note that $U_1 \subseteq \bar{U}_1 \subseteq U_2$, and $U_2$ is a union of open sets where each $\bar{A}_i$ is compact, and therefore $\bar{U}_2$ is compact. We define $m_n > m_{n-1}$ such that</p>
+                            $$\bar{U}_n\subseteq\bigcup_{i=1}^{m_n}A_i:=U_{n+1}$$
+                            <p>and so we get a sequence satisfying the chain property. Further, $\bigcup U_n$ covers $X$ as it is built from the countable cover $A_i$. We have essentially established that $X$ is $\sigma$-locally compact and $\sigma$-compact.</p>
+
+                            <p>Finally, using the established properties we prove paracompactness. Let $\{\mathcal{W}_{\alpha}\}$ be an arbitrary cover for the space $X$; we need to prove there exists a locally finite refinement which covers $X$. We define</p>
+                            $$U_0=U_{-1}=U_{-2}=\emptyset$$
+                            <p>and for each $n \geq 1$ and each $\alpha$</p>
+                            $$V_\alpha^n=(U_n-\bar{U}_{n-3})\cap W_\alpha$$
+                            <p>Observe that $V_\alpha^n \subseteq W_\alpha$ for all $\alpha$, and for any $x \in X$ we have $x \in U_n$ (smallest $n$) and $x \in W_\alpha$. Therefore, $\{V_\alpha^n\}$ is an open refinement of $\{\mathcal{W}_{\alpha}\}$.</p>
+
+                            <p>The interesting part is that $\bar{U}_{n-1} - U_{n-2}$ is a compact subset of $U_n - \bar{U}_{n-3}$. To see this,</p>
+                            $$\bar{U}_{n-1}-U_{n-2}=\bar{U}_{n-1}\cap (X-U_{n-2})$$
+                            <p>which is an intersection of two closed sets and a subset of $\bar{U}_{n-1}$, which makes it a compact subset of $U_n - \bar{U}_{n-3}$. To see the subset relation, $U_n - \bar{U}_{n-3}$ sits higher because $\bar{U}_{n-1} \subseteq U_n$ and $\bar{U}_{n-3} \subseteq U_{n-2}$, and therefore the complements are contained as needed.</p>
+
+                            <p>Now each $\bar{U}_{n-1} - U_{n-2}$ is compact and covered by $\{V_\alpha^n\}$ for a fixed $n$, and it admits a finite subcover $F_n$ for each $n$.</p>
+                            $$F=\bigcup F_n$$
+                            <p>covers $X$. To see this, for $x \in X$ we have a smallest $n$ such that $x \in \bar{U}_n$ but $x \not\in \bar{U}_{n-1}$, and so $x \in F_{n+1}$.</p>
+
+                            <p>Finally, to see local finiteness note that for any $x \in X$</p>
+                            $$x \in U_n$$
+                            <p>it intersects finitely with $F$. Now observe that $U_n \cap (U_m - \bar{U}_{m-3}) = \emptyset$ for all $m \geq n+3$, and $U_n \subseteq \bar{U}_n \subseteq U_{m-3}$. This shows $U_n$ can only meet members with index less than $n+3$, establishing local finiteness. $F$ is our locally finite refinement of the original cover.</p>
+
+                            <p>The proof summary is as follows:</p>
+
+                            <blockquote>
+                                <p><strong>Increasing chain</strong></p>
+                                <p>&darr;</p>
+                                <p><strong>Eventually the refinement sets move away from a fixed neighborhood</strong></p>
+                                <p>&darr;</p>
+                                <p><strong>Local finiteness</strong></p>
+                            </blockquote>
+
+                            <p>Whereas,</p>
+
+                            <blockquote>
+                                <p><strong>The extra index gap</strong></p>
+                                <p>&rArr; <strong>Compact annulus fits inside an appropriate open layer.</strong></p>
+                            </blockquote>
+
+                        </div>
+
+                        <aside class="post-rail">
+                            <figure class="post-figure">
+                                <div class="fig-ctl">
+                                    <label for="pc-n">Index n</label>
+                                    <input id="pc-n" type="range" min="4" max="9" value="7" step="1" />
+                                    <output id="pc-nv" for="pc-n">7</output>
+                                </div>
+                                <svg width="100%" viewBox="0 0 330 336" role="img" aria-labelledby="pc-t pc-d">
+                                    <title id="pc-t">Compact annulus nested inside the open layer</title>
+                                    <desc id="pc-d">Concentric circles represent the increasing chain of open sets whose closures are compact and exhaust X. A wide band marks the open layer U-n minus the closure of U-n-minus-3, and a narrower band inside it marks the compact annulus, leaving one step of slack on each side.</desc>
+                                    <rect x="6" y="8" width="318" height="284" rx="6" fill="none" stroke="#D6C4AA" stroke-width="0.5" stroke-dasharray="4 4" />
+                                    <text x="16" y="24" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#8A7C68">X</text>
+                                    <circle id="pc-band-l" cx="165" cy="150" r="0" fill="none" stroke="#5C7F6E" stroke-opacity="0.2" stroke-width="0" />
+                                    <circle id="pc-band-a" cx="165" cy="150" r="0" fill="none" stroke="#B4552F" stroke-opacity="0.32" stroke-width="0" />
+                                    <g fill="none" stroke="#C9B29B" stroke-width="0.5">
+                                        <circle cx="165" cy="150" r="27" /><circle cx="165" cy="150" r="40" />
+                                        <circle cx="165" cy="150" r="53" /><circle cx="165" cy="150" r="66" />
+                                        <circle cx="165" cy="150" r="79" /><circle cx="165" cy="150" r="92" />
+                                        <circle cx="165" cy="150" r="105" /><circle cx="165" cy="150" r="118" />
+                                        <circle cx="165" cy="150" r="131" />
+                                    </g>
+                                    <circle id="pc-e-l1" cx="165" cy="150" r="0" fill="none" stroke="#5C7F6E" stroke-width="1" />
+                                    <circle id="pc-e-l2" cx="165" cy="150" r="0" fill="none" stroke="#5C7F6E" stroke-width="1" />
+                                    <circle id="pc-e-a1" cx="165" cy="150" r="0" fill="none" stroke="#B4552F" stroke-width="1.2" />
+                                    <circle id="pc-e-a2" cx="165" cy="150" r="0" fill="none" stroke="#B4552F" stroke-width="1.2" />
+                                    <rect x="8" y="296" width="10" height="10" rx="2" fill="#5C7F6E" fill-opacity="0.35" stroke="#5C7F6E" stroke-width="0.5" />
+                                    <text id="pc-lg-l" x="24" y="304" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#4A4136"></text>
+                                    <rect x="8" y="314" width="10" height="10" rx="2" fill="#B4552F" fill-opacity="0.4" stroke="#B4552F" stroke-width="0.5" />
+                                    <text id="pc-lg-a" x="24" y="322" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#4A4136"></text>
+                                </svg>
+                                <figcaption id="pc-cap"></figcaption>
+                            </figure>
+
+                            <figure class="post-figure">
+                                <svg width="100%" viewBox="0 0 330 296" role="img" aria-labelledby="lf-t lf-d">
+                                    <title id="lf-t">Only finitely many layers meet a given open set</title>
+                                    <desc id="lf-d">Each layer L-m is drawn as a horizontal interval spanning indices m minus 3 to m. The probe set U-5 spans indices 0 to 5. Layers L-1 through L-7 overlap it; layers L-8, L-9 and L-10 begin at or after index 5 and miss it entirely.</desc>
+                                    <g stroke="#D6C4AA" stroke-width="0.5">
+                                        <line x1="38" y1="26" x2="38" y2="230" /><line x1="64" y1="26" x2="64" y2="230" />
+                                        <line x1="90" y1="26" x2="90" y2="230" /><line x1="116" y1="26" x2="116" y2="230" />
+                                        <line x1="142" y1="26" x2="142" y2="230" /><line x1="194" y1="26" x2="194" y2="230" />
+                                        <line x1="220" y1="26" x2="220" y2="230" /><line x1="246" y1="26" x2="246" y2="230" />
+                                        <line x1="272" y1="26" x2="272" y2="230" /><line x1="298" y1="26" x2="298" y2="230" />
+                                    </g>
+                                    <line x1="168" y1="24" x2="168" y2="230" stroke="#7C4E2B" stroke-width="1" stroke-dasharray="4 3" />
+                                    <text x="172" y="20" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#6B5F4E">cl(U₅)</text>
+                                    <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#4A4136" text-anchor="end">
+                                        <text x="32" y="39">U₅</text>
+                                        <text x="32" y="61">L₁</text><text x="32" y="79">L₂</text>
+                                        <text x="32" y="97">L₃</text><text x="32" y="115">L₄</text>
+                                        <text x="32" y="133">L₅</text><text x="32" y="151">L₆</text>
+                                        <text x="32" y="169">L₇</text><text x="32" y="187">L₈</text>
+                                        <text x="32" y="205">L₉</text><text x="32" y="223">L₁₀</text>
+                                    </g>
+                                    <rect x="38" y="30" width="130" height="11" rx="2" fill="#7C4E2B" fill-opacity="0.28" stroke="#7C4E2B" stroke-width="0.5" />
+                                    <g fill="#B4552F" fill-opacity="0.32" stroke="#B4552F" stroke-width="0.5">
+                                        <rect x="38" y="52" width="26" height="11" rx="2" />
+                                        <rect x="38" y="70" width="52" height="11" rx="2" />
+                                        <rect x="38" y="88" width="78" height="11" rx="2" />
+                                        <rect x="64" y="106" width="78" height="11" rx="2" />
+                                        <rect x="90" y="124" width="78" height="11" rx="2" />
+                                        <rect x="116" y="142" width="78" height="11" rx="2" />
+                                        <rect x="142" y="160" width="78" height="11" rx="2" />
+                                    </g>
+                                    <g fill="#B4B2A9" fill-opacity="0.3" stroke="#A89A85" stroke-width="0.5">
+                                        <rect x="168" y="178" width="78" height="11" rx="2" />
+                                        <rect x="194" y="196" width="78" height="11" rx="2" />
+                                        <rect x="220" y="214" width="78" height="11" rx="2" />
+                                    </g>
+                                    <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#4A4136">
+                                        <rect x="8" y="240" width="10" height="10" rx="2" fill="#7C4E2B" fill-opacity="0.28" stroke="#7C4E2B" stroke-width="0.5" />
+                                        <text x="24" y="248">U₅ — the probe set</text>
+                                        <rect x="8" y="258" width="10" height="10" rx="2" fill="#B4552F" fill-opacity="0.32" stroke="#B4552F" stroke-width="0.5" />
+                                        <text x="24" y="266">meets U₅ — 7 layers</text>
+                                        <rect x="8" y="276" width="10" height="10" rx="2" fill="#B4B2A9" fill-opacity="0.3" stroke="#A89A85" stroke-width="0.5" />
+                                        <text x="24" y="284">misses U₅ — every m ≥ 8</text>
+                                    </g>
+                                </svg>
+                                <figcaption>Each layer $L_m = U_m - \bar{U}_{m-3}$ occupies three index steps. A point in $U_5$ can only be reached by the layers with $m \le 7$; from $m = 8$ onward the layers have slid past $\bar{U}_5$ entirely. Finitely many, which is local finiteness.</figcaption>
+                            </figure>
+                        </aside>
+                    </div>
+
+                    <p><strong>Theorem:</strong> Every regular paracompact space is normal.</p>
+
+                    <p><strong>Theorem:</strong> Every Hausdorff paracompact space is normal.</p>
+
+                    <p><strong>Corollary</strong>: A paracompact Hausdorff space is $T_4$.</p>
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="border-t border-stone-400 mt-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-stone-500">
+                <p>&copy; <span id="year"></span> Mathematics & AI. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="../assets/js/site.js"></script>
+    <script>
+        (function () {
+            var cx = 165, cy = 150, sub = '₀₁₂₃₄₅₆₇₈₉';
+            function r(k) { return k <= 0 ? 0 : 14 + 13 * k; }
+            function s(k) {
+                return String(k).split('').map(function (c) { return sub[+c]; }).join('');
+            }
+            function el(id) { return document.getElementById(id); }
+            function ring(id, inner, outer) {
+                var c = el(id);
+                c.setAttribute('r', (inner + outer) / 2);
+                c.setAttribute('stroke-width', outer - inner);
+            }
+            function update(n) {
+                var li = r(n - 3), lo = r(n), ai = r(n - 2), ao = r(n - 1);
+                ring('pc-band-l', li, lo);
+                ring('pc-band-a', ai, ao);
+                el('pc-e-l1').setAttribute('r', li);
+                el('pc-e-l2').setAttribute('r', lo);
+                el('pc-e-a1').setAttribute('r', ai);
+                el('pc-e-a2').setAttribute('r', ao);
+                el('pc-lg-l').textContent = 'Open layer  U' + s(n) + ' − cl(U' + s(n - 3) + ')';
+                el('pc-lg-a').textContent = 'Compact annulus  cl(U' + s(n - 1) + ') − U' + s(n - 2) + '';
+                el('pc-nv').textContent = n;
+                el('pc-cap').textContent = 'The chain U₁ ⊆ cl(U₁) ⊆ U₂ ⊆ … exhausts X, each closure compact. '
+                    + 'At n = ' + n + ' the compact annulus cl(U' + s(n - 1) + ') − U' + s(n - 2)
+                    + ' sits strictly inside the open layer U' + s(n) + ' − cl(U' + s(n - 3) + '), '
+                    + 'with one full step of slack on each side. That slack is what the gap of 3 between the indices buys.';
+            }
+            var slider = el('pc-n');
+            slider.addEventListener('input', function (e) { update(+e.target.value); });
+            update(+slider.value);
+        })();
+    </script>
+</body>
+</html>
