@@ -8,6 +8,15 @@
 
 window.POSTS = [
     {
+        url: "posts/countability-and-separation-axioms.html",
+        title: "Countability and Separation Axioms",
+        date: "2026-08-24",
+        dateDisplay: "August 24, 2026",
+        author: "Sham",
+        tags: ["topology", "countability and separation axioms"],
+        description: "Four connected results on first countability, countable bases, separation axioms, and compact metric spaces."
+    },
+    {
         url: "posts/paracompact-spaces.html",
         title: "Paracompact Spaces",
         date: "2026-08-18",

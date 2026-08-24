@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countability and Separation Axioms</title>
+    <meta name="description" content="Four connected results about first countability, countable bases, separation axioms, and compact metric spaces." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/site.css" />
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] } };
+    </script>
+    <script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="bg-stone-50 text-stone-900 font-serif">
+    <div class="min-h-screen flex flex-col">
+        <header class="border-b border-stone-400">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <a href="../index.html" class="text-4xl font-bold font-sans hover:text-stone-700 transition-colors duration-300">Mathematics &amp; AI</a>
+                <p class="text-stone-700 mt-1">Exploring the frontier of automated discovery.</p>
+            </div>
+        </header>
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <article class="max-w-6xl mx-auto">
+                <a href="../index.html" class="text-stone-700 font-bold inline-block mb-8 hover:text-stone-900">&larr; Back to all articles</a>
+                <h1 class="text-4xl md:text-5xl font-bold font-sans leading-tight">Countability and Separation Axioms</h1>
+                <div class="text-md text-stone-700 mt-4 border-b border-stone-400 pb-4 flex flex-wrap gap-4 items-center">
+                    <span>August 24, 2026</span><span>&bull;</span><span>Sham</span>
+                    <span class="post-tag text-stone-700">topology</span>
+                    <span class="post-tag text-stone-700">countability and separation axioms</span>
+                </div>
+
+                <div class="prose prose-lg mt-8 text-stone-800 leading-relaxed space-y-6">
+                    <p>This note collects four useful observations showing how countability conditions interact with separation axioms. The proofs are elementary, but the examples show why the hypotheses matter.</p>
+
+                    <h2>4.1 A first-countable $T_1$ space has $G_\delta$ singletons</h2>
+                    <p>Let $X$ be a first-countable $T_1$ space. Fix $x\in X$, and let $\{B_n(x):n\in\mathbb N\}$ be a countable local base at $x$. We claim that</p>
+                    $$\{x\}=\bigcap_{n=1}^{\infty}B_n(x).$$
+                    <p>The inclusion from left to right is immediate. Conversely, suppose $y\ne x$. Since $X$ is $T_1$, the set $X\setminus\{y\}$ is open and contains $x$. The local-base property gives some $n$ with $x\in B_n(x)\subseteq X\setminus\{y\}$. Hence $y\notin B_n(x)$, so $y$ is not in the intersection. Thus every singleton is a $G_\delta$-set.</p>
+
+                    <h2>4.2 A countable base need not make a space $T_1$</h2>
+                    <p>Consider $X=\mathbb N\cup\{\infty\}$, where the points of $\mathbb N$ are isolated and the neighborhoods of $\infty$ are the sets</p>
+                    $$U_N=\{\infty\}\cup\{n\in\mathbb N:n\ge N\},\qquad N\in\mathbb N.$$
+                    <p>The family consisting of all singletons $\{n\}$ for $n\in\mathbb N$, together with the sets $U_N$, is a countable basis. However, the space is not $T_1$: every neighborhood of $\infty$ contains all sufficiently large natural numbers, so no neighborhood of $\infty$ can avoid a prescribed tail point. This illustrates that second countability alone does not imply the separation axioms.</p>
+
+                    <h2>4.3 An uncountable set has uncountably many limit points in a second-countable space</h2>
+                    <p>Let $X$ have a countable basis $\mathcal B=\{B_1,B_2,\ldots\}$, and let $A\subseteq X$ be uncountable. We show that the derived set $A'$ is uncountable.</p>
+                    <p>Assume, toward a contradiction, that $A'$ is countable. Choose $x\in A\setminus A'$. Since $x$ is not a limit point of $A$, there is an open neighborhood $U_x$ such that $U_x\cap(A\setminus\{x\})=\varnothing$. Choose a basis element $B_{n(x)}$ with $x\in B_{n(x)}\subseteq U_x$. For each fixed basis element $B_n$, there can be at most one point $x\in A\setminus A'$ with $B_{n(x)}=B_n$, because $B_n$ contains no other point of $A$. Therefore $A\setminus A'$ is countable, being indexed by the countable basis. Since $A'$ was assumed countable, $A=(A\setminus A')\cup A'$ would be countable, a contradiction. Thus $A'$ is uncountable.</p>
+
+                    <h2>4.4 Every compact metric space has a countable basis</h2>
+                    <div class="post-split">
+                        <div class="post-split-main">
+                            <p>Let $(X,d)$ be compact. For every $n\in\mathbb N$, the family of balls $\{B(x,1/n):x\in X\}$ covers $X$. By compactness, choose a finite subcover and call its set of centers $F_n$. Define</p>
+                            $$\mathcal B=\bigcup_{n=1}^{\infty}\{B(a,1/n):a\in F_n\}.$$
+                            <p>Each $F_n$ is finite, so $\mathcal B$ is a countable union of finite sets and is therefore countable. It remains to check that it is a basis. If $U$ is open and $x\in U$, choose $\varepsilon&gt;0$ with $B(x,\varepsilon)\subseteq U$. Choose $n$ so large that $2/n&lt;\varepsilon$. Since $F_n$ covers $X$, there is $a\in F_n$ with $d(x,a)&lt;1/n$. Then $x\in B(a,1/n)$, and for every $y\in B(a,1/n)$,</p>
+                            $$d(y,x)\le d(y,a)+d(a,x)&lt;\frac{2}{n}&lt;\varepsilon.$$
+                            <p>Hence $B(a,1/n)\subseteq B(x,\varepsilon)\subseteq U$. Thus $\mathcal B$ is a countable basis, and every compact metric space is second-countable.</p>
+                        </div>
+                        <aside class="post-rail">
+                            <figure class="post-figure">
+                                <svg width="100%" viewBox="0 0 330 270" role="img" aria-labelledby="basis-title basis-desc">
+                                    <title id="basis-title">A basis ball trapped inside an open neighborhood</title>
+                                    <desc id="basis-desc">A large dashed circle is the open neighborhood B of x with radius epsilon. Inside it sits a smaller solid circle, the basis ball of radius 1/n centered at a selected point a chosen near x, showing that the basis ball is contained in the neighborhood.</desc>
+                                    <rect x="10" y="10" width="310" height="215" rx="10" fill="#F5EFE6" stroke="#C9B29B" />
+                                    <circle cx="170" cy="115" r="88" fill="#DCE8DF" fill-opacity=".65" stroke="#5C7F6E" stroke-width="1.5" stroke-dasharray="5 4" />
+                                    <circle cx="170" cy="115" r="48" fill="#F2D9C8" fill-opacity=".8" stroke="#B4552F" stroke-width="1.5" />
+                                    <circle cx="151" cy="101" r="4" fill="#4A4136" /><circle cx="170" cy="115" r="4" fill="#B4552F" />
+                                    <line x1="151" y1="101" x2="170" y2="115" stroke="#4A4136" stroke-width="1" />
+                                    <text x="20" y="247" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#4A4136">selected center a</text>
+                                    <text x="177" y="247" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#4A4136">x</text>
+                                    <text x="20" y="263" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#5C7F6E">open neighborhood</text>
+                                    <text x="177" y="263" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#B4552F">basis ball B(a, 1/n)</text>
+                                </svg>
+                                <figcaption>Compactness turns each radius $1/n$ cover into a finite layer; the union of all layers is countable.</figcaption>
+                            </figure>
+                        </aside>
+                    </div>
+                    <p>These results form a useful chain: countable local information controls singleton descriptions, while compactness supplies the finite selections needed to build a global countable basis.</p>
+                </div>
+            </article>
+        </main>
+        <footer class="border-t border-stone-400 mt-12"><div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-stone-500"><p>&copy; <span id="year"></span> Mathematics &amp; AI. All rights reserved.</p></div></footer>
+    </div>
+    <script src="../assets/js/site.js"></script>
+</body>
+</html>
