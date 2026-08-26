@@ -38,10 +38,57 @@
                     $$\{x\}=\bigcap_{n=1}^{\infty}B_n(x).$$
                     <p>The inclusion from left to right is immediate. Conversely, suppose $y\ne x$. Since $X$ is $T_1$, the set $X\setminus\{y\}$ is open and contains $x$. The local-base property gives some $n$ with $x\in B_n(x)\subseteq X\setminus\{y\}$. Hence $y\notin B_n(x)$, so $y$ is not in the intersection. Thus every singleton is a $G_\delta$-set.</p>
 
-                    <h2>4.2 A countable base need not make a space $T_1$</h2>
-                    <p>Consider $X=\mathbb N\cup\{\infty\}$, where the points of $\mathbb N$ are isolated and the neighborhoods of $\infty$ are the sets</p>
-                    $$U_N=\{\infty\}\cup\{n\in\mathbb N:n\ge N\},\qquad N\in\mathbb N.$$
-                    <p>The family consisting of all singletons $\{n\}$ for $n\in\mathbb N$, together with the sets $U_N$, is a countable basis. However, the space is not $T_1$: every neighborhood of $\infty$ contains all sufficiently large natural numbers, so no neighborhood of $\infty$ can avoid a prescribed tail point. This illustrates that second countability alone does not imply the separation axioms.</p>
+                    <h2>4.2 The Arens–Fort space is not first-countable</h2>
+                    <div class="post-split">
+                        <div class="post-split-main">
+                            <p>Let $X=\mathbb N\times\mathbb N\cup\{p\}$, and define the topology on $X$ as follows:</p>
+                            <ol>
+                                <li>All subsets of $\mathbb N\times\mathbb N$ that do not contain $p$ are open.</li>
+                                <li>A subset containing $p$ is open if, from each row $\{(m,n):n\in\mathbb N\}$, only finitely many points are excluded.</li>
+                            </ol>
+                            <p>Note that this is a valid topology: $\varnothing$ and $X$ are included, since $X$ excludes no points. Moreover, arbitrary unions of sets of the second type are open, since if $p$ belongs to the union, then in each row the union still omits only finitely many points. Finite intersections are also open because the union of two finite subsets of a row is finite.</p>
+                            <p>Since each point is isolated and open, each singleton is a $G_\delta$-set. Also,</p>
+                            $$\{p\}=\bigcap_{k\geq 1}\left(\{p\}\cup\{(k,n):n\in\mathbb N\}\right).$$
+                            <p>Suppose we have a countable basis $\{B_1,B_2,\ldots\}$ at $p$. Now construct an open set as follows. Choose $x_k=(m_k,n_k)$, where $m_k,n_k\in\mathbb N$, such that $x_k\in B_k$. Such a choice is possible because we exclude only finitely many elements from each row, so we can select an element from the remaining points. Call this point $x_k$.</p>
+                            <p>Since each singleton is open, this implies that $X\setminus\{x_1,x_2,\ldots\}$ is open and contains $p$. But $x_k$ is not in this open set, even though each basis element $B_k$ contains $x_k$. Therefore, $B_k$ cannot be contained in $X\setminus\{x_1,x_2,\ldots\}$ for any $k$. This construction is possible for every countable basis at $p$, and hence the Arens–Fort space cannot have a countable basis at $p$.</p>
+                        </div>
+                        <aside class="post-rail">
+                            <figure class="post-figure">
+                                <svg width="100%" viewBox="0 0 330 360" role="img" aria-labelledby="af-title af-desc">
+                                    <title id="af-title">Arens–Fort lattice with finitely many exclusions in each row</title>
+                                    <desc id="af-desc">A lattice of points arranged in rows. Red crosses mark finitely many excluded points in each row, while the remaining points belong to a neighborhood of p.</desc>
+                                    <rect x="8" y="8" width="314" height="300" rx="8" fill="#F5EFE6" stroke="#C9B29B" />
+                                    <text x="22" y="29" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#7C4E2B">neighborhood V of p</text>
+                                    <text x="274" y="29" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#B4552F">p</text>
+                                    <circle cx="286" cy="25" r="5" fill="#B4552F" />
+                                    <g stroke="#C9B29B" stroke-width="0.6">
+                                        <line x1="42" y1="62" x2="282" y2="62" /><line x1="42" y1="112" x2="282" y2="112" />
+                                        <line x1="42" y1="162" x2="282" y2="162" /><line x1="42" y1="212" x2="282" y2="212" />
+                                        <line x1="42" y1="262" x2="282" y2="262" />
+                                    </g>
+                                    <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#6B5F4E" text-anchor="end">
+                                        <text x="34" y="66">R₁</text><text x="34" y="116">R₂</text><text x="34" y="166">R₃</text><text x="34" y="216">R₄</text><text x="34" y="266">R₅</text>
+                                    </g>
+                                    <g fill="#5C7F6E">
+                                        <circle cx="65" cy="62" r="4"/><circle cx="95" cy="62" r="4"/><circle cx="125" cy="62" r="4"/><circle cx="155" cy="62" r="4"/><circle cx="185" cy="62" r="4"/><circle cx="215" cy="62" r="4"/><circle cx="245" cy="62" r="4"/>
+                                        <circle cx="65" cy="112" r="4"/><circle cx="95" cy="112" r="4"/><circle cx="125" cy="112" r="4"/><circle cx="155" cy="112" r="4"/><circle cx="185" cy="112" r="4"/><circle cx="215" cy="112" r="4"/><circle cx="245" cy="112" r="4"/>
+                                        <circle cx="65" cy="162" r="4"/><circle cx="95" cy="162" r="4"/><circle cx="125" cy="162" r="4"/><circle cx="155" cy="162" r="4"/><circle cx="185" cy="162" r="4"/><circle cx="215" cy="162" r="4"/><circle cx="245" cy="162" r="4"/>
+                                        <circle cx="65" cy="212" r="4"/><circle cx="95" cy="212" r="4"/><circle cx="125" cy="212" r="4"/><circle cx="155" cy="212" r="4"/><circle cx="185" cy="212" r="4"/><circle cx="215" cy="212" r="4"/><circle cx="245" cy="212" r="4"/>
+                                        <circle cx="65" cy="262" r="4"/><circle cx="95" cy="262" r="4"/><circle cx="125" cy="262" r="4"/><circle cx="155" cy="262" r="4"/><circle cx="185" cy="262" r="4"/><circle cx="215" cy="262" r="4"/><circle cx="245" cy="262" r="4"/>
+                                    </g>
+                                    <g stroke="#B4552F" stroke-width="2">
+                                        <path d="M61 58l8 8m0-8l-8 8M121 108l8 8m0-8l-8 8M181 158l8 8m0-8l-8 8M91 208l8 8m0-8l-8 8M151 258l8 8m0-8l-8 8"/>
+                                    </g>
+                                    <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#4A4136">
+                                        <rect x="18" y="322" width="10" height="10" rx="2" fill="#5C7F6E"/><text x="34" y="331">points retained</text>
+                                        <rect x="145" y="322" width="10" height="10" rx="2" fill="#B4552F"/><text x="161" y="331">finite exclusions</text>
+                                        <text x="18" y="348" fill="#6B5F4E">Every row has only finitely many crosses.</text>
+                                    </g>
+                                </svg>
+                                <figcaption>A neighborhood of $p$ may omit finitely many lattice points from each row, but it must retain the rest.</figcaption>
+                            </figure>
+                        </aside>
+                    </div>
 
                     <h2>4.3 An uncountable set has uncountably many limit points in a second-countable space</h2>
                     <p>Let $X$ have a countable basis $\mathcal B=\{B_1,B_2,\ldots\}$, and let $A\subseteq X$ be uncountable. We show that the derived set $A'$ is uncountable.</p>
