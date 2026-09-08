@@ -13,8 +13,8 @@ window.POSTS = [
         date: "2026-08-24",
         dateDisplay: "August 24, 2026",
         author: "Sham",
-        tags: ["topology", "countability and separation axioms"],
-        description: "Four connected results on first countability, countable bases, separation axioms, and compact metric spaces."
+        tags: ["topology", "countability and separation axioms", "munkres"],
+        description: "Notes on countability, separation axioms, metrizable and Lindelöf spaces, the lower limit topology, and the ordered square."
     },
     {
         url: "posts/paracompact-spaces.html",
