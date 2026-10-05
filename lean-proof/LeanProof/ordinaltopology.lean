@@ -28,3 +28,32 @@ theorem firstCountable_omega1 : FirstCountableTopology (Set.Iio ω₁) := by
       toHasBasis := SuccOrder.hasBasis_nhds_Ioc_of_exists_lt H
     }
     exact this.isCountablyGenerated
+
+
+theorem not_secondcountable_omega1 : ¬SecondCountableTopology
+  (Set.Iio (Ordinal.omega 1 : Ordinal.{0})) := by
+
+  let SΩ := Set.Iio (Ordinal.omega 1 : Ordinal.{0})
+  intro h
+  let : SecondCountableTopology (SΩ) := h
+  obtain ⟨B, hB_basis, hB_count⟩ :=
+    TopologicalSpace.exists_countable_basis (α := SΩ)
+
+  have hcount :
+      {x : SΩ |
+        ∃ y < x, Set.Ioo y x = ∅}.Countable :=
+    countable_of_isolated_left'
+
+  have hcard := Cardinal.mk_Iio_ordinal (Ordinal.omega 1 : Ordinal.{0})
+  rw [Ordinal.card_omega] at hcard
+
+  let L : Set SΩ := {x : SΩ | ∃ y < x, Set.Ioo y x = ∅}
+
+  let f : SΩ → L := fun x => ⟨
+    ⟨x.1 + 1, by sorry⟩,by
+    sorry
+ ⟩
+  sorry
+
+
+#check Cardinal.mk_Iio_ordinal
