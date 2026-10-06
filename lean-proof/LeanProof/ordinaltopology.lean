@@ -39,21 +39,47 @@ theorem not_secondcountable_omega1 : ¬SecondCountableTopology
   obtain ⟨B, hB_basis, hB_count⟩ :=
     TopologicalSpace.exists_countable_basis (α := SΩ)
 
-  have hcount :
-      {x : SΩ |
-        ∃ y < x, Set.Ioo y x = ∅}.Countable :=
-    countable_of_isolated_left'
+  let L : Set SΩ := {x : SΩ | ∃ y < x, Set.Ioo y x = ∅}
+  have hcount : L.Countable := countable_of_isolated_left'
 
   have hcard := Cardinal.mk_Iio_ordinal (Ordinal.omega 1 : Ordinal.{0})
   rw [Ordinal.card_omega] at hcard
 
-  let L : Set SΩ := {x : SΩ | ∃ y < x, Set.Ioo y x = ∅}
+  have hωlim : Order.IsSuccLimit (ω₁ : Ordinal.{0}) := Cardinal.isSuccLimit_omega 1
+
+  have hωpre : Order.IsSuccPrelimit (ω₁ : Ordinal.{0}) := hωlim.isSuccPrelimit
 
   let f : SΩ → L := fun x => ⟨
-    ⟨x.1 + 1, by sorry⟩,by
-    sorry
- ⟩
-  sorry
+    ⟨x.1 + 1, by exact hωlim.succ_lt x.2⟩, by
+      refine ⟨x, ?_, ?_⟩
+      · change x.1 < x.1 + 1
+        simp
+      · sorry
+      ⟩
+
+  have hf : Function.Injective f := by
+    intro x y hxy
+    apply Subtype.ext
+    rw [Subtype.mk_eq_mk] at hxy
+    have hxy' : (↑x : Ordinal) + 1 = (↑y : Ordinal) + 1 := by
+        exact congrArg (fun z : SΩ => (z : Ordinal)) hxy
+    simp at hxy'
+    exact hxy'
 
 
-#check Cardinal.mk_Iio_ordinal
+  have hL : Countable L := by
+    apply Set.Countable.to_subtype
+    exact hcount
+
+  have SΩ_countable : Countable SΩ := Function.Injective.countable hf
+  have card_SΩ : #SΩ ≤ ℵ₀ := Cardinal.mk_le_aleph0
+  rw [hcard] at card_SΩ
+
+  have hlt :
+    Cardinal.lift.{1,0} (ℵ₀ : Cardinal.{0}) <
+      Cardinal.lift.{1,0} (ℵ_ 1 : Cardinal.{0}) := by
+      rw [Cardinal.lift_lt]
+      exact Cardinal.aleph0_lt_aleph_one
+
+  rw [Cardinal.lift_aleph0] at hlt
+  exact (not_lt_of_ge card_SΩ) hlt
