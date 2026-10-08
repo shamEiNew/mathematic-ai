@@ -37,7 +37,7 @@ theorem not_secondcountable_omega1 : ¬SecondCountableTopology
   -- let : SecondCountableTopology (SΩ) := h
   -- obtain ⟨B, hB_basis, hB_count⟩ :=
   --   TopologicalSpace.exists_countable_basis (α := SΩ)
-  let L : Set SΩ := {x : SΩ | ∃ y < x, Set.Ioo y x = ∅}
+  let L : Set SΩ := {x : SΩ | ∃ y < x, Set.Ioo y x = ∅} --(x, x+1) is empty
   have hcount : L.Countable := countable_of_isolated_left'
   have hcard := Cardinal.mk_Iio_ordinal (Ordinal.omega 1 : Ordinal.{0})
   rw [Ordinal.card_omega] at hcard
@@ -47,7 +47,7 @@ theorem not_secondcountable_omega1 : ¬SecondCountableTopology
     ⟨x.1 + 1, by exact hωlim.succ_lt x.2⟩, by
       refine ⟨x, ?_, ?_⟩
       · change x.1 < x.1 + 1
-        simp
+        simp only [lt_add_iff_pos_right, Order.lt_one_iff]
       · refine Set.eq_empty_iff_forall_notMem.2 fun z hz => ?_
         have h1 : x.1 < z.1 := hz.1
         have h2 : z.1 < x.1 + 1 := hz.2
@@ -87,13 +87,21 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
     exact isOpen_Iio
   have cover_is_cover : ⋃₀ cover = SΩ := by
     ext x
+    have hωlim : Order.IsSuccLimit (ω₁ : Ordinal.{0}) := Cardinal.isSuccLimit_omega 1
+    have hωpre : Order.IsSuccPrelimit (ω₁ : Ordinal.{0}) := hωlim.isSuccPrelimit
     apply Iff.intro
     · intro hx
       obtain ⟨x, hx, rfl⟩ := hx
       simp
     · intro hx
-      sorry
-
+      simp only [image_val_sUnion, mem_sUnion, mem_ofPred_eq, exists_exists_and_eq_and, mem_image,
+        Subtype.exists, mem_Iio, exists_and_right, exists_eq_right]
+      refine ⟨?_,?_,?_⟩
+      · exact Iio ⟨x + 1, by simp only [mem_Iio]; exact hωlim.succ_lt hx⟩
+      · exact ⟨_,rfl⟩
+      · simp only [mem_Iio, Subtype.mk_lt_mk, lt_add_iff_pos_right, Order.lt_one_iff, exists_prop,
+        and_true]; exact hx
+  have hcover_countable : Countable cover := by sorry
   sorry
 
 
