@@ -85,23 +85,30 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
     obtain ⟨x, hx⟩ := hU
     rw [hx]
     exact isOpen_Iio
-  have cover_is_cover : ⋃₀ cover = SΩ := by
-    ext x
-    have hωlim : Order.IsSuccLimit (ω₁ : Ordinal.{0}) := Cardinal.isSuccLimit_omega 1
-    have hωpre : Order.IsSuccPrelimit (ω₁ : Ordinal.{0}) := hωlim.isSuccPrelimit
-    apply Iff.intro
-    · intro hx
-      obtain ⟨x, hx, rfl⟩ := hx
-      simp
-    · intro hx
-      simp only [image_val_sUnion, mem_sUnion, mem_ofPred_eq, exists_exists_and_eq_and, mem_image,
-        Subtype.exists, mem_Iio, exists_and_right, exists_eq_right]
-      refine ⟨?_,?_,?_⟩
-      · exact Iio ⟨x + 1, by simp only [mem_Iio]; exact hωlim.succ_lt hx⟩
-      · exact ⟨_,rfl⟩
-      · simp only [mem_Iio, Subtype.mk_lt_mk, lt_add_iff_pos_right, Order.lt_one_iff, exists_prop,
-        and_true]; exact hx
-  have hcover_countable : Countable cover := by sorry
+  have hωlim : Order.IsSuccLimit (ω₁ : Ordinal.{0}) := Cardinal.isSuccLimit_omega 1
+  have hωpre : Order.IsSuccPrelimit (ω₁ : Ordinal.{0}) := hωlim.isSuccPrelimit
+  -- have cover_is_cover : ⋃₀ cover = SΩ := by
+  --   ext x
+
+  --   apply Iff.intro
+  --   · intro hx
+  --     obtain ⟨x, hx, rfl⟩ := hx
+  --     simp
+  --   · intro hx
+  --     simp only [image_val_sUnion, mem_sUnion, mem_ofPred_eq, exists_exists_and_eq_and, mem_image,
+  --       Subtype.exists, mem_Iio, exists_and_right, exists_eq_right]
+  --     refine ⟨?_,?_,?_⟩
+  --     · exact Iio ⟨x + 1, by simp only [mem_Iio]; exact hωlim.succ_lt hx⟩
+  --     · exact ⟨_,rfl⟩
+  --     · simp only [mem_Iio, Subtype.mk_lt_mk, lt_add_iff_pos_right, Order.lt_one_iff, exists_prop,
+  --       and_true]; exact hx
+  have hcov : (Set.univ : Set SΩ) ⊆ ⋃ U ∈ cover, U := by
+    intro x _
+    simp only [mem_iUnion, exists_prop]
+    exact ⟨Iio ⟨x.1 + 1, by simpa using hωlim.succ_lt x.2⟩, ⟨_, rfl⟩, by
+      change x.1 < x.1 + 1
+      simp⟩
+
   sorry
 
 
