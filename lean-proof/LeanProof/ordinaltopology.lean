@@ -95,12 +95,14 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
   --     obtain ⟨x, hx, rfl⟩ := hx
   --     simp
   --   · intro hx
-  --     simp only [image_val_sUnion, mem_sUnion, mem_ofPred_eq, exists_exists_and_eq_and, mem_image,
+  --     simp only [image_val_sUnion, mem_sUnion,
+  --       mem_ofPred_eq, exists_exists_and_eq_and, mem_image,
   --       Subtype.exists, mem_Iio, exists_and_right, exists_eq_right]
   --     refine ⟨?_,?_,?_⟩
   --     · exact Iio ⟨x + 1, by simp only [mem_Iio]; exact hωlim.succ_lt hx⟩
   --     · exact ⟨_,rfl⟩
-  --     · simp only [mem_Iio, Subtype.mk_lt_mk, lt_add_iff_pos_right, Order.lt_one_iff, exists_prop,
+  --     · simp only [mem_Iio, Subtype.mk_lt_mk, lt_add_iff_pos_right,
+  --Order.lt_one_iff, exists_prop,
   --       and_true]; exact hx
   have hcov : (Set.univ : Set SΩ) ⊆ ⋃ U ∈ cover, U := by
     intro x _
@@ -108,7 +110,9 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
     exact ⟨Iio ⟨x.1 + 1, by simpa using hωlim.succ_lt x.2⟩, ⟨_, rfl⟩, by
       change x.1 < x.1 + 1
       simp⟩
-
+  obtain ⟨c, hc_sub, hc_count, hc_cov⟩ :=
+    (isLindelof_univ (X := SΩ)).elim_countable_subcover_image
+      (b := cover) (c := id) U_is_open hcov
   sorry
 
 
