@@ -87,23 +87,6 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
     exact isOpen_Iio
   have hωlim : Order.IsSuccLimit (ω₁ : Ordinal.{0}) := Cardinal.isSuccLimit_omega 1
   have hωpre : Order.IsSuccPrelimit (ω₁ : Ordinal.{0}) := hωlim.isSuccPrelimit
-  -- have cover_is_cover : ⋃₀ cover = SΩ := by
-  --   ext x
-
-  --   apply Iff.intro
-  --   · intro hx
-  --     obtain ⟨x, hx, rfl⟩ := hx
-  --     simp
-  --   · intro hx
-  --     simp only [image_val_sUnion, mem_sUnion,
-  --       mem_ofPred_eq, exists_exists_and_eq_and, mem_image,
-  --       Subtype.exists, mem_Iio, exists_and_right, exists_eq_right]
-  --     refine ⟨?_,?_,?_⟩
-  --     · exact Iio ⟨x + 1, by simp only [mem_Iio]; exact hωlim.succ_lt hx⟩
-  --     · exact ⟨_,rfl⟩
-  --     · simp only [mem_Iio, Subtype.mk_lt_mk, lt_add_iff_pos_right,
-  --Order.lt_one_iff, exists_prop,
-  --       and_true]; exact hx
   have hcov : (Set.univ : Set SΩ) ⊆ ⋃ U ∈ cover, U := by
     intro x _
     simp only [mem_iUnion, exists_prop]
@@ -113,8 +96,30 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
   obtain ⟨c, hc_sub, hc_count, hc_cov⟩ :=
     (isLindelof_univ (X := SΩ)).elim_countable_subcover_image
       (b := cover) (c := id) U_is_open hcov
+  have hex : ∀ U : ↥c, ∃ x : SΩ, U = Iio x := by
+    intro U
+    exact hc_sub U.property
+  choose endpoint hendpoint using hex
+  let : Countable ↥c := hc_count.to_subtype
+  let σ : Ordinal := ⨆ U : ↥c, (endpoint U).val
+  have hσ : σ < ω₁ :=
+    Ordinal.iSup_lt_omega_one
+      (fun U : ↥c => (endpoint U).property)
+  let p : SΩ := ⟨σ, hσ⟩
+  have hp : p ∈ ⋃ U ∈ c, U := hc_cov (Set.mem_univ p)
+  simp only [Set.mem_iUnion] at hp
+  obtain ⟨U, hUc, hpU⟩ := hp
+  have hU : U = Iio (endpoint ⟨U, hUc⟩) := hendpoint ⟨U, hUc⟩
+  rw [hU] at hpU
+  change σ < (endpoint ⟨U, hUc⟩).val at hpU
+  have hle : (endpoint ⟨U, hUc⟩).val ≤ σ := by
+    dsimp only [σ]
+    exact Ordinal.le_iSup
+      (fun V : ↥c => (endpoint V).val) ⟨U, hUc⟩
+  exact not_lt_of_ge hle hpU
+
+
+theorem omega1_space_not_separable : ¬SeparableSpace (SΩ) := by
+  intro h
+  obtain ⟨s, hs_dense, hs_count⟩ := h
   sorry
-
-
-#check Set.Iio (ω_ 1)
-#check ↑(Set.Iio (ω_ 1))
