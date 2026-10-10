@@ -121,5 +121,5 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
 
 theorem omega1_space_not_separable : ¬SeparableSpace (SΩ) := by
   intro h
-  obtain ⟨s, hs_dense, hs_count⟩ := h
+  obtain ⟨s, hs⟩ := h
   sorry
