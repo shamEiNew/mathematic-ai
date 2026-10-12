@@ -104,7 +104,7 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
   let σ : Ordinal := ⨆ U : ↥c, (endpoint U).val
   have hσ : σ < ω₁ :=
     Ordinal.iSup_lt_omega_one
-      (fun U : ↥c => (endpoint U).property)
+      (fun U : ↥c => (endpoint U).property) --key property
   let p : SΩ := ⟨σ, hσ⟩
   have hp : p ∈ ⋃ U ∈ c, U := hc_cov (Set.mem_univ p)
   simp only [Set.mem_iUnion] at hp
@@ -122,4 +122,37 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
 theorem omega1_space_not_separable : ¬SeparableSpace (SΩ) := by
   intro h
   obtain ⟨s, hs⟩ := h
-  sorry
+  let σ : Ordinal := ⨆ x : s, (x : SΩ).val
+  let : Countable ↥s := hs.1.to_subtype
+  have hσ : σ < ω₁ := by
+    exact Ordinal.iSup_lt_omega_one
+      (fun x : ↥s => (x : SΩ).property)
+  -- let io_contained : Iio σ ⊆ SΩ := by
+  --   intro x hx
+  --   simp only [mem_Iio] at hx
+  --   exact lt_trans hx hσ
+  have io_open : IsOpen (Iio σ) := by
+    exact isOpen_Iio
+  let sup : SΩ := ⟨σ, hσ⟩
+  have intersect_empty : Ioi sup ∩ s = ∅ := by
+    apply Set.eq_empty_iff_forall_notMem.mpr
+    intro x hx
+    have hlt := hx.1
+    change sup < x at hlt
+    change σ < x at hlt
+    have hle : x ≤ σ   :=
+      Ordinal.le_iSup
+        (fun y : ↥s => (y : SΩ).val) ⟨x, hx.2⟩
+    exact (not_lt_of_ge hle) hlt
+
+  have sigma_not_max : ¬IsMax sup := by
+    intro hsup
+    obtain p  := isMax_iff_forall_not_lt.1 hsup
+
+  have hne : (Ioi sup).Nonempty :=  Set.Ioi_nonempty.2 sigma_not_max
+
+  have hinter : (Ioi sup ∩ s).Nonempty :=
+    hs.2.inter_open_nonempty (Ioi sup) isOpen_Ioi hne
+
+  rw [intersect_empty] at hinter
+  exact Set.not_nonempty_empty hinter
