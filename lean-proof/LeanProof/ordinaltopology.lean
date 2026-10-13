@@ -124,13 +124,11 @@ theorem omega1_space_not_separable : ¬SeparableSpace (SΩ) := by
   obtain ⟨s, hs⟩ := h
   let σ : Ordinal := ⨆ x : s, (x : SΩ).val
   let : Countable ↥s := hs.1.to_subtype
+  have hωlim : Order.IsSuccLimit (ω₁ : Ordinal.{0}) := Cardinal.isSuccLimit_omega 1
+  have hωpre : Order.IsSuccPrelimit (ω₁ : Ordinal.{0}) := hωlim.isSuccPrelimit
   have hσ : σ < ω₁ := by
     exact Ordinal.iSup_lt_omega_one
       (fun x : ↥s => (x : SΩ).property)
-  -- let io_contained : Iio σ ⊆ SΩ := by
-  --   intro x hx
-  --   simp only [mem_Iio] at hx
-  --   exact lt_trans hx hσ
   have io_open : IsOpen (Iio σ) := by
     exact isOpen_Iio
   let sup : SΩ := ⟨σ, hσ⟩
@@ -144,15 +142,16 @@ theorem omega1_space_not_separable : ¬SeparableSpace (SΩ) := by
       Ordinal.le_iSup
         (fun y : ↥s => (y : SΩ).val) ⟨x, hx.2⟩
     exact (not_lt_of_ge hle) hlt
-
   have sigma_not_max : ¬IsMax sup := by
-    intro hsup
-    obtain p  := isMax_iff_forall_not_lt.1 hsup
-
+    intro hmax
+    have hnot := isMax_iff_forall_not_lt.mp hmax
+    let p : SΩ := ⟨σ + 1, by simpa using hωlim.succ_lt hσ⟩
+    have hlt : sup < p := by
+      change σ < σ + 1
+      simp
+    exact hnot p hlt
   have hne : (Ioi sup).Nonempty :=  Set.Ioi_nonempty.2 sigma_not_max
-
   have hinter : (Ioi sup ∩ s).Nonempty :=
     hs.2.inter_open_nonempty (Ioi sup) isOpen_Ioi hne
-
   rw [intersect_empty] at hinter
   exact Set.not_nonempty_empty hinter
