@@ -2,17 +2,17 @@ import Mathlib.SetTheory.Ordinal.Topology
 import Counterexamples.Omega1Space
 
 /-! S_ω_1 as a topological space with order topology -/
-open Set
-open Ordinal
-open TopologicalSpace
+open Set Ordinal Cardinal TopologicalSpace
 
+abbrev SΩ : Set Ordinal.{0} := Set.Iio (Ordinal.omega 1)
 theorem omega1_order_topology_eq_omega1_space :
   (ω₁ : Ordinal) = ω₁ := by
     rfl
 
 open Ordinal Cardinal
-
--- Zulip community discussion: https://leanprover.zulipchat.com/#narrow/channel/113489-new-members/topic/The.20space.20S_omega.20is.20first.20countable/with/628988360
+/--
+Theorem: The space `SΩ` is first countable.
+-/
 theorem firstCountable_omega1 : FirstCountableTopology (Set.Iio (Ordinal.omega 1)) := by
   constructor
   intro ⟨x, hx⟩
@@ -29,7 +29,9 @@ theorem firstCountable_omega1 : FirstCountableTopology (Set.Iio (Ordinal.omega 1
     }
     exact this.isCountablyGenerated
 
-
+/--
+Theorem: The space `SΩ` is not second countable.
+-/
 theorem not_secondcountable_omega1 : ¬SecondCountableTopology
   (Set.Iio (Ordinal.omega 1 : Ordinal.{0})) := by
   let SΩ := Set.Iio (Ordinal.omega 1 : Ordinal.{0})
@@ -75,8 +77,9 @@ theorem not_secondcountable_omega1 : ¬SecondCountableTopology
   rw [Cardinal.lift_aleph0] at hlt
   exact (not_lt_of_ge card_SΩ) hlt
 
-abbrev SΩ : Set Ordinal.{0} := Set.Iio (Ordinal.omega 1)
-
+/--
+Theorem: The space `SΩ` is not Lindelof.
+-/
 theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
   intro h
   let cover: Set (Set SΩ) := {U : Set SΩ | ∃ x : SΩ, U = Iio x}
@@ -118,7 +121,9 @@ theorem omega1_space_not_lindelof : ¬LindelofSpace (SΩ) := by
       (fun V : ↥c => (endpoint V).val) ⟨U, hUc⟩
   exact not_lt_of_ge hle hpU
 
-
+/--
+Theorem: The space `SΩ` is not separable.
+-/
 theorem omega1_space_not_separable : ¬SeparableSpace (SΩ) := by
   intro h
   obtain ⟨s, hs⟩ := h
